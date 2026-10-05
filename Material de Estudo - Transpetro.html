@@ -1,0 +1,2888 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Material Transpetro — Ênfase 5</title>
+<style>
+  @page {
+    size: A4;
+    margin: 3cm 2cm 2cm 2cm;
+    @bottom-center {
+      content: "p. " counter(page);
+      font-family: Arial, sans-serif;
+      font-size: 10pt;
+      color: #555;
+    }
+  }
+  @media print {
+    body { counter-reset: page 0; }
+    .page-number {
+      position: fixed;
+      bottom: 0.8cm;
+      left: 0; right: 0;
+      text-align: center;
+      font-family: Arial, sans-serif;
+      font-size: 10pt;
+      color: #555;
+    }
+    .page-number::after { content: "p. " counter(page); }
+  }
+  @media screen {
+    .page-number { display: none; }
+  }
+
+  html { font-size: 11pt; }
+  body {
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 11pt;
+    line-height: 1.5;
+    color: #1a1a1a;
+    text-align: justify;
+    hyphens: auto;
+    max-width: 17cm;
+    margin: 0 auto;
+    padding: 0 1cm;
+  }
+  h1 {
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 16pt;
+    text-align: center;
+    text-transform: uppercase;
+    margin: 0 0 0.5em 0;
+    border-bottom: 2px solid #2c3e50;
+    padding-bottom: 0.4em;
+    page-break-before: always;
+    page-break-after: avoid;
+  }
+  h1.no-break, h1:first-of-type { page-break-before: avoid; }
+  h2 {
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 13pt;
+    color: #2c3e50;
+    margin-top: 1.4em;
+    margin-bottom: 0.5em;
+    border-bottom: 1px solid #bdc3c7;
+    padding-bottom: 0.2em;
+    page-break-after: avoid;
+  }
+  h3 {
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 11.5pt;
+    color: #34495e;
+    margin-top: 1.1em;
+    margin-bottom: 0.3em;
+    page-break-after: avoid;
+  }
+  h4 {
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 11pt;
+    font-style: italic;
+    color: #34495e;
+    margin-top: 0.9em;
+    margin-bottom: 0.3em;
+    page-break-after: avoid;
+  }
+  p { margin: 0 0 0.7em 0; }
+  ul, ol { margin: 0 0 0.7em 0; padding-left: 1.4cm; }
+  li { margin-bottom: 0.2em; }
+  blockquote {
+    margin: 0.7em 0 0.7em 3.5cm;
+    padding: 0.4em 0.8em;
+    border-left: 3px solid #3498db;
+    background: #f4f8fb;
+    font-style: italic;
+    font-size: 10.5pt;
+  }
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 0.7em 0;
+    font-size: 10pt;
+    page-break-inside: avoid;
+  }
+  th, td {
+    border: 1px solid #999;
+    padding: 5px 7px;
+    text-align: left;
+    vertical-align: top;
+  }
+  th { background: #ecf0f1; font-weight: bold; }
+  pre {
+    background: #f4f4f4;
+    padding: 7px 10px;
+    font-size: 10pt;
+    border-radius: 4px;
+    overflow-x: auto;
+    page-break-inside: avoid;
+    font-family: 'Courier New', monospace;
+  }
+  code { font-family: 'Courier New', monospace; font-size: 10pt; }
+  .toc {
+    background: #f8f9fa;
+    border: 1px solid #dcdcdc;
+    padding: 12px 18px;
+    margin: 1.5em 0 2em 0;
+  }
+  .toc h2 { margin-top: 0; border-bottom: none; }
+  .toc ul { list-style: none; padding-left: 0; }
+  .toc ul li { margin-bottom: 0.2em; }
+  .toc ul li a { color: #2c3e50; text-decoration: none; }
+  .center { text-align: center; }
+  .small { font-size: 10pt; color: #555; }
+  .cover {
+    text-align: center;
+    padding-top: 4cm;
+    page-break-after: always;
+  }
+  .cover h1 { border: none; font-size: 20pt; page-break-before: avoid; }
+  .cover p { text-align: center; font-size: 12pt; }
+
+  @media screen {
+    *, *::before, *::after { box-sizing: border-box; }
+
+    html {
+      scroll-behavior: smooth;
+      background: #f1f5f9;
+    }
+
+    body {
+      width: 100%;
+      max-width: 960px;
+      margin: clamp(16px, 4vw, 40px) auto;
+      padding: clamp(20px, 5vw, 48px);
+      font-size: 11pt;
+      text-align: left;
+      background: #fff;
+      border: 1px solid #e2e8f0;
+      border-radius: 20px;
+      box-shadow: 0 16px 40px rgb(15 23 42 / 8%);
+      color: #1e293b;
+    }
+
+    h1 {
+      font-size: clamp(1.25rem, 3vw, 1.75rem);
+      color: #17324d;
+      border-bottom: 0;
+      border-left: 5px solid #0f766e;
+      border-radius: 0 12px 12px 0;
+      background: linear-gradient(100deg, #e8f4f3, #f8fafc);
+      padding: 14px 18px;
+      text-align: left;
+    }
+
+    h2 {
+      font-size: clamp(1.1rem, 2.4vw, 1.4rem);
+      color: #17324d;
+      border-bottom: 1px solid #dbe5ee;
+      padding-bottom: 0.45em;
+      margin-top: 1.8em;
+    }
+
+    h3 {
+      font-size: clamp(1rem, 2vw, 1.15rem);
+      color: #0f766e;
+    }
+
+    ul, ol { padding-left: 1.5rem; }
+
+    blockquote {
+      margin-left: 0;
+      padding: 14px 18px;
+      border-left-width: 4px;
+      border-radius: 0 12px 12px 0;
+      color: #17445f;
+      background: #eff8ff;
+      overflow-wrap: anywhere;
+    }
+
+    table {
+      display: table;
+      width: 100%;
+      max-width: 100%;
+      table-layout: fixed;
+      border: 1px solid #dbe5ee;
+      border-radius: 12px;
+      border-spacing: 0;
+      box-shadow: 0 4px 12px rgb(15 23 42 / 5%);
+    }
+
+    th, td {
+      border-color: #dbe5ee;
+      padding: 9px 11px;
+      min-width: 0;
+      overflow-wrap: anywhere;
+      word-break: normal;
+    }
+
+    th { color: #17324d; background: #eaf1f6; }
+    tbody tr:nth-child(even) { background: #f8fafc; }
+    tbody tr:hover { background: #eff8ff; }
+
+    pre {
+      max-width: 100%;
+      padding: 14px 16px;
+      border: 1px solid #e2e8f0;
+      border-radius: 12px;
+      color: #1e293b;
+      background: #f8fafc;
+    }
+
+    code {
+      color: #075985;
+      background: #f0f9ff;
+      border-radius: 4px;
+      padding: 0.05em 0.25em;
+      overflow-wrap: anywhere;
+    }
+
+    strong {
+      color: #075985;
+      background: #eaf6ff;
+      border-radius: 3px;
+      padding: 0 0.12em;
+      box-decoration-break: clone;
+      -webkit-box-decoration-break: clone;
+    }
+
+    p.study-note {
+      margin: 1em 0;
+      padding: 12px 16px;
+      border: 1px solid #fde68a;
+      border-left: 4px solid #d97706;
+      border-radius: 0 10px 10px 0;
+      background: #fffbeb;
+    }
+
+    p.priority-note {
+      margin: 0.6em 0;
+      padding: 12px 16px;
+      border: 1px solid #dbe5ee;
+      border-left: 4px solid #0f766e;
+      border-radius: 0 10px 10px 0;
+      background: #f8fafc;
+    }
+
+    .toc {
+      padding: 20px 24px;
+      border: 1px solid #dbe5ee;
+      border-radius: 14px;
+      background: linear-gradient(135deg, #f0fdfa, #f8fafc 70%);
+      box-shadow: 0 6px 18px rgb(15 23 42 / 5%);
+    }
+
+    .toc li {
+      padding: 7px 10px;
+      border-radius: 7px;
+    }
+
+    .toc li:nth-child(odd) { background: rgb(255 255 255 / 70%); }
+
+    .cover {
+      padding: clamp(2rem, 10vh, 4cm) 20px;
+      border: 1px solid #dbe5ee;
+      border-radius: 18px;
+      background: radial-gradient(circle at top, #eff8ff, #fff 65%);
+    }
+
+    .cover h1 {
+      display: inline-block;
+      padding: 0 0 12px;
+      border-bottom: 3px solid #0f766e;
+      border-radius: 0;
+      background: none;
+      text-align: center;
+    }
+
+    .small { color: #64748b; }
+
+    a { color: #075985; }
+    a:focus-visible {
+      outline: 3px solid #0f766e;
+      outline-offset: 3px;
+      border-radius: 3px;
+    }
+  }
+
+  @media screen and (max-width: 600px) {
+    body {
+      margin: 0 auto;
+      padding: 20px 16px;
+      border: 0;
+      border-radius: 0;
+      box-shadow: none;
+    }
+
+    .cover {
+      padding: 36px 14px;
+      border-radius: 14px;
+    }
+
+    .toc { padding: 16px; }
+    th, td {
+      padding: 8px;
+      font-size: 9pt;
+    }
+  }
+</style>
+</head>
+<body>
+
+<div class="page-number"></div>
+
+<!-- ============ CAPA ============ -->
+<section class="cover">
+  <h1 class="no-break">Material de Estudo — Transpetro</h1>
+  <p><strong>Ênfase 5 — Análise de Sistemas: Processos de Negócios</strong></p>
+ </section>
+
+<!-- ============ SUMÁRIO GERAL ============ -->
+<section>
+<h1 class="no-break">Sumário Geral</h1>
+<div class="toc">
+  <ul>
+    <li>Análise de Dados e Informações</li>
+    <li>Arquitetura de Dados</li>
+    <li>Engenharia de Software</li>
+    <li>Gerenciamento de Projetos e Produtos</li>
+    <li>Lógica Matemática</li>
+    <li>Segurança da Informação</li>
+    <li>User Experience (UX)</li>
+  </ul>
+</div>
+</section>
+
+<!-- =====================================================================
+     ARQUIVO 1 — ANÁLISE DE DADOS E INFORMAÇÕES
+     ===================================================================== -->
+<h1>Análise de Dados e Informações</h1>
+<p class="center small">Material de Estudo — Transpetro · Ênfase 5</p>
+
+<h2>Dado, informação, conhecimento e inteligência</h2>
+<p>Esse é um dos assuntos mais importantes porque a banca pode apresentar uma situação prática e perguntar em qual estágio determinado elemento se encontra. Podemos pensar na seguinte evolução: <strong>DADO</strong>.</p>
+
+<h3>O que é DADO?</h3>
+<p>Dado é uma representação de um fato, evento ou observação, normalmente sem contexto suficiente para produzir uma conclusão por si só. Exemplo: <strong>1250</strong>. Esse número isoladamente é um dado. Não sabemos: 1.250 o quê? Em qual período? Onde? Comparado com qual referência? É bom ou ruim?</p>
+<h4>Exemplo empresarial</h4>
+<p>Imagine uma empresa registrando: Janeiro 1.200; Fevereiro 1.350; Março 1.480. Esses valores são dados. Ainda não sabemos necessariamente o que significam.</p>
+
+<h3>O que é Informação?</h3>
+<p>A informação surge quando os dados são organizados e contextualizados, adquirindo significado. Por exemplo: <em>"A empresa transportou 1.480 cargas em março."</em> Agora sabemos o que representa o número, qual período e qual unidade de medida.</p>
+<blockquote>DADO 1.480 + CONTEXTO cargas transportadas em março = INFORMAÇÃO</blockquote>
+
+<h3>Dado × Informação</h3>
+<table>
+  <thead><tr><th>Dado</th><th>Informação</th></tr></thead>
+  <tbody>
+    <tr><td>1.480</td><td>1.480 cargas</td></tr>
+    <tr><td>18</td><td>18% de atraso</td></tr>
+    <tr><td>R$ 500.000</td><td>R$ 500.000 de receita</td></tr>
+    <tr><td>37</td><td>37 incidentes</td></tr>
+    <tr><td>92%</td><td>92% das entregas no prazo</td></tr>
+  </tbody>
+</table>
+<p class="study-note"><strong>Regra para prova:</strong> dado possui significado limitado isoladamente; informação é dado contextualizado e interpretado.</p>
+
+<h3>Conhecimento</h3>
+<p>O conhecimento surge quando informações são relacionadas à experiência, regras, contexto e compreensão sobre determinado fenômeno. Exemplo: a empresa observa <em>"O Terminal C apresentou 18% de atrasos"</em> — isso é informação. Após análise histórica, a equipe percebe: <em>"Sempre que o volume de cargas ultrapassa determinado nível, os atrasos aumentam significativamente no Terminal C."</em> Agora existe conhecimento sobre o comportamento operacional.</p>
+
+<h3>Inteligência</h3>
+<p>A inteligência está relacionada à capacidade de utilizar dados, informações e conhecimento para orientar ações e decisões.</p>
+<p class="center">Dados → Informação → Conhecimento → <strong>Inteligência</strong></p>
+
+<h3>Exemplo completo</h3>
+<ul>
+  <li><strong>Dado:</strong> 18%</li>
+  <li><strong>Informação:</strong> O Terminal C apresentou 18% de atrasos em agosto.</li>
+  <li><strong>Conhecimento:</strong> Historicamente, os atrasos aumentam quando o volume ultrapassa determinado limite.</li>
+  <li><strong>Inteligência:</strong> A capacidade operacional deve ser ampliada antes dos períodos de alta demanda.</li>
+  <li><strong>Decisão:</strong> Alocar recursos adicionais para o Terminal C.</li>
+</ul>
+
+<h3>Pegadinha</h3>
+<p>A banca pode afirmar: <em>"Um dashboard contendo números é automaticamente informação."</em> Não necessariamente. Os dados precisam estar contextualizados e possuir significado para o usuário.</p>
+
+<h3>BI não é apenas uma ferramenta</h3>
+<p>BI não significa simplesmente <em>"utilizar Power BI"</em>. Uma ferramenta pode fazer parte de uma solução de BI, mas BI envolve também processos, dados e pessoas.</p>
+
+<h3>Exemplo de BI</h3>
+<p>Uma empresa possui: ERP, banco de vendas, sistema logístico, planilhas e CRM. O ambiente de BI pode integrar essas fontes. Depois: Dados → ETL/ELT → Data Warehouse → Modelo analítico → Dashboard → Gestor. O gestor consegue responder perguntas como: Qual região vende mais? Qual produto possui maior margem? Onde existem atrasos?</p>
+
+<h3>Características de BI</h3>
+<p>Integração de dados; análise histórica; acompanhamento de indicadores; identificação de tendências; descoberta de padrões; suporte à decisão; geração de relatórios; visualização de informações.</p>
+
+<h3>BI tradicional × análise operacional</h3>
+<p><strong>Sistema operacional:</strong> <em>"Qual é o status da carga 123?"</em> — processamento operacional. <strong>BI:</strong> <em>"Qual é a evolução dos atrasos por terminal nos últimos 24 meses?"</em> — análise.</p>
+
+<h3>BI descritivo</h3>
+<p>Responde: <strong>O que aconteceu?</strong> Exemplo: <em>"As vendas caíram 12%."</em></p>
+
+<h3>BI diagnóstico</h3>
+<p>Responde: <strong>Por que aconteceu?</strong> Exemplo: <em>"A queda ocorreu principalmente na região Sudeste."</em></p>
+
+<h3>Análise preditiva</h3>
+<p>Responde: <strong>O que provavelmente acontecerá?</strong> Exemplo: <em>"Mantido o comportamento atual, a demanda deverá crescer 15%."</em></p>
+
+<h3>Análise prescritiva</h3>
+<p>Responde: <strong>O que devemos fazer?</strong> Exemplo: <em>"Recomenda-se aumentar a capacidade de atendimento."</em></p>
+<p><strong>Para memorizar:</strong> Descritiva (o que aconteceu); Diagnóstica (por que aconteceu); Preditiva (o que provavelmente acontecerá); Prescritiva (o que devemos fazer).</p>
+
+<h2>Mapeamento de fontes de dados</h2>
+<h3>O que é uma fonte de dados?</h3>
+<p>É o local ou sistema de onde os dados são obtidos. Exemplos: banco de dados; ERP; CRM; arquivos CSV; planilhas; APIs; sistemas legados; sensores; aplicações web; arquivos XML; logs.</p>
+<h3>Por que mapear fontes?</h3>
+<p>Antes de construir uma solução de BI é necessário conhecer de onde vêm os dados. Imagine um indicador: <em>"Percentual de entregas no prazo."</em> Pode ser necessário obter: sistema de pedidos + sistema de transporte + sistema de entrega + calendário → indicador.</p>
+<h3>O que deve ser identificado?</h3>
+<p>Origem; proprietário; formato; estrutura; frequência de atualização; qualidade; volume; histórico; regras de negócio; segurança; relacionamento com outras fontes.</p>
+<h3>Exemplo</h3>
+<table>
+  <thead><tr><th>Fonte</th><th>Dados</th></tr></thead>
+  <tbody>
+    <tr><td>ERP</td><td>pedidos</td></tr>
+    <tr><td>CRM</td><td>clientes</td></tr>
+    <tr><td>Sistema logístico</td><td>entregas</td></tr>
+    <tr><td>GPS</td><td>localização</td></tr>
+    <tr><td>Planilha</td><td>metas</td></tr>
+  </tbody>
+</table>
+
+<h2>Dados estruturados e não estruturados</h2>
+<h3>Dados estruturados</h3>
+<p>Dados organizados segundo uma estrutura previamente definida.</p>
+<table>
+  <thead><tr><th>ID</th><th>Cliente</th><th>Valor</th><th>Data</th></tr></thead>
+  <tbody>
+    <tr><td>1</td><td>João</td><td>5000</td><td>01/09</td></tr>
+    <tr><td>2</td><td>Maria</td><td>7000</td><td>02/09</td></tr>
+  </tbody>
+</table>
+<h3>Dados não estruturados</h3>
+<p>Não possuem estrutura tabular rígida. Exemplos: documentos; imagens; vídeos; áudios; e-mails; textos livres; PDFs.</p>
+<h3>Dados semiestruturados</h3>
+<p>Possuem alguma organização, mas não necessariamente estrutura tabular rígida.</p>
+<pre>{
+  "cliente": "João",
+  "idade": 40,
+  "cidade": "Rio de Janeiro"
+}</pre>
+<h3>Comparação</h3>
+<table>
+  <thead><tr><th>Tipo</th><th>Exemplo</th></tr></thead>
+  <tbody>
+    <tr><td>Estruturado</td><td>Tabela SQL</td></tr>
+    <tr><td>Semiestruturado</td><td>JSON/XML</td></tr>
+    <tr><td>Não estruturado</td><td>Vídeo, imagem, texto livre</td></tr>
+  </tbody>
+</table>
+
+<h2>OLAP</h2>
+<h3>O que significa OLAP?</h3>
+<p>OLAP — <em>Online Analytical Processing</em> — é uma abordagem voltada à análise multidimensional de dados. OLTP → operações transacionais; OLAP → análise.</p>
+<h3>OLTP x OLAP</h3>
+<table>
+  <thead><tr><th>OLTP</th><th>OLAP</th></tr></thead>
+  <tbody>
+    <tr><td>Operações</td><td>Análise</td></tr>
+    <tr><td>Transações</td><td>Consultas analíticas</td></tr>
+    <tr><td>Inserções/alterações frequentes</td><td>Leitura intensiva</td></tr>
+    <tr><td>Dados operacionais</td><td>Dados históricos/analíticos</td></tr>
+    <tr><td>Ex.: venda</td><td>Ex.: análise das vendas</td></tr>
+  </tbody>
+</table>
+<h3>Cubo OLAP</h3>
+<p>Dimensões: tempo; produto; região. Medida: faturamento.</p>
+<h3>Operações OLAP</h3>
+<p>Roll-up; Drill-down; Slice; Dice; Pivot.</p>
+<h3>Roll-up</h3>
+<p>Agregação dos dados para um nível mais alto de granularidade. Dia → Mês → Trimestre → Ano. Cidade → Estado → Região. Exemplo: 1º trimestre = 100 + 150 + 200 = 450.</p>
+<h3>Drill-down</h3>
+<p>Movimento contrário: sai de uma visão agregada para uma visão mais detalhada. Ano → Trimestre → Mês → Dia.</p>
+<p><strong>Para memorizar:</strong> Roll-up = sobe/agrega. Drill-down = desce/detalha.</p>
+<h3>Slice</h3>
+<p>Seleção de uma dimensão específica. Exemplo: Região = Sudeste.</p>
+<h3>Dice</h3>
+<p>Seleção de um subconjunto envolvendo múltiplas dimensões. Exemplo: Região = Sudeste; Produto = A e B; Ano = 2026.</p>
+<h3>Pivot</h3>
+<p>Alteração da perspectiva de visualização. Antes: Produto × Região. Depois: Região × Produto.</p>
+<h3>Tabela de operações OLAP</h3>
+<table>
+  <thead><tr><th>Operação</th><th>Ideia</th></tr></thead>
+  <tbody>
+    <tr><td>Roll-up</td><td>Agregar/subir</td></tr>
+    <tr><td>Drill-down</td><td>Detalhar/descer</td></tr>
+    <tr><td>Slice</td><td>Recorte</td></tr>
+    <tr><td>Dice</td><td>Subconjunto multidimensional</td></tr>
+    <tr><td>Pivot</td><td>Alterar perspectiva</td></tr>
+  </tbody>
+</table>
+
+<h2>Data Warehouse</h2>
+<h3>O que é Data Warehouse?</h3>
+<p>Repositório de dados orientado à análise, normalmente integrado e histórico, utilizado para apoiar decisões. Características: orientado por assunto; integrado; variante no tempo; não volátil.</p>
+<h3>Variante no tempo</h3>
+<p>Mantém histórico (Vendas 2024, 2025, 2026), permitindo comparar períodos.</p>
+<h3>Não volátil</h3>
+<p>Dados destinados à análise e não à alteração constante. A carga acontece e os dados ficam disponíveis para consulta.</p>
+<h3>DW × banco operacional</h3>
+<table>
+  <thead><tr><th>Banco operacional</th><th>Data Warehouse</th></tr></thead>
+  <tbody>
+    <tr><td>Cadastrar pedido</td><td>Analisar vendas</td></tr>
+    <tr><td>Alterar pedido</td><td>Comparar períodos</td></tr>
+    <tr><td>Cancelar pedido</td><td>Avaliar tendências</td></tr>
+    <tr><td>Atualizar cliente</td><td>Calcular indicadores</td></tr>
+  </tbody>
+</table>
+
+<h2>Modelagem dimensional</h2>
+<h3>O que é modelagem dimensional?</h3>
+<p>Técnica de modelagem voltada à análise de dados. Trabalha com fatos e dimensões.</p>
+<h3>Tabela fato</h3>
+<p>Contém eventos mensuráveis. Exemplo: FATO_VENDAS com data_id, produto_id, cliente_id, regiao_id, quantidade, valor.</p>
+<h3>Dimensões</h3>
+<p>Fornecem contexto. Exemplo: DIM_PRODUTO (produto_id, produto, categoria, marca); DIM_TEMPO (data_id, dia, mês, trimestre, ano).</p>
+<h3>Esquema estrela</h3>
+<p>Tabela fato no centro; dimensões ao redor (DIM_PRODUTO, DIM_CLIENTE, DIM_TEMPO, DIM_REGIAO).</p>
+<h3>Estrela x floco de neve</h3>
+<p><strong>Estrela:</strong> dimensões desnormalizadas. <strong>Floco de neve:</strong> dimensões normalizadas em várias tabelas.</p>
+<h3>Granularidade</h3>
+<p>Nível de detalhe armazenado na tabela fato. Granularidade diária (venda por produto por dia); granularidade por transação (cada venda individual). Influencia armazenamento, consultas, desempenho e possibilidades de análise.</p>
+
+<h2>Otimização multidimensional</h2>
+<h3>Técnicas</h3>
+<p>Agregações; índices; particionamento; escolha adequada da granularidade; otimização de consultas; pré-cálculo; armazenamento adequado; compressão; atualização incremental.</p>
+
+<h2>Relatórios</h2>
+<p><strong>Operacional:</strong> atividades do dia a dia. <strong>Gerencial:</strong> acompanhamento do desempenho. <strong>Analítico:</strong> exploração mais aprofundada.</p>
+
+<h2>Dashboards interativos</h2>
+<p>Dashboard é uma interface visual que apresenta informações relevantes para monitoramento e análise. Pode permitir filtros; seleção de períodos; drill-down; cruzamento de dimensões; detalhamento; navegação entre páginas.</p>
+<h3>KPI</h3>
+<p>KPI — <em>Key Performance Indicator</em> — é um indicador-chave utilizado para acompanhar desempenho em relação a objetivos. Exemplo: percentual de entregas no prazo. Um KPI deve possuir relevância para um objetivo.</p>
+
+<h2>Manipulação de dados em planilhas</h2>
+<p>Planilhas podem ser utilizadas para: análise exploratória; tratamento; consolidação; cálculos; criação de tabelas dinâmicas; gráficos; preparação de dados.</p>
+<p><strong>Operações comuns:</strong> ordenação; filtros; fórmulas (<code>=SOMA(B2:B100)</code>); funções condicionais (<code>=SE(B2&gt;1000;"Alto";"Baixo")</code>); PROCV/PROCX; tabela dinâmica; limpeza de dados.</p>
+<p><strong>Problemas comuns:</strong> dados duplicados; dados ausentes; formatos inconsistentes; valores inválidos.</p>
+
+<h2>Qualidade dos dados</h2>
+<p>Uma análise sofisticada não consegue compensar dados ruins. <em>Garbage in, garbage out — GIGO.</em> Dimensões: exatidão; completude; consistência; atualidade; unicidade; validade.</p>
+
+<h2>Geração de insights</h2>
+<p>Insight é uma percepção relevante obtida a partir da análise dos dados, capaz de revelar algo importante para compreensão ou decisão. Não é simplesmente <em>"o gráfico mostra 20%"</em>. Insight seria: <em>"Os atrasos concentram-se em três terminais e aumentam significativamente em períodos de pico."</em></p>
+
+<h2>BI e tomada de decisão</h2>
+<p>O objetivo estratégico do BI é apoiar decisões melhores por meio de informações relevantes e confiáveis.</p>
+<table>
+  <thead><tr><th>Nível</th><th>Pergunta</th></tr></thead>
+  <tbody>
+    <tr><td>Operacional</td><td>O que está acontecendo agora?</td></tr>
+    <tr><td>Tático</td><td>Como está o desempenho?</td></tr>
+    <tr><td>Estratégico</td><td>Estamos atingindo os objetivos?</td></tr>
+  </tbody>
+</table>
+
+<h2>Conceitos que a banca pode confundir</h2>
+<p><strong>Data Warehouse x Data Lake.</strong> DW: estruturados, tratados, organizados. Data Lake: estruturados, semiestruturados e não estruturados em grande escala.</p>
+<p><strong>OLTP x OLAP.</strong> OLTP → transações. OLAP → análise.</p>
+<p><strong>Dado x informação.</strong> Dado → elemento bruto. Informação → dado contextualizado.</p>
+<p><strong>Relatório x dashboard.</strong> Relatório → estruturado/detalhado. Dashboard → monitoramento e visualização interativa.</p>
+<p><strong>Métrica x KPI.</strong> Métrica → medida. KPI → indicador-chave ligado a objetivo relevante.</p>
+
+<h2>Quadro de revisão rápida</h2>
+<table>
+  <thead><tr><th>Conceito</th><th>Definição para prova</th></tr></thead>
+  <tbody>
+    <tr><td>Dado</td><td>Registro bruto de um fato/observação</td></tr>
+    <tr><td>Informação</td><td>Dado contextualizado e com significado</td></tr>
+    <tr><td>Conhecimento</td><td>Compreensão obtida pela análise e experiência</td></tr>
+    <tr><td>Inteligência</td><td>Uso do conhecimento para orientar decisões</td></tr>
+    <tr><td>BI</td><td>Processos e tecnologias para transformar dados em suporte à decisão</td></tr>
+    <tr><td>OLTP</td><td>Processamento transacional</td></tr>
+    <tr><td>OLAP</td><td>Processamento analítico</td></tr>
+    <tr><td>DW</td><td>Repositório integrado e histórico para análise</td></tr>
+    <tr><td>Fato</td><td>Evento/métrica mensurável</td></tr>
+    <tr><td>Dimensão</td><td>Contexto de análise</td></tr>
+    <tr><td>Granularidade</td><td>Nível de detalhe dos dados</td></tr>
+    <tr><td>Roll-up</td><td>Agregação</td></tr>
+    <tr><td>Drill-down</td><td>Detalhamento</td></tr>
+    <tr><td>Slice</td><td>Recorte</td></tr>
+    <tr><td>Dice</td><td>Subconjunto multidimensional</td></tr>
+    <tr><td>Pivot</td><td>Mudança de perspectiva</td></tr>
+    <tr><td>Dashboard</td><td>Visualização para monitoramento/análise</td></tr>
+    <tr><td>KPI</td><td>Indicador-chave de desempenho</td></tr>
+    <tr><td>Insight</td><td>Conclusão/percepção relevante extraída da análise</td></tr>
+  </tbody>
+</table>
+
+<h2>Pegadinhas prováveis</h2>
+<ol>
+  <li><em>"OLAP é utilizado principalmente para registrar transações."</em> — Errado. OLAP é voltado para análise.</li>
+  <li><em>"OLTP é voltado à análise histórica multidimensional."</em> — Errado.</li>
+  <li><em>"Roll-up aumenta o nível de detalhe."</em> — Errado. Roll-up agrega os dados.</li>
+  <li><em>"Drill-down apresenta informações mais detalhadas."</em> — Correto.</li>
+  <li><em>"Um Data Warehouse é simplesmente uma cópia do banco operacional."</em> — Errado.</li>
+  <li><em>"Dashboard e relatório são exatamente a mesma coisa."</em> — Errado.</li>
+  <li><em>"Todo dado armazenado em uma planilha é automaticamente informação."</em> — Errado.</li>
+  <li><em>"BI é apenas uma ferramenta de visualização."</em> — Errado.</li>
+  <li><em>"Uma tabela fato contém apenas descrições textuais."</em> — Errado.</li>
+  <li><em>"Granularidade define o nível de detalhe de uma tabela fato."</em> — Correto.</li>
+</ol>
+
+<h2>Resumo de véspera</h2>
+<ul>
+  <li><strong>Dado</strong> = bruto. <strong>Informação</strong> = dado + contexto.</li>
+  <li><strong>Conhecimento</strong> = compreensão dos padrões e relações.</li>
+  <li><strong>Inteligência</strong> = utilização do conhecimento para agir/decidir.</li>
+  <li><strong>BI</strong> = transformar dados em informação e insights para apoiar decisões.</li>
+  <li><strong>OLTP</strong> = transação. <strong>OLAP</strong> = análise.</li>
+  <li><strong>Data Warehouse</strong> = dados integrados, históricos e orientados à análise.</li>
+  <li><strong>Fato</strong> = aquilo que é medido. <strong>Dimensão</strong> = por onde analisamos.</li>
+  <li><strong>Granularidade</strong> = nível de detalhe.</li>
+  <li><strong>Roll-up</strong> = agrega. <strong>Drill-down</strong> = detalha. <strong>Slice</strong> = recorta. <strong>Dice</strong> = subconjunto multidimensional. <strong>Pivot</strong> = muda a perspectiva.</li>
+  <li><strong>Dashboard</strong> = visualiza e monitora. <strong>KPI</strong> = indicador-chave. <strong>Insight</strong> = descoberta relevante.</li>
+</ul>
+<p class="center">BI → Insight → Decisão → Ação.</p>
+
+<!-- =====================================================================
+     ARQUIVO 2 — ARQUITETURA DE DADOS
+     ===================================================================== -->
+<h1>Arquitetura de Dados</h1>
+<p class="center small">Material de Estudo — Transpetro · Ênfase 5 — Análise de Sistemas: Processos de Negócios</p>
+
+<h2>Arquitetura de Dados</h2>
+
+<h3>Modelagem de Dados</h3>
+<p>Modelagem de dados é o processo de representar, de maneira organizada, quais dados existem em um sistema, como eles se relacionam e quais regras devem ser respeitadas. Antes de criar tabelas em um banco de dados, precisamos responder: Quais informações o sistema precisa armazenar? Como essas informações se relacionam? Quais regras devem ser obedecidas?</p>
+<p>Exemplo: em um sistema da Transpetro para gerenciamento de transporte de cargas, precisamos armazenar navios, caminhões, funcionários, terminais, cargas, viagens, clientes e contratos. A modelagem transforma essa necessidade de negócio em uma estrutura que posteriormente poderá virar um banco de dados.</p>
+
+<h3>Os três níveis de modelagem</h3>
+<h4>Modelo conceitual</h4>
+<p>É a representação mais abstrata dos dados. Preocupa-se com: entidades; atributos; relacionamentos; regras de negócio. Não está preocupado com detalhes específicos do SGBD.</p>
+<p>Exemplo: CLIENTE 1 —— N CONTRATO 1 —— N CARGA. Isso significa que um cliente pode possuir vários contratos e um contrato pode possuir várias cargas.</p>
+<p class="study-note"><strong>Importante:</strong> no modelo conceitual, não precisamos dizer <code>VARCHAR(100)</code>, <code>INT</code>, <code>DATE</code>, <code>DECIMAL(10,2)</code>. Esses detalhes pertencem aos níveis posteriores.</p>
+
+<h4>Modelo lógico</h4>
+<p>Transforma o modelo conceitual em uma estrutura mais próxima do banco de dados. Aparecem: tabelas; atributos; chaves primárias; chaves estrangeiras; tipos de relacionamento; normalização.</p>
+<pre>CLIENTE
+---------
+id_cliente PK
+nome
+cnpj
+
+CONTRATO
+---------
+id_contrato PK
+id_cliente FK
+data_contrato
+valor</pre>
+<p>A relação é implementada através da chave estrangeira <code>CONTRATO.id_cliente</code> referenciando <code>CLIENTE.id_cliente</code>.</p>
+
+<h4>Modelo físico</h4>
+<p>É a implementação efetiva no SGBD. Entram detalhes como: tipos de dados; índices; particionamento; tablespaces; constraints; armazenamento; configuração específica do SGBD.</p>
+<pre>CREATE TABLE cliente (
+  id_cliente INT PRIMARY KEY,
+  nome VARCHAR(150) NOT NULL,
+  cnpj VARCHAR(14) UNIQUE
+);</pre>
+
+<h4>Comparação para memorizar</h4>
+<table>
+  <thead><tr><th>Modelo</th><th>Pergunta principal</th></tr></thead>
+  <tbody>
+    <tr><td>Conceitual</td><td>O que existe no negócio?</td></tr>
+    <tr><td>Lógico</td><td>Como os dados serão organizados?</td></tr>
+    <tr><td>Físico</td><td>Como serão implementados no SGBD?</td></tr>
+  </tbody>
+</table>
+<p><strong>Macete:</strong> Conceitual = negócio. Lógico = estrutura. Físico = implementação.</p>
+
+<h3>Criação e alteração dos modelos</h3>
+<p>A modelagem não acontece apenas uma vez. Sistemas evoluem. Imagine que inicialmente o sistema possua CLIENTE (id, nome). Posteriormente surge a necessidade de armazenar o segmento do cliente. O modelo conceitual é alterado; depois o modelo lógico; e finalmente o banco:</p>
+<pre>ALTER TABLE cliente ADD segmento VARCHAR(100);</pre>
+<p>Portanto: Necessidade do negócio → Alteração conceitual → Alteração lógica → Alteração física (ALTER TABLE).</p>
+
+<h3>Modelo Relacional</h3>
+<p>O modelo relacional organiza os dados principalmente em relações, normalmente representadas por tabelas. Uma tabela possui linhas e colunas.</p>
+<table>
+  <thead><tr><th>id_cliente</th><th>nome</th><th>cidade</th></tr></thead>
+  <tbody>
+    <tr><td>1</td><td>Petrobras</td><td>Rio de Janeiro</td></tr>
+    <tr><td>2</td><td>Transpetro</td><td>Rio de Janeiro</td></tr>
+  </tbody>
+</table>
+<p><strong>Linha:</strong> representa uma ocorrência/registro. <strong>Coluna:</strong> representa um atributo.</p>
+
+<h3>Chave primária</h3>
+<p>A <em>Primary Key</em> (PK) identifica unicamente cada registro. Não podemos ter <code>id_cliente = 10</code> para dois clientes diferentes. A chave primária deve ser: única; identificadora; não nula.</p>
+
+<h3>Chave estrangeira</h3>
+<p>A <em>Foreign Key</em> (FK) estabelece uma relação entre tabelas. Exemplo: CLIENTE (id_cliente PK, nome); PEDIDO (id_pedido PK, id_cliente FK, valor). O campo <code>id_cliente</code> em PEDIDO referencia CLIENTE.</p>
+
+<h3>Integridade referencial</h3>
+<p>Garante que relacionamentos entre tabelas permaneçam válidos. Se tentarmos excluir o cliente 10 e existir um pedido apontando para ele, o banco pode impedir a exclusão (<code>RESTRICT</code>), excluir os registros relacionados (<code>CASCADE</code>) ou definir o relacionamento como nulo.</p>
+
+<h3>Normalização</h3>
+<p>Utilizada para organizar estruturas de dados e reduzir redundância, inconsistência e anomalias de inserção, atualização e exclusão.</p>
+<p>Exemplo de problema: o telefone de João aparece várias vezes. Se João trocar de telefone, precisamos alterar vários registros, o que pode gerar inconsistência.</p>
+
+<h4>Primeira Forma Normal — 1FN</h4>
+<p>Busca garantir que os atributos sejam atômicos. Errado: <code>telefone = "9999-1111, 9888-2222"</code>. Uma estrutura mais adequada poderia ser CLIENTE (id, nome) e TELEFONE (id, id_cliente, telefone).</p>
+
+<h4>Segunda Forma Normal — 2FN</h4>
+<p>Relacionada à dependência completa da chave primária, especialmente em relações com chaves compostas. Um atributo não deve depender apenas de parte de uma chave composta.</p>
+
+<h4>Terceira Forma Normal — 3FN</h4>
+<p>Procura eliminar dependências transitivas. Se <code>id_cliente → id_cidade</code> e <code>id_cidade → nome_cidade</code>, então <code>id_cliente → nome_cidade</code> por dependência transitiva. Estrutura normalizada: CLIENTE (id_cliente, nome, id_cidade); CIDADE (id_cidade, nome).</p>
+
+<h3>Metadados</h3>
+<p>São dados sobre dados. Exemplo: nome da tabela CLIENTE; coluna CNPJ; tipo VARCHAR(14); permite NULL: não; chave: UNIQUE. Em um arquivo <code>clientes.csv</code>, informações como "arquivo criado em 26/08/2026", "UTF-8", "separador = ;", "coluna CNPJ = texto" são metadados.</p>
+
+<h3>Modelagem dimensional</h3>
+<p>Muito utilizada em Business Intelligence, Data Warehouse, relatórios e análise gerencial. Trabalha com tabela fato (eventos e medidas) e tabelas dimensão (contexto).</p>
+<p>Exemplo: FATO_TRANSPORTE (id_tempo, id_cliente, id_navio, id_terminal, quantidade, valor, peso). Dimensões: DIM_CLIENTE, DIM_NAVIO, DIM_TEMPO, DIM_TERMINAL.</p>
+
+<h3>Esquema estrela</h3>
+<p>DIM_CLIENTE — FATO_TRANSPORTE — DIM_NAVIO — DIM_TEMPO. É chamado de <em>Star Schema</em> porque visualmente lembra uma estrela.</p>
+
+<h3>Esquema floco de neve</h3>
+<p>No <em>Snowflake Schema</em>, as dimensões podem ser normalizadas. Exemplo: FATO → DIM_CLIENTE → CIDADE → ESTADO → PAÍS.</p>
+<p><strong>Diferença:</strong> Estrela — mais simples e geralmente mais desnormalizada. Floco de neve — dimensões mais normalizadas.</p>
+
+<h3>Avaliação de modelos de dados</h3>
+<p>Um modelo deve ser avaliado quanto a: consistência; integridade; normalização; redundância; desempenho; escalabilidade; segurança; aderência às regras de negócio; facilidade de manutenção.</p>
+<p><strong>Pergunta típica:</strong> um modelo pode estar normalizado e ainda apresentar problemas? Sim. Normalização não garante automaticamente bom desempenho, boa arquitetura, facilidade de consulta ou escalabilidade.</p>
+
+<h3>Engenharia reversa</h3>
+<p>É o processo de partir de um sistema existente para descobrir sua estrutura. Por exemplo: banco existente → levantamento das tabelas → relacionamentos → chaves → tipos → modelo lógico → modelo conceitual. Você recebe um banco SQL Server com 800 tabelas, sem documentação, e uma ferramenta de engenharia reversa pode identificar CLIENTE, PEDIDO, ITEM_PEDIDO, PRODUTO e gerar um diagrama ER.</p>
+
+<h3>SQL</h3>
+<p>SQL — <em>Structured Query Language</em> — é utilizada para trabalhar com bancos relacionais. Pode ser dividida em diferentes categorias.</p>
+
+<h3>DDL — <em>Data Definition Language</em></h3>
+<p>Usada para definir estruturas. Principais comandos: <code>CREATE</code>, <code>ALTER</code>, <code>DROP</code>, <code>TRUNCATE</code>.</p>
+<pre>CREATE TABLE cliente (
+  id INT PRIMARY KEY,
+  nome VARCHAR(100)
+);</pre>
+
+<h3>DML — <em>Data Manipulation Language</em></h3>
+<p>Manipula os dados. Principais comandos: <code>INSERT</code>, <code>UPDATE</code>, <code>DELETE</code>.</p>
+<pre>INSERT INTO cliente (id, nome) VALUES (1, 'João');
+UPDATE cliente SET nome='José' WHERE id=1;
+DELETE FROM cliente WHERE id=1;</pre>
+
+<h3>SELECT</h3>
+<pre>SELECT nome FROM cliente;
+SELECT nome FROM cliente WHERE cidade='Rio de Janeiro';</pre>
+
+<h3>JOIN</h3>
+<p>Permite combinar informações de tabelas.</p>
+<pre>SELECT c.nome, p.valor
+FROM cliente c
+INNER JOIN pedido p ON p.id_cliente = c.id_cliente;</pre>
+<p><strong>INNER JOIN:</strong> retorna registros que possuem correspondência nos dois lados. <strong>LEFT JOIN:</strong> retorna todos os registros da tabela da esquerda, mesmo que não exista correspondência.</p>
+
+<h3>SGBD</h3>
+<p>Sistema Gerenciador de Banco de Dados é o software responsável por gerenciar bancos de dados. Exemplos: PostgreSQL; Oracle Database; Microsoft SQL Server; MySQL; MariaDB. Um SGBD normalmente oferece: armazenamento; consultas; transações; controle de concorrência; segurança; recuperação; backup; gerenciamento de usuários; integridade.</p>
+
+<h3>ACID</h3>
+<p>Tópico muito importante para prova. ACID significa: Atomicidade; Consistência; Isolamento; Durabilidade.</p>
+<h4>Atomicidade</h4>
+<p>Uma transação é tratada como uma unidade. Ou tudo acontece (<code>COMMIT</code>) ou nada acontece (<code>ROLLBACK</code>). Exemplo: transferência bancária de R$ 100 da conta A para a conta B — não pode acontecer apenas uma das operações.</p>
+
+<h3>Consistência</h3>
+<p>A transação deve levar o banco de um estado válido para outro estado válido. Se uma regra determina <code>saldo &gt;= 0</code>, uma transação não deveria deixar <code>saldo = -R$ 5.000</code>.</p>
+
+<h3>Isolamento</h3>
+<p>Transações concorrentes não devem interferir indevidamente umas nas outras. O SGBD precisa controlar como elas enxergam e alteram os dados.</p>
+
+<h3>Durabilidade</h3>
+<p>Depois de confirmado o <code>COMMIT</code>, o efeito da transação deve persistir mesmo após falha do sistema.</p>
+
+<h3>Transações</h3>
+<pre>BEGIN TRANSACTION;
+UPDATE conta SET saldo = saldo - 100 WHERE id=1;
+UPDATE conta SET saldo = saldo + 100 WHERE id=2;
+COMMIT;
+-- Se algo der errado:
+ROLLBACK;</pre>
+
+<h3>Independência de dados</h3>
+<p>Permite mudanças em determinado nível da arquitetura sem exigir alterações nos níveis superiores. Existem principalmente: <strong>independência física</strong> (alterações no armazenamento físico sem alterar o modelo lógico, ex.: alterar índice sem modificar aplicações) e <strong>independência lógica</strong> (alterações no modelo lógico sem exigir mudanças nas visões externas, quando possível).</p>
+
+<h3>Performance de banco de dados</h3>
+<p>Principais técnicas: índices; otimização de consultas; análise do plano de execução; particionamento; cache; atualização de estatísticas; normalização/desnormalização adequada; dimensionamento de hardware; controle de concorrência.</p>
+<pre>CREATE INDEX idx_cliente_cpf ON cliente(cpf);</pre>
+<p class="study-note"><strong>Cuidado:</strong> índice não é solução mágica. Muitos índices podem ocupar espaço e aumentar o custo de <code>INSERT</code>, <code>UPDATE</code> e <code>DELETE</code>.</p>
+
+<h3>Bancos NoSQL</h3>
+<p>Bancos que não seguem necessariamente o modelo relacional tradicional. Principais categorias: chave-valor; documentos; colunas; grafos.</p>
+<pre>{
+  "id": 10,
+  "nome": "João",
+  "cidade": "Rio de Janeiro",
+  "telefones": ["9999-1111", "9888-2222"]
+}</pre>
+
+<h3>ETL</h3>
+<p>ETL: <em>Extract, Transform, Load</em>. <strong>Extract:</strong> extrair dados (ERP, banco SQL, CSV, API). <strong>Transform:</strong> limpar, padronizar, corrigir, agregar, converter. <strong>Load:</strong> carregar no destino (Data Warehouse).</p>
+<p><strong>Exemplo:</strong> RJ, Rio de Janeiro, R.J. podem ser padronizados para RIO DE JANEIRO na transformação.</p>
+
+<h3>Transferência de arquivos</h3>
+<p>Uma forma simples de integração: Sistema A → CSV → SFTP → Sistema B. É comum em integrações legadas. Problemas possíveis: atraso; arquivo corrompido; duplicidade; perda; incompatibilidade de formato.</p>
+
+<h3>Integração via banco de dados</h3>
+<p>Um sistema pode acessar dados disponibilizados por outro banco. Pode envolver: views; tabelas compartilhadas; replicação; links entre bancos; processos de carga.</p>
+
+<h3>Banco em memória</h3>
+<p>Banco <em>in-memory</em> mantém dados principalmente na memória RAM para obter alta velocidade. Exemplo: Redis. Casos de uso: cache; sessões; dados temporários; filas; respostas de alta velocidade. <strong>Atenção:</strong> RAM é muito mais rápida, mas é volátil — mecanismos de persistência podem ser utilizados conforme a solução.</p>
+
+<h3>Qualidade de dados</h3>
+<p>Qualidade de dados representa o grau em que os dados são adequados ao uso pretendido. Dimensões comuns: precisão; completude; consistência; atualidade; unicidade; validade. Exemplo: CPF inválido caracteriza problema de qualidade.</p>
+
+<h3>Dados mestres</h3>
+<p><em>Master Data</em> são dados fundamentais compartilhados por diferentes processos. Exemplos: cliente; produto; fornecedor; funcionário; local. A gestão de dados mestres busca garantir uma visão consistente.</p>
+
+<h3>Dados de referência</h3>
+<p>Utilizados para classificar ou padronizar informações. Exemplo: UF (RJ, SP, MG, ES) ou TIPO_DOCUMENTO (CPF, CNPJ, PASSAPORTE).</p>
+
+<h3>Data Lake</h3>
+<p>Armazena grandes volumes de dados em diferentes formatos: CSV, JSON, logs, imagens, vídeos, dados de sensores, dados estruturados. A ideia central é armazenar dados em grande escala antes ou independentemente de uma modelagem rígida para uso analítico.</p>
+
+<h3>Big Data</h3>
+<p>Envolve conjuntos de dados caracterizados frequentemente pelos 5 Vs: Volume (grande quantidade); Velocidade (grande velocidade de geração/processamento); Variedade (diferentes formatos); Veracidade (confiabilidade); Valor (capacidade de gerar valor).</p>
+
+<h3>Tipos de banco de dados</h3>
+<table>
+  <thead><tr><th>Tipo</th><th>Estrutura</th><th>Exemplo de uso</th></tr></thead>
+  <tbody>
+    <tr><td>Relacional</td><td>Tabelas</td><td>ERP, financeiro</td></tr>
+    <tr><td>Multidimensional</td><td>Fatos e dimensões</td><td>BI</td></tr>
+    <tr><td>Documento</td><td>Documentos JSON/BSON</td><td>Catálogos, APIs</td></tr>
+    <tr><td>Grafo</td><td>Nós e relacionamentos</td><td>Redes sociais, fraude</td></tr>
+  </tbody>
+</table>
+
+<h2>Gerenciamento de Projetos e Produtos</h2>
+<h3>Projeto x Produto</h3>
+<p><strong>Projeto:</strong> esforço temporário para criar um resultado único. Exemplo: construir um novo sistema de gerenciamento de cargas. Possui início, desenvolvimento e conclusão.</p>
+<p><strong>Produto:</strong> algo que gera valor continuamente. Exemplo: o sistema de gerenciamento de cargas, que depois de lançado continua recebendo melhorias, correções, novas funcionalidades e adaptações.</p>
+<p><strong>Resumindo:</strong> Projeto = esforço temporário. Produto = solução que gera valor continuamente.</p>
+
+<h3>Scrum</h3>
+<p>Scrum é um framework para desenvolver e sustentar produtos complexos. Trabalha com ciclos chamados <em>Sprints</em>, com duração fixa.</p>
+
+<h3>Papéis/accountabilities do Scrum</h3>
+<p><strong>Product Owner:</strong> responsável por maximizar o valor do produto e gerenciar o Product Backlog. <strong>Scrum Master:</strong> responsável por estabelecer o Scrum e ajudar a melhorar a efetividade do Scrum Team. <strong>Developers:</strong> profissionais que criam o incremento utilizável.</p>
+
+<h3>Eventos Scrum</h3>
+<p>Sprint; Sprint Planning; Daily Scrum; Sprint Review; Sprint Retrospective.</p>
+
+<h3>Product Backlog</h3>
+<p>Lista ordenada do que pode ser necessário no produto. Exemplo: Login; Cadastro de clientes; Consulta de cargas; Dashboard; Exportação de relatórios. O Product Owner ordena o backlog buscando maximizar valor.</p>
+
+<h3>Incremento</h3>
+<p>Versão utilizável do produto que atende à <em>Definition of Done</em>. Exemplo ao final da Sprint: Login funcionando + testes realizados + segurança validada.</p>
+
+<h3>Kanban</h3>
+<p>Kanban é um método de gestão de fluxo de trabalho. Um quadro típico: BACKLOG | A FAZER | EM ANDAMENTO | TESTE | CONCLUÍDO.</p>
+<h3>WIP</h3>
+<p>WIP = trabalho em progresso. Exemplo: <code>DESENVOLVIMENTO WIP LIMIT = 2</code> significa que no máximo duas tarefas podem estar simultaneamente nessa etapa. O objetivo é evitar excesso de trabalho iniciado e melhorar o fluxo.</p>
+
+<h3>Scrum x Kanban</h3>
+<table>
+  <thead><tr><th>Scrum</th><th>Kanban</th></tr></thead>
+  <tbody>
+    <tr><td>Sprints</td><td>Fluxo contínuo</td></tr>
+    <tr><td>Papéis definidos</td><td>Não exige papéis específicos</td></tr>
+    <tr><td>Eventos definidos</td><td>Não depende dos mesmos eventos</td></tr>
+    <tr><td>Backlog</td><td>Fluxo de trabalho</td></tr>
+    <tr><td>Sprint Planning</td><td>Reposição/priorização contínua</td></tr>
+    <tr><td>Incrementos</td><td>Entrega contínua possível</td></tr>
+  </tbody>
+</table>
+
+<h3>SAFe</h3>
+<p>SAFe — <em>Scaled Agile Framework</em> — é utilizado para aplicar princípios e práticas ágeis em organizações de maior escala. Quando temos dezenas ou centenas de profissionais, precisamos coordenar estratégia, dependências e entregas.</p>
+
+<h3>Portfólio</h3>
+<p>Portfólio reúne iniciativas relacionadas à estratégia da organização. Exemplo: Estratégia — reduzir custos operacionais. Portfólio — automação, modernização de sistemas, analytics, IoT. A gestão de portfólio busca garantir que os investimentos estão realmente contribuindo para a estratégia.</p>
+
+<h3>Entregas incrementais</h3>
+<p>Em vez de esperar três anos por um sistema gigante, entregamos MVP → Versão 1 → Versão 2 → Versão 3 → Produto evoluído. Cada incremento adiciona valor.</p>
+
+<h3>PMBOK 7ª edição</h3>
+<p>A 7ª edição do PMBOK apresenta uma mudança importante: enfatiza princípios de gerenciamento de projetos e domínios de desempenho. Não deve ser interpretada simplesmente como uma lista rígida de processos.</p>
+
+<h3>Princípios do PMBOK 7</h3>
+<p>Administração responsável; equipe; stakeholders; valor; pensamento sistêmico; liderança; qualidade; complexidade; risco; adaptabilidade; mudança. A prova pode cobrar a interpretação desses princípios.</p>
+
+<h3>Domínios de desempenho</h3>
+<ol>
+  <li>Stakeholders;</li>
+  <li>Equipe;</li>
+  <li>Abordagem de desenvolvimento e ciclo de vida;</li>
+  <li>Planejamento;</li>
+  <li>Trabalho do projeto;</li>
+  <li>Entrega;</li>
+  <li>Medição;</li>
+  <li>Incerteza.</li>
+</ol>
+
+<h3>Projetos e organização</h3>
+<p>Um projeto não existe isoladamente. Ele está inserido em uma organização: ORGANIZAÇÃO → Estratégia → Portfólio → Programas → Projetos. A estratégia define direção; os projetos devem contribuir para essa estratégia.</p>
+
+<h3>Programa</h3>
+<p>Grupo de projetos relacionados gerenciados de forma coordenada para obter benefícios que não seriam obtidos necessariamente pela gestão individual dos projetos. Exemplo: Programa de Transformação Digital — Projeto ERP, Projeto Data Lake, Projeto Aplicativo, Projeto Automação.</p>
+
+<h3>Portfólio x Programa x Projeto</h3>
+<p><strong>Projeto:</strong> busca entregar um resultado específico. <strong>Programa:</strong> coordena projetos relacionados. <strong>Portfólio:</strong> agrupa investimentos/iniciativas para atingir objetivos estratégicos.</p>
+<p><strong>Macete:</strong> PROJETO → entrega. PROGRAMA → benefícios. PORTFÓLIO → estratégia.</p>
+
+<h3>PMO</h3>
+<p>PMO — <em>Project Management Office</em> — é uma estrutura organizacional que apoia e/ou governa o gerenciamento de projetos. Pode fornecer: metodologias; padrões; templates; treinamento; indicadores; governança; suporte aos gerentes.</p>
+
+<h3>Tipos de PMO</h3>
+<p><strong>PMO de suporte:</strong> baixo grau de controle. Fornece orientação, modelos, treinamento, conhecimento. <strong>PMO de controle:</strong> maior grau de controle. Pode exigir padrões, metodologias, auditorias, conformidade. <strong>PMO diretivo:</strong> alto grau de controle.</p>
+
+<h3>Processos de gerenciamento de projetos</h3>
+<p>Classificação tradicional muito cobrada em provas: Iniciação; Planejamento; Execução; Monitoramento e Controle; Encerramento. Essa estrutura é especialmente associada às abordagens tradicionais do PMBOK e ao gerenciamento de processos. Não confunda com a organização da 7ª edição do PMBOK, que enfatiza princípios e domínios de desempenho.</p>
+
+<h3>Áreas de conhecimento — abordagem tradicional</h3>
+<ol>
+  <li>Gerenciamento da Integração;</li>
+  <li>Gerenciamento do Escopo;</li>
+  <li>Gerenciamento do Cronograma;</li>
+  <li>Gerenciamento dos Custos;</li>
+  <li>Gerenciamento da Qualidade;</li>
+  <li>Gerenciamento dos Recursos;</li>
+  <li>Gerenciamento das Comunicações;</li>
+  <li>Gerenciamento dos Riscos;</li>
+  <li>Gerenciamento das Aquisições;</li>
+  <li>Gerenciamento das Partes Interessadas.</li>
+</ol>
+<p class="study-note"><strong>Atenção para a prova:</strong> o edital menciona processos, grupos de processos e áreas de conhecimento. Portanto, mesmo com a 7ª edição do PMBOK, é prudente estudar também essa estrutura.</p>
+
+<h3>Resumo de memorização — Arquitetura de Dados</h3>
+<p>CONCEITUAL → LÓGICO → FÍSICO. DDL → estrutura. DML → dados. SQL → linguagem de consulta/gestão. PK → identifica. FK → relaciona. ACID: A (Atomicidade), C (Consistência), I (Isolamento), D (Durabilidade). ETL: E (Extract), T (Transform), L (Load).</p>
+<h3>Gerenciamento</h3>
+<p>PROJETO → temporário. PRODUTO → geração contínua de valor. SCRUM → Sprints. KANBAN → fluxo + WIP. SAFe → agilidade em escala. PORTFÓLIO → estratégia. PROGRAMA → benefícios. PROJETO → entrega. PMO → suporte/governança/controle.</p>
+
+<h3>Como a banca pode transformar isso em questão</h3>
+<p><strong>Questão 1:</strong> Em uma modelagem de dados, o nível responsável por representar entidades e relacionamentos independentemente de detalhes de implementação é: <strong>Resposta: modelo conceitual.</strong></p>
+<p><strong>Questão 2:</strong> O comando SQL utilizado para alterar a estrutura de uma tabela é: <strong>Resposta: <code>ALTER TABLE</code>.</strong></p>
+<p><strong>Questão 3:</strong> Qual propriedade ACID garante que uma transação confirmada permaneça mesmo após uma falha do sistema? <strong>Resposta: Durabilidade.</strong></p>
+<p><strong>Questão 4:</strong> Uma chave estrangeira tem como principal finalidade: <strong>Resposta: estabelecer/garantir uma relação entre registros de tabelas, contribuindo para a integridade referencial.</strong></p>
+<p><strong>Questão 5:</strong> Em Kanban, o limite WIP serve principalmente para: <strong>Resposta: limitar o trabalho em progresso e melhorar o fluxo.</strong></p>
+<p><strong>Questão 6:</strong> Uma iniciativa temporária destinada à criação de um resultado único caracteriza: <strong>Resposta: projeto.</strong></p>
+<p><strong>Questão 7:</strong> Uma organização que reúne projetos relacionados para obtenção de benefícios coordenados está trabalhando com: <strong>Resposta: programa.</strong></p>
+<p><strong>Questão 8:</strong> Uma estrutura que agrupa investimentos e iniciativas para alinhamento aos objetivos estratégicos caracteriza: <strong>Resposta: portfólio.</strong></p>
+
+<h3>Prioridade de estudo</h3>
+<ol>
+  <li>Modelo conceitual × lógico × físico</li>
+  <li>PK, FK e integridade referencial</li>
+  <li>Normalização — 1FN, 2FN e 3FN</li>
+  <li>SQL, DDL e DML</li>
+  <li>ACID e transações</li>
+  <li>Índices e performance</li>
+  <li>Relacional × NoSQL × dimensional</li>
+  <li>ETL e Data Warehouse/Data Lake</li>
+  <li>Scrum × Kanban</li>
+  <li>Projeto × Produto</li>
+  <li>SAFe</li>
+  <li>PMBOK 7ª edição</li>
+  <li>Projeto × Programa × Portfólio</li>
+  <li>PMO</li>
+  <li>Grupos de processos e áreas de conhecimento</li>
+</ol>
+
+<!-- =====================================================================
+     ARQUIVO 3 — ENGENHARIA DE SOFTWARE
+     ===================================================================== -->
+<h1>Engenharia de Software</h1>
+<p class="center small">Material de Estudo — Transpetro · Ênfase 5 — Engenharia de Software</p>
+
+<h2>Levantamento, análise e gerenciamento de requisitos</h2>
+<h3>O que é um requisito?</h3>
+<p>Um requisito descreve uma necessidade, capacidade, condição ou característica que um sistema deve atender. Em termos simples: requisito é aquilo que o sistema precisa fazer ou uma condição que precisa satisfazer.</p>
+<p>Exemplo: <em>"O sistema deve permitir que o operador consulte a localização de uma carga."</em> Outro: <em>"O sistema deve permitir acesso somente a usuários autenticados."</em></p>
+
+<h3>Requisito funcional</h3>
+<p>Exemplos: RF01 — O sistema deve permitir cadastrar usuários. RF02 — consultar cargas. RF03 — gerar relatório mensal. RF04 — enviar notificação quando uma carga chegar ao destino. A pergunta básica é: <em>O que o sistema deve fazer?</em></p>
+
+<h3>Requisito não funcional</h3>
+<p>Estabelece características, restrições ou qualidades do sistema: desempenho; segurança; disponibilidade; usabilidade; confiabilidade; escalabilidade; compatibilidade. Exemplo: <em>"O sistema deve responder às consultas em até 2 segundos."</em> Isso não descreve uma funcionalidade específica; descreve desempenho.</p>
+
+<h3>Funcional × não funcional</h3>
+<table>
+  <thead><tr><th>Funcional</th><th>Não funcional</th></tr></thead>
+  <tbody>
+    <tr><td>O que o sistema faz</td><td>Como/condições sob as quais funciona</td></tr>
+    <tr><td>Cadastro</td><td>Desempenho</td></tr>
+    <tr><td>Consulta</td><td>Segurança</td></tr>
+    <tr><td>Relatório</td><td>Disponibilidade</td></tr>
+    <tr><td>Login</td><td>Usabilidade</td></tr>
+    <tr><td>Envio de e-mail</td><td>Escalabilidade</td></tr>
+  </tbody>
+</table>
+
+<h3>Requisitos de negócio</h3>
+<p>Representam necessidades da organização. Exemplo: aumentar a produtividade em 20%. Não é necessariamente uma função do software; é um objetivo de negócio.</p>
+
+<h3>Requisitos de usuário</h3>
+<p>Descrevem necessidades do usuário de maneira compreensível. Exemplo: <em>"O operador deve conseguir visualizar as cargas em trânsito."</em> São normalmente mais abstratos que os requisitos de sistema.</p>
+
+<h3>Requisitos de sistema</h3>
+<p>Mais detalhados e técnicos. Exemplo: <em>"O sistema deverá consultar a API de rastreamento a cada 60 segundos."</em></p>
+
+<h3>Stakeholders</h3>
+<p>Partes interessadas que podem fornecer requisitos; utilizar o sistema; ser afetadas pelo sistema; financiar o projeto; regulamentar o sistema; operar o sistema. Exemplo de sistema corporativo: Diretoria, Gestores, Usuários, TI, Segurança, Auditoria, Órgãos reguladores. Cada stakeholder pode possuir necessidades diferentes.</p>
+
+<h3>Levantamento de requisitos</h3>
+<p>É o processo de descobrir e compreender as necessidades dos stakeholders. Também pode ser chamado de elicitação de requisitos.</p>
+
+<h3>Técnicas de levantamento</h3>
+<h4>Entrevista</h4>
+<p>O analista conversa diretamente com os stakeholders. <strong>Vantagem:</strong> permite aprofundar informações. <strong>Desvantagem:</strong> pode sofrer influência da percepção do entrevistado.</p>
+<h4>Questionários</h4>
+<p>Úteis quando existem muitos usuários. Em vez de entrevistar 500 operadores, aplica-se um questionário.</p>
+<h4>Workshops</h4>
+<p>Reúnem vários stakeholders para discutir necessidades. São úteis para consenso; conflitos; priorização; definição colaborativa.</p>
+<h4>Brainstorming</h4>
+<p>Técnica de geração de ideias. O objetivo inicial é estimular quantidade de ideias antes da avaliação crítica.</p>
+<h4>Observação</h4>
+<p>O analista acompanha o usuário executando seu trabalho. É importante porque o usuário nem sempre consegue explicar tudo que realmente faz. Durante a observação, o analista percebe atividades que podem gerar requisitos ocultos.</p>
+<h4>Prototipação</h4>
+<p>Criar uma representação inicial do sistema para obter feedback. Ajuda a descobrir requisitos antes do desenvolvimento.</p>
+<h4>Análise de documentos</h4>
+<p>O analista examina: procedimentos; contratos; formulários; legislação; sistemas existentes; manuais; relatórios.</p>
+<h4>Engenharia reversa</h4>
+<p>Um sistema existente pode ser analisado para descobrir <em>"Como ele realmente funciona?"</em>. Isso pode revelar requisitos e regras de negócio que não estão documentados.</p>
+
+<h3>Análise de requisitos</h3>
+<p>Depois de levantar informações, é necessário analisá-las. O objetivo é identificar: inconsistências; ambiguidades; conflitos; duplicidades; requisitos incompletos; requisitos inviáveis; prioridades.</p>
+
+<h3>Exemplo de requisito ruim</h3>
+<blockquote>"O sistema deverá ser rápido."</blockquote>
+<p>Problema: o que significa rápido? 1 segundo? 2 segundos? 10 segundos? Uma versão melhor: <em>"O sistema deverá responder a 95% das consultas em até 2 segundos."</em> Agora temos um critério mensurável.</p>
+
+<h3>Ambiguidade</h3>
+<p>Um requisito é ambíguo quando pode ser interpretado de diferentes maneiras. Exemplo: <em>"O sistema deve permitir acesso rápido."</em> Rápido para quem? Quanto tempo? Em qual situação?</p>
+
+<h3>Inconsistência</h3>
+<p>Dois requisitos entram em conflito. Exemplo: R1: o sistema deve permitir acesso externo. R2: o sistema não deve permitir acesso externo. Não podem coexistir sem uma regra adicional.</p>
+
+<h3>Priorização de requisitos</h3>
+<p>Técnica conhecida: MoSCoW. <strong>Must have:</strong> obrigatório. <strong>Should have:</strong> importante, mas não absolutamente obrigatório. <strong>Could have:</strong> desejável. <strong>Won't have:</strong> não será implementado naquele momento.</p>
+<p>Exemplo: Must — consultar carga. Should — receber alertas. Could — personalizar dashboard. Won't — tema escuro na primeira versão.</p>
+
+<h3>Critérios de qualidade de requisitos</h3>
+<p>Um bom requisito deve ser: claro; necessário; consistente; verificável; viável; rastreável; não ambíguo.</p>
+
+<h3>Rastreabilidade</h3>
+<p>Permite relacionar: Necessidade → Requisito → Projeto → Código → Teste → Resultado. Exemplo: REQ-001 → Caso de uso UC-001 → Classe LoginService → Teste TST-001. Isso facilita impacto de mudanças e auditoria.</p>
+
+<h3>Gerenciamento de requisitos</h3>
+<p>Depois de levantados, os requisitos precisam ser controlados durante todo o ciclo de vida. Isso envolve: documentação; priorização; versionamento; rastreabilidade; controle de mudanças; validação; acompanhamento.</p>
+
+<h3>Mudança de requisito</h3>
+<p>Uma alteração pode impactar: arquitetura; banco de dados; APIs; segurança; cronograma; custos; testes. Por isso, mudança de requisito deve ser analisada.</p>
+
+<h3>Análise de impacto</h3>
+<p>Antes de aceitar uma mudança: Mudança → Impacto no sistema → Impacto no prazo → Impacto no custo → Impacto nos riscos → Decisão.</p>
+
+<h2>Ciclo de vida de sistemas</h2>
+<h3>O que é ciclo de vida?</h3>
+<p>Representa as etapas pelas quais um sistema passa desde sua concepção até sua retirada. Uma representação clássica: Necessidade → Requisitos → Análise → Projeto → Implementação → Testes → Implantação → Manutenção → Retirada.</p>
+
+<h3>Paradigma cascata</h3>
+<p>No modelo <em>Waterfall/Cascata</em>, as fases são executadas predominantemente de maneira sequencial. <strong>Vantagem:</strong> maior previsibilidade e documentação. <strong>Desvantagem:</strong> mudanças tardias podem ser caras.</p>
+
+<h3>Exemplo de cascata</h3>
+<p>Imagine um sistema regulatório com requisitos altamente estáveis. A organização pode definir: Requisitos → Projeto → Desenvolvimento → Testes → Implantação.</p>
+
+<h3>Modelo incremental</h3>
+<p>O sistema é desenvolvido em partes: Incremento 1 → Incremento 2 → Incremento 3 → Incremento 4. Cada incremento acrescenta funcionalidade.</p>
+
+<h3>Modelo iterativo</h3>
+<p>O sistema evolui através de ciclos sucessivos: Versão inicial → Feedback → Melhoria → Nova versão → Feedback.</p>
+
+<h3>Iterativo x incremental</h3>
+<p><strong>Iterativo:</strong> busca aprimorar progressivamente algo existente. <strong>Incremental:</strong> adiciona novas partes ou funcionalidades. Um processo pode ser iterativo e incremental.</p>
+
+<h3>Modelo espiral</h3>
+<p>Combina desenvolvimento iterativo com forte foco em riscos. Planejamento → Análise de riscos → Desenvolvimento → Avaliação → Novo ciclo. É especialmente útil em sistemas complexos e de alto risco.</p>
+
+<h3>Prototipação</h3>
+<p>Um protótipo é criado para explorar requisitos ou solução. Pode ser descartável ou evolucionário.</p>
+
+<h3>Métodos ágeis</h3>
+<p>Características: ciclos curtos; feedback frequente; adaptação; colaboração; entrega incremental; foco no valor. Exemplos: Scrum; Kanban.</p>
+
+<h3>Modelo híbrido</h3>
+<p>Combina práticas preditivas e adaptativas. Exemplo: arquitetura — planejamento inicial; desenvolvimento — Scrum; governança — controles tradicionais.</p>
+
+<h2>Paradigma estruturado</h2>
+<h3>O que é análise estruturada?</h3>
+<p>É uma abordagem tradicional de análise de sistemas baseada principalmente em: processos; fluxos de dados; funções; entradas e saídas.</p>
+<h3>DFD — Diagrama de Fluxo de Dados</h3>
+<p>Representa o fluxo de dados dentro do sistema. Elementos comuns: entidade externa; processo; fluxo de dados; depósito de dados.</p>
+<h3>Processo</h3>
+<p>Representa uma transformação de dados. Exemplo: Dados do pedido → [Validar Pedido] → Pedido validado.</p>
+<h3>Entidade externa</h3>
+<p>É uma fonte ou destino externo ao sistema. Exemplo: Cliente, Fornecedor, Banco, Operador.</p>
+<h3>Dicionário de dados</h3>
+<p>Descreve os elementos de dados utilizados no sistema. Exemplo: CPF — tipo: texto; tamanho: 11; obrigatório: sim.</p>
+<h3>Diagrama de contexto</h3>
+<p>Representa o sistema de maneira macro e suas interações externas.</p>
+
+<h2>Paradigma orientado a objetos</h2>
+<h3>O que é orientação a objetos?</h3>
+<p>Paradigma baseado na representação do sistema por meio de objetos, que possuem: estado; comportamento; identidade.</p>
+<h3>Classe</h3>
+<p>Classe é uma abstração que define características e comportamentos de objetos.</p>
+<h3>Objeto</h3>
+<p>É uma instância de uma classe. Classe: Carga. Objeto: Carga 10234.</p>
+<h3>Encapsulamento</h3>
+<p>Consiste em esconder detalhes internos e controlar o acesso ao estado do objeto. Em vez de permitir <code>conta.saldo = -999999</code>, a classe pode controlar.</p>
+<h3>Herança</h3>
+<p>Permite criar uma classe baseada em outra. Veículo → Caminhão. Caminhão pode herdar características de Veículo.</p>
+<h3>Polimorfismo</h3>
+<p>Permite que objetos diferentes respondam de maneira própria a uma mesma operação/interface. Exemplo: <code>calcularFrete()</code> pode existir em Caminhão, Navio e Trem, cada classe implementando o cálculo de forma diferente.</p>
+<h3>Abstração</h3>
+<p>Representar os aspectos relevantes de uma entidade ignorando detalhes desnecessários.</p>
+<h3>UML</h3>
+<p>A UML — <em>Unified Modeling Language</em> — é uma linguagem de modelagem. Ela não é uma metodologia de desenvolvimento. <strong>Pegadinha:</strong> UML = metodologia? Não. UML é uma linguagem de modelagem.</p>
+<h3>Diagrama de casos de uso</h3>
+<p>Representa interações entre atores e sistema. Exemplo: Operador → Consultar Carga.</p>
+<h3>Ator</h3>
+<p>É um papel desempenhado por uma entidade externa que interage com o sistema. Pode ser: pessoa; sistema; dispositivo. <strong>Atenção:</strong> ator não é necessariamente uma pessoa.</p>
+<h3>Caso de uso</h3>
+<p>Representa uma funcionalidade do ponto de vista do ator. Exemplos: cadastrar carga; consultar carga; emitir relatório.</p>
+<h3>Diagrama de classes</h3>
+<p>Representa: classes; atributos; operações; relacionamentos. Exemplo: Carga (código, peso, destino; registrar(), rastrear()).</p>
+<h3>Associação</h3>
+<p>Representa relacionamento entre classes. Cliente — Pedido. Um cliente realiza pedidos.</p>
+<h3>Composição</h3>
+<p>Representa uma relação forte de todo-parte. Exemplo: Pedido — ItemPedido. Se o pedido deixa de existir, os itens pertencentes àquele pedido também podem deixar de existir.</p>
+<h3>Agregação</h3>
+<p>Também representa relação todo-parte, porém mais fraca. Exemplo: Equipe — Funcionário. O funcionário pode existir independentemente da equipe.</p>
+<h3>Diagrama de sequência</h3>
+<p>Mostra a interação entre objetos ao longo do tempo.</p>
+<h3>Estruturado x orientado a objetos</h3>
+<table>
+  <thead><tr><th>Estruturado</th><th>Orientado a objetos</th></tr></thead>
+  <tbody>
+    <tr><td>Processos</td><td>Objetos</td></tr>
+    <tr><td>Fluxos de dados</td><td>Mensagens/interações</td></tr>
+    <tr><td>DFD</td><td>UML</td></tr>
+    <tr><td>Funções</td><td>Métodos</td></tr>
+    <tr><td>Dados separados dos processos</td><td>Dados + comportamento</td></tr>
+    <tr><td>Análise funcional</td><td>Modelagem de objetos</td></tr>
+  </tbody>
+</table>
+
+<h2>Verificação, validação e testes</h2>
+<h3>Verificação x validação</h3>
+<p><strong>Verificação:</strong> <em>Estamos construindo o produto corretamente?</em> Busca verificar se o software está de acordo com especificações e artefatos definidos. <strong>Validação:</strong> <em>Estamos construindo o produto correto?</em> Busca verificar se o produto atende às necessidades reais dos usuários e stakeholders.</p>
+<p><strong>Frase para memorizar:</strong> Verificação = produto conforme especificação. Validação = produto adequado à necessidade.</p>
+
+<h3>Teste de unidade</h3>
+<p>Testa pequenas unidades do software. Exemplo: <code>calcularFrete()</code> pode ser testado isoladamente.</p>
+<h3>Teste de integração</h3>
+<p>Verifica a interação entre componentes: Frontend → API → Banco de dados.</p>
+<h3>Teste de sistema</h3>
+<p>Avalia o sistema como um todo: Login; Cadastro; Relatórios.</p>
+<h3>Teste de aceitação</h3>
+<p>Avalia se o sistema atende aos critérios de aceitação e necessidades relevantes do negócio. Pode envolver usuários ou representantes do negócio.</p>
+<h3>Teste funcional</h3>
+<p>Verifica se determinada funcionalidade apresenta o comportamento esperado. Exemplo: ao informar usuário e senha válidos, o sistema deve permitir acesso.</p>
+<h3>Teste não funcional</h3>
+<p>Avalia características como: desempenho; segurança; usabilidade; disponibilidade; escalabilidade.</p>
+<h3>Teste de desempenho</h3>
+<p>Exemplo: o sistema suporta 5.000 usuários simultâneos?</p>
+<h3>Teste de carga</h3>
+<p>Verifica comportamento sob determinada carga esperada.</p>
+<h3>Teste de estresse</h3>
+<p>Submete o sistema a condições superiores às esperadas para observar seu comportamento. Carga normal: 5.000 usuários; teste de estresse: 20.000 usuários.</p>
+<h3>Teste de regressão</h3>
+<p>Verifica se mudanças introduziram defeitos em funcionalidades que anteriormente funcionavam. Alteramos a tela de login e depois verificamos cadastro, relatórios e consulta para garantir que nada foi quebrado.</p>
+<h3>Teste exploratório</h3>
+<p>O testador explora o sistema simultaneamente ao aprendizado e à elaboração de testes, sem script rígido.</p>
+<h3>Teste caixa-preta</h3>
+<p>O testador avalia entradas e saídas sem necessariamente conhecer a implementação interna.</p>
+<h3>Teste caixa-branca</h3>
+<p>Considera a estrutura interna do software. Pode analisar: caminhos; condições; comandos; cobertura de código.</p>
+<h3>Teste caixa-cinza</h3>
+<p>Combina características das abordagens caixa-preta e caixa-branca. O testador possui algum conhecimento da estrutura interna.</p>
+<h3>Testes automatizados</h3>
+<p>São executados por ferramentas. Podem fazer parte de uma pipeline CI/CD.</p>
+<h3>Pirâmide de testes</h3>
+<p>Em geral: muitos testes unitários; menos testes de integração; poucos testes end-to-end. A lógica é buscar feedback rápido e custo menor nos níveis inferiores.</p>
+<h3>Defeito, erro e falha</h3>
+<p><strong>Erro:</strong> ação humana incorreta. <strong>Defeito:</strong> problema introduzido no software ou artefato. <strong>Falha:</strong> comportamento incorreto observado durante a execução.</p>
+
+<h2>Ambientes de desenvolvimento</h2>
+<h3>O que é ambiente de desenvolvimento?</h3>
+<p>Conjunto de ferramentas, infraestrutura, configurações e serviços utilizados para desenvolver e executar software. Pode envolver: IDE; compiladores; SDK; bibliotecas; banco de dados; servidores; sistemas de controle de versão; ferramentas de testes; CI/CD.</p>
+<h3>IDE</h3>
+<p>IDE — <em>Integrated Development Environment</em>. Exemplos: Visual Studio Code; IntelliJ IDEA; Eclipse; Visual Studio; Android Studio.</p>
+<h3>Ambiente local</h3>
+<p>É o ambiente utilizado pelo desenvolvedor.</p>
+<h3>Ambiente de desenvolvimento</h3>
+<p>Utilizado para integração e desenvolvimento da aplicação. Pode ser compartilhado pela equipe.</p>
+<h3>Ambiente de testes</h3>
+<p>Utilizado para execução de testes. Pode possuir dados controlados, configurações específicas e ferramentas de automação.</p>
+<h3>Homologação</h3>
+<p>Ambiente utilizado para validar a solução antes da produção.</p>
+<h3>Produção</h3>
+<p>É o ambiente utilizado pelos usuários reais. Alterações em produção normalmente possuem maior risco.</p>
+<h3>Separação de ambientes</h3>
+<p>Boa prática: evitar que desenvolvimento e produção sejam o mesmo ambiente. DESENVOLVIMENTO → HOMOLOGAÇÃO → PRODUÇÃO.</p>
+<h3>Controle de versão</h3>
+<p>Ferramentas como Git permitem: histórico; branches; merge; rollback; colaboração.</p>
+<h3>Integração contínua — CI</h3>
+<p>Integração frequente de código com automação de build e testes. Reduz problemas de integração e fornece feedback rápido.</p>
+<h3>Continuous Delivery e Continuous Deployment</h3>
+<p><strong>Continuous Delivery:</strong> mantém o software pronto para implantação, com decisão manual de quando publicar. <strong>Continuous Deployment:</strong> implanta automaticamente em produção após passar pelos estágios do pipeline.</p>
+<h3>DevOps</h3>
+<p>DevOps busca aproximar: DESENVOLVIMENTO + OPERAÇÕES. Objetivos: reduzir tempo de entrega; aumentar confiabilidade; automatizar; melhorar colaboração; obter feedback rápido.</p>
+<h3>Containers</h3>
+<p>Containers empacotam aplicação e dependências em uma unidade executável. Docker é uma tecnologia amplamente associada a containers.</p>
+
+<h3>Quadro de revisão para a prova</h3>
+<table>
+  <thead><tr><th>Tema</th><th>O que memorizar</th></tr></thead>
+  <tbody>
+    <tr><td>Requisito funcional</td><td>O que o sistema faz</td></tr>
+    <tr><td>Requisito não funcional</td><td>Qualidade/restrição</td></tr>
+    <tr><td>Elicitação</td><td>Descoberta de requisitos</td></tr>
+    <tr><td>Entrevista</td><td>Conversa estruturada</td></tr>
+    <tr><td>Workshop</td><td>Colaboração entre stakeholders</td></tr>
+    <tr><td>Observação</td><td>Acompanhar trabalho real</td></tr>
+    <tr><td>Protótipo</td><td>Explorar/validar solução</td></tr>
+    <tr><td>Rastreabilidade</td><td>Relacionar requisitos e artefatos</td></tr>
+    <tr><td>Cascata</td><td>Sequencial/preditivo</td></tr>
+    <tr><td>Incremental</td><td>Adiciona funcionalidades</td></tr>
+    <tr><td>Iterativo</td><td>Aperfeiçoa progressivamente</td></tr>
+    <tr><td>Espiral</td><td>Forte foco em riscos</td></tr>
+    <tr><td>Ágil</td><td>Iteração, feedback e adaptação</td></tr>
+    <tr><td>DFD</td><td>Fluxo de dados</td></tr>
+    <tr><td>UML</td><td>Linguagem de modelagem</td></tr>
+    <tr><td>Caso de uso</td><td>Interação ator-sistema</td></tr>
+    <tr><td>Classe</td><td>Estrutura de objetos</td></tr>
+    <tr><td>Encapsulamento</td><td>Controle/ocultação do estado</td></tr>
+    <tr><td>Herança</td><td>Especialização</td></tr>
+    <tr><td>Polimorfismo</td><td>Mesma interface, comportamentos diferentes</td></tr>
+    <tr><td>Verificação</td><td>"Estamos construindo corretamente?"</td></tr>
+    <tr><td>Validação</td><td>"Estamos construindo o produto correto?"</td></tr>
+    <tr><td>Teste unitário</td><td>Pequena unidade</td></tr>
+    <tr><td>Integração</td><td>Componentes juntos</td></tr>
+    <tr><td>Sistema</td><td>Sistema completo</td></tr>
+    <tr><td>Aceitação</td><td>Necessidades/critérios do negócio</td></tr>
+    <tr><td>Regressão</td><td>Verifica efeitos de mudanças</td></tr>
+    <tr><td>Caixa-preta</td><td>Sem foco na estrutura interna</td></tr>
+    <tr><td>Caixa-branca</td><td>Considera estrutura interna</td></tr>
+    <tr><td>IDE</td><td>Ambiente integrado de desenvolvimento</td></tr>
+    <tr><td>CI</td><td>Integração frequente + automação</td></tr>
+    <tr><td>CD</td><td>Entrega/implantação automatizada</td></tr>
+    <tr><td>DevOps</td><td>Desenvolvimento + operações</td></tr>
+  </tbody>
+</table>
+
+<h3>Pegadinhas clássicas de prova</h3>
+<ul>
+  <li><em>"Todo requisito é funcional."</em> Errado. Existem funcionais e não funcionais.</li>
+  <li><em>"UML é uma metodologia de desenvolvimento."</em> Errado. UML é linguagem de modelagem.</li>
+  <li><em>"Verificação e validação são sinônimos."</em> Errado.</li>
+  <li><em>"Teste unitário testa o sistema inteiro."</em> Errado.</li>
+  <li><em>"Teste de regressão procura somente novos requisitos."</em> Errado.</li>
+  <li><em>"Modelo cascata é naturalmente adequado quando os requisitos mudam constantemente."</em> Em geral, não.</li>
+  <li><em>"Incremental e iterativo são exatamente a mesma coisa."</em> Errado.</li>
+  <li><em>"Um ator em UML precisa ser uma pessoa."</em> Errado.</li>
+  <li><em>"O ambiente de homologação é o mesmo que produção."</em> Não necessariamente.</li>
+</ul>
+
+<h3>Prioridade para a prova</h3>
+<ol>
+  <li><strong>Requisitos:</strong> funcional × não funcional; elicitação; análise; priorização; rastreabilidade; gerenciamento de mudanças.</li>
+  <li><strong>Ciclo de vida:</strong> cascata; incremental; iterativo; espiral; ágil; híbrido.</li>
+  <li><strong>UML e análise estruturada:</strong> DFD; diagrama de contexto; casos de uso; classes; sequência; relacionamentos.</li>
+  <li><strong>Verificação, validação e testes:</strong> V&amp;V; níveis de teste; tipos de teste; caixa-preta/branca; regressão; desempenho.</li>
+  <li><strong>Ambientes e DevOps:</strong> DEV; TEST; homologação; produção; Git; CI; Continuous Delivery; Continuous Deployment; containers.</li>
+</ol>
+
+<!-- =====================================================================
+     ARQUIVO 4 — GERENCIAMENTO DE PROJETOS E PRODUTOS
+     ===================================================================== -->
+<h1>Gerenciamento de Projetos e Produtos</h1>
+<p class="center small">Material de Estudo — Transpetro · Ênfase 5 — Gerenciamento de Projetos e Produtos</p>
+
+<h2>Framework Scrum</h2>
+<h3>O que é Scrum?</h3>
+<p>Scrum é um framework utilizado para desenvolver, entregar e sustentar produtos complexos. Um ponto importante: Scrum <strong>não</strong> é uma metodologia prescritiva que determina exatamente como toda a equipe deve desenvolver o produto. Ele fornece uma estrutura com: responsabilidades/accountabilities; eventos; artefatos; compromissos; regras. A equipe utiliza essa estrutura e adapta suas práticas ao contexto.</p>
+<p>Exemplo: a Transpetro pode trabalhar de maneira incremental:</p>
+<ul>
+  <li>Sprint 1 → Login + usuários</li>
+  <li>Sprint 2 → Cadastro de cargas</li>
+  <li>Sprint 3 → Rastreamento</li>
+  <li>Sprint 4 → Dashboard</li>
+  <li>Sprint 5 → Melhorias</li>
+</ul>
+
+<h3>Os três pilares do Scrum</h3>
+<ol>
+  <li>Transparência</li>
+  <li>Inspeção</li>
+  <li>Adaptação</li>
+</ol>
+<h4>Transparência</h4>
+<p>As informações relevantes devem estar visíveis e compreensíveis. Exemplo: o Product Backlog deve permitir que as pessoas entendam o que está sendo considerado para o produto. Se um projeto está atrasado, esconder essa informação prejudica a tomada de decisão.</p>
+<h4>Inspeção</h4>
+<p>O trabalho e os resultados devem ser avaliados frequentemente. Durante uma Sprint, a equipe pode descobrir que determinada solução não funciona como esperado, e a inspeção permite identificar isso antes que o problema cresça.</p>
+<h4>Adaptação</h4>
+<p>Quando a inspeção identifica um problema ou uma mudança necessária, o trabalho deve ser adaptado.</p>
+
+<h3>Valores do Scrum</h3>
+<ol>
+  <li>Compromisso</li>
+  <li>Foco</li>
+  <li>Abertura</li>
+  <li>Respeito</li>
+  <li>Coragem</li>
+</ol>
+
+<h3>Scrum Team</h3>
+<p>O Scrum Team é formado por: Product Owner; Scrum Master; Developers. Não são três departamentos separados. É uma equipe coesa que trabalha em direção a um objetivo comum.</p>
+
+<h3>Product Owner</h3>
+<p>O Product Owner (PO) é responsável por maximizar o valor do produto resultante do trabalho do Scrum Team. Uma das principais responsabilidades é gerenciar efetivamente o Product Backlog, o que envolve: desenvolver e comunicar o Product Goal; criar e comunicar itens do Product Backlog; ordenar os itens; garantir que o Product Backlog seja transparente, visível e compreensível.</p>
+<p class="study-note"><strong>Atenção:</strong> o Product Owner não é simplesmente o "chefe dos desenvolvedores".</p>
+
+<h3>Scrum Master</h3>
+<p>O Scrum Master é responsável por estabelecer o Scrum conforme definido pelo framework e ajudar a melhorar a efetividade do Scrum Team. Atua como facilitador; coach; agente de melhoria; removedor de impedimentos; apoiador da adoção correta do Scrum.</p>
+<p class="study-note"><strong>Pegadinha:</strong> Scrum Master = gerente tradicional da equipe? Errado. Scrum Master não é necessariamente chefe hierárquico.</p>
+
+<h3>Developers</h3>
+<p>São os profissionais responsáveis por criar qualquer aspecto de um incremento utilizável a cada Sprint. Podem incluir desenvolvedores; analistas; designers; testers; especialistas em dados; profissionais de infraestrutura. O termo Developers no Scrum não significa necessariamente apenas programadores.</p>
+
+<h3>Sprint</h3>
+<p>A Sprint é um período de duração fixa de até um mês em que um Incremento de valor é criado.</p>
+
+<h3>Sprint Goal</h3>
+<p>É o objetivo da Sprint. Exemplo: <em>"Permitir que clientes acompanhem suas cargas em tempo real."</em></p>
+
+<h3>Product Backlog</h3>
+<p>É uma lista ordenada e emergente do que é necessário para melhorar o produto. Pode conter funcionalidades; melhorias; correções; requisitos; experimentos; necessidades técnicas.</p>
+
+<h3>Product Goal</h3>
+<p>Representa o objetivo de longo prazo para o produto. Exemplo: <em>"Disponibilizar uma plataforma integrada de acompanhamento logístico."</em></p>
+
+<h3>Sprint Backlog</h3>
+<p>É composto por: Sprint Goal; itens do Product Backlog selecionados para a Sprint; plano de ação para entregar o Incremento.</p>
+
+<h3>Incremento</h3>
+<p>É uma versão utilizável do produto que atende à Definition of Done.</p>
+
+<h3>Definition of Done</h3>
+<p>Representa uma descrição formal do estado do Incremento quando ele atende aos critérios de qualidade exigidos. Exemplo: código desenvolvido; code review; testes automatizados; teste funcional; segurança validada; documentação. <strong>Pegadinha:</strong> "Terminei de programar" ≠ Done.</p>
+
+<h3>Eventos Scrum</h3>
+<p>Sprint; Sprint Planning; Daily Scrum; Sprint Review; Sprint Retrospective.</p>
+
+<h3>Sprint Planning</h3>
+<p>Trata três temas: <strong>Por quê?</strong> Definição do Sprint Goal. <strong>O quê?</strong> Quais itens do Product Backlog serão considerados. <strong>Como?</strong> Como o trabalho será realizado.</p>
+
+<h3>Daily Scrum</h3>
+<p>Evento de 15 minutos para os Developers. Objetivo: inspecionar o progresso em direção ao Sprint Goal e adaptar o Sprint Backlog conforme necessário. <strong>Pegadinha:</strong> Daily Scrum não é reunião para o gerente controlar cada funcionário.</p>
+
+<h3>Sprint Review</h3>
+<p>Realizada para inspecionar o resultado da Sprint e determinar adaptações futuras. Participam o Scrum Team e stakeholders relevantes. É uma oportunidade de obter feedback.</p>
+
+<h3>Sprint Retrospective</h3>
+<p>Tem como objetivo planejar maneiras de aumentar qualidade e efetividade. Perguntas típicas: O que funcionou? O que não funcionou? Como podemos melhorar?</p>
+
+<h2>Kanban</h2>
+<h3>O que é Kanban?</h3>
+<p>Kanban é um método para gerenciar e melhorar o fluxo de trabalho. Foco em: visualizar o trabalho; limitar trabalho em progresso; gerenciar fluxo; tornar políticas explícitas; estabelecer ciclos de feedback; melhorar continuamente.</p>
+<h3>Quadro Kanban</h3>
+<table>
+  <thead><tr><th>BACKLOG</th><th>DESENVOLV.</th><th>TESTANDO</th><th>CONCLUÍDO</th></tr></thead>
+  <tbody>
+    <tr><td>Relatório</td><td>Login</td><td>Cadastro</td><td>API</td></tr>
+    <tr><td>Dashboard</td><td>Exportação</td><td></td><td></td></tr>
+  </tbody>
+</table>
+<h3>WIP — Work in Progress</h3>
+<p>Trabalho em progresso. Se a coluna Desenvolvimento tem WIP LIMIT = 2, somente duas atividades podem estar nessa etapa simultaneamente.</p>
+<h3>Lead Time</h3>
+<p>Tempo desde o início da solicitação até sua entrega. Exemplo: solicitação 01/08 → entrega 10/08 → Lead Time: 9 dias.</p>
+<h3>Cycle Time</h3>
+<p>Tempo necessário para uma tarefa percorrer uma etapa ou fluxo de trabalho, conforme definição adotada. Em muitos contextos: início do trabalho até conclusão.</p>
+
+<h3>Scrum x Kanban</h3>
+<table>
+  <thead><tr><th>Característica</th><th>Scrum</th><th>Kanban</th></tr></thead>
+  <tbody>
+    <tr><td>Natureza</td><td>Framework</td><td>Método</td></tr>
+    <tr><td>Sprint</td><td>Sim</td><td>Não obrigatório</td></tr>
+    <tr><td>Fluxo contínuo</td><td>Não é o modelo central</td><td>Sim</td></tr>
+    <tr><td>WIP limit</td><td>Não é regra central</td><td>Fundamental</td></tr>
+    <tr><td>Papéis</td><td>PO, SM, Developers</td><td>Não exige papéis específicos</td></tr>
+    <tr><td>Eventos</td><td>Definidos</td><td>Não depende de eventos Scrum</td></tr>
+    <tr><td>Mudança</td><td>Durante Sprint com limites</td><td>Fluxo contínuo</td></tr>
+    <tr><td>Foco</td><td>Incremento em Sprint</td><td>Fluxo</td></tr>
+  </tbody>
+</table>
+<p class="study-note"><strong>Pegadinha:</strong> Kanban não significa simplesmente um quadro de tarefas. O quadro é uma ferramenta para visualização; Kanban envolve princípios e práticas de gestão do fluxo.</p>
+
+<h2>Projeto x Produto</h2>
+<h3>O que é projeto?</h3>
+<p>Esforço temporário empreendido para criar um produto, serviço ou resultado único. Exemplo: implementar um novo sistema de gestão de cargas. Possui início, desenvolvimento e conclusão.</p>
+<h3>O que é produto?</h3>
+<p>Algo criado para gerar valor e que pode evoluir continuamente. Exemplo: plataforma de gerenciamento de cargas. Depois do lançamento: versão 1 → feedback → versão 2 → novas funcionalidades → versão 3.</p>
+<h3>Diferença de mentalidade</h3>
+<p><strong>Gestão de projeto:</strong> estamos dentro do prazo? do orçamento? o escopo foi entregue? <strong>Gestão de produto:</strong> o usuário está obtendo valor? o produto resolve o problema? qual métrica demonstra sucesso? o produto deve continuar existindo dessa forma?</p>
+<h3>Exemplo</h3>
+<p>Uma empresa desenvolve um aplicativo. O projeto foi um sucesso (prazo, orçamento, escopo), mas depois descobre-se que os usuários não utilizam o aplicativo. O projeto pode ser considerado bem executado; o produto pode ser considerado um fracasso.</p>
+
+<h2>Agilidade em escala e SAFe</h2>
+<h3>Por que agilidade em escala?</h3>
+<p>Scrum funciona muito bem para uma equipe. Mas imagine 50 equipes, 500 pessoas, vários produtos, vários departamentos, fornecedores, arquitetura corporativa. Precisamos coordenar: estratégia; orçamento; arquitetura; dependências; produtos; equipes; releases. É nesse contexto que entram abordagens como o SAFe.</p>
+<h3>O que é SAFe?</h3>
+<p>SAFe — <em>Scaled Agile Framework</em> — é um framework para aplicar princípios Lean, Agile e DevOps em escala organizacional. Busca conectar: Estratégia → Portfólio → Produtos → Soluções → Equipes.</p>
+<h3>Lean</h3>
+<p>O pensamento Lean busca maximizar valor e reduzir desperdícios.</p>
+<h3>Agile</h3>
+<p>Agilidade enfatiza: feedback rápido; adaptação; entregas incrementais; colaboração; foco no valor.</p>
+<h3>DevOps</h3>
+<p>DevOps aproxima desenvolvimento e operações. A automação reduz tempo e erros.</p>
+<h3>Agile Release Train — ART</h3>
+<p>É uma estrutura de longo prazo que reúne equipes e stakeholders para entregar valor de maneira contínua.</p>
+<h3>Program Increment — PI</h3>
+<p>Representa um período durante o qual um Agile Release Train entrega valor incremental. Cada iteração produz resultados.</p>
+<h3>Entrega incremental</h3>
+<p>Em vez de 12 meses → sistema completo, podemos fazer PI 1 → Cadastro; PI 2 → Rastreamento; e assim por diante.</p>
+<h3>Gestão de portfólio</h3>
+<p>Responde a uma pergunta fundamental: <em>Estamos investindo nas iniciativas certas?</em> A organização precisa analisar: estratégia; valor; risco; capacidade; dependências; retorno esperado.</p>
+
+<h2>PMBOK 7ª edição</h2>
+<h3>O que é PMBOK?</h3>
+<p>PMBOK — <em>Project Management Body of Knowledge</em> — é um guia de conhecimentos e boas práticas de gerenciamento de projetos publicado pelo PMI. A 7ª edição trouxe uma mudança significativa na forma de organizar o conhecimento.</p>
+<h3>PMBOK 6 x PMBOK 7</h3>
+<p><strong>Estrutura tradicional:</strong> grupos de processos; áreas de conhecimento. <strong>PMBOK 7:</strong> princípios + domínios de desempenho + sistemas de entrega de valor. Isso não significa que os processos tradicionais deixaram de existir.</p>
+<h3>Sistema de entrega de valor</h3>
+<p>Projetos não devem ser vistos isoladamente. Fazem parte de um sistema maior: Estratégia → Portfólio → Programa/Projeto → Entrega → Resultado → Benefício → Valor.</p>
+<h3>Princípios do PMBOK 7</h3>
+<p>Administração responsável; equipe; stakeholders; valor; pensamento sistêmico; liderança; qualidade; complexidade; risco; adaptabilidade e resiliência; mudança.</p>
+<h3>Valor</h3>
+<p>O projeto não deve ser avaliado somente pelo fato de ter produzido entregas. <strong>Entrega ≠ necessariamente valor.</strong></p>
+<h3>Stakeholders</h3>
+<p>São pessoas, grupos ou organizações que podem afetar, ser afetados ou perceber-se afetados pelo projeto.</p>
+<h3>Domínios de desempenho</h3>
+<ol>
+  <li>Stakeholders</li>
+  <li>Equipe</li>
+  <li>Abordagem de desenvolvimento e ciclo de vida</li>
+  <li>Planejamento</li>
+  <li>Trabalho do projeto</li>
+  <li>Entrega</li>
+  <li>Medição</li>
+  <li>Incerteza</li>
+</ol>
+
+<h2>Projetos e a organização</h2>
+<h3>Estrutura organizacional</h3>
+<p>Classificação tradicional: funcional; matricial; projetizada.</p>
+<h3>Organização funcional</h3>
+<p>A organização é dividida por departamentos. O gerente funcional possui grande autoridade. O gerente de projeto pode ter autoridade limitada.</p>
+<h3>Organização projetizada</h3>
+<p>O projeto é o centro da organização. O gerente de projeto tende a possuir maior autoridade.</p>
+<h3>Organização matricial</h3>
+<p>Combina características funcional e projetizada. O profissional pode responder a: gerente funcional + gerente de projeto. Isso pode gerar conflitos de autoridade; disputa de recursos; necessidade de negociação.</p>
+<h3>Matriz fraca, balanceada e forte</h3>
+<p><strong>Fraca:</strong> maior poder do gerente funcional. <strong>Balanceada:</strong> autoridade relativamente compartilhada. <strong>Forte:</strong> maior autoridade do gerente de projeto.</p>
+<h3>Escritório de Projetos — PMO</h3>
+<p>PMO — <em>Project Management Office</em> — é uma estrutura organizacional que apoia projetos, programas e/ou portfólios. Pode atuar em: padronização; governança; treinamento; indicadores; metodologia; acompanhamento; auditoria; suporte.</p>
+<h3>PMO de suporte</h3>
+<p>Fornece apoio, com baixo grau de controle.</p>
+<h3>PMO de controle</h3>
+<p>Possui maior autoridade. Pode exigir metodologia, templates obrigatórios, indicadores, auditorias.</p>
+<h3>PMO diretivo</h3>
+<p>Alto grau de controle sobre os projetos.</p>
+<h3>Projeto, programa e portfólio</h3>
+<p><strong>PROJETO</strong> → entrega específica. <strong>PROGRAMA</strong> → benefícios coordenados. <strong>PORTFÓLIO</strong> → alinhamento estratégico.</p>
+
+<h2>Processos de gerenciamento de projetos</h2>
+<h3>O que é um processo?</h3>
+<p>Conjunto de atividades relacionadas que transforma entradas em resultados. Exemplo: Requisito → Análise → Desenvolvimento → Teste → Produto.</p>
+<h3>Grupos de processos</h3>
+<ol>
+  <li>Iniciação;</li>
+  <li>Planejamento;</li>
+  <li>Execução;</li>
+  <li>Monitoramento e Controle;</li>
+  <li>Encerramento.</li>
+</ol>
+<h3>Iniciação</h3>
+<p>Objetivo: autorizar formalmente o projeto. Exemplos: definir objetivo; identificar stakeholders; justificar projeto; elaborar termo de abertura.</p>
+<h3>Termo de abertura</h3>
+<p>O Project Charter formaliza a existência do projeto e concede autoridade para seu gerenciamento. Pode conter: objetivo; justificativa; requisitos de alto nível; riscos iniciais; premissas; restrições; gerente do projeto; patrocinador.</p>
+<h3>Planejamento</h3>
+<p>Define como o projeto será executado: escopo; cronograma; custos; qualidade; recursos; comunicação; riscos.</p>
+<h3>Execução</h3>
+<p>Realização do trabalho: desenvolver; testar; integrar; treinar; implantar.</p>
+<h3>Monitoramento e Controle</h3>
+<p>Verifica se o projeto está seguindo o planejado. Exemplo: Planejado R$ 500 mil; Real R$ 700 mil → desvio de custo.</p>
+<h3>Controle integrado de mudanças</h3>
+<p>Mudanças são normais. Porém, é necessário avaliar impacto no escopo; prazo; custo; qualidade; riscos; recursos.</p>
+<h3>Encerramento</h3>
+<p>O projeto é formalmente concluído. Pode envolver: aceite; encerramento de contratos; documentação; arquivamento; lições aprendidas; liberação de recursos.</p>
+
+<h2>Áreas de conhecimento</h2>
+<p>Embora a 7ª edição do PMBOK tenha mudado a estrutura principal do guia, o edital menciona explicitamente áreas de conhecimento. Por isso, para concurso, é importante dominar a estrutura tradicional.</p>
+<h3>Integração</h3>
+<p>Coordena os diferentes elementos do projeto.</p>
+<h3>Escopo</h3>
+<p>Define e controla o que está e o que não está incluído no projeto.</p>
+<h3>Cronograma</h3>
+<p>Gerencia o tempo: atividades; duração; dependências; marcos; sequenciamento.</p>
+<h3>Custos</h3>
+<p>Gerencia estimativas; orçamento; controle dos gastos.</p>
+<h3>Qualidade</h3>
+<p>Busca garantir que as entregas atendam aos requisitos e expectativas relevantes.</p>
+<h3>Recursos</h3>
+<p>Inclui recursos humanos; físicos; tecnológicos; materiais.</p>
+<h3>Comunicações</h3>
+<p>Define quem precisa receber informação; qual informação; quando; como; em qual formato.</p>
+<h3>Riscos</h3>
+<p>Risco é uma condição ou evento incerto que, se ocorrer, pode afetar os objetivos do projeto.</p>
+<h3>Aquisições</h3>
+<p>Relacionadas à contratação de produtos, serviços ou fornecedores externos.</p>
+<h3>Stakeholders</h3>
+<p>Gerencia o relacionamento com partes interessadas.</p>
+
+<h3>Quadro comparativo final</h3>
+<table>
+  <thead><tr><th>Conceito</th><th>Ideia central</th></tr></thead>
+  <tbody>
+    <tr><td>Scrum</td><td>Framework para produtos complexos</td></tr>
+    <tr><td>Sprint</td><td>Ciclo de até um mês</td></tr>
+    <tr><td>Product Owner</td><td>Maximiza valor e gerencia Product Backlog</td></tr>
+    <tr><td>Scrum Master</td><td>Estabelece Scrum e melhora efetividade</td></tr>
+    <tr><td>Developers</td><td>Criam Incremento</td></tr>
+    <tr><td>Product Backlog</td><td>Lista ordenada e emergente</td></tr>
+    <tr><td>Sprint Backlog</td><td>Objetivo + itens selecionados + plano</td></tr>
+    <tr><td>Incremento</td><td>Resultado utilizável</td></tr>
+    <tr><td>DoD</td><td>Estado que define quando o Incremento atende à qualidade</td></tr>
+    <tr><td>Kanban</td><td>Gestão e melhoria do fluxo</td></tr>
+    <tr><td>WIP</td><td>Trabalho em progresso</td></tr>
+    <tr><td>Projeto</td><td>Esforço temporário</td></tr>
+    <tr><td>Produto</td><td>Gera valor continuamente</td></tr>
+    <tr><td>SAFe</td><td>Agilidade em escala</td></tr>
+    <tr><td>ART</td><td>Estrutura para entrega de valor em escala</td></tr>
+    <tr><td>PI</td><td>Período de planejamento/entrega incremental no SAFe</td></tr>
+    <tr><td>Portfólio</td><td>Alinhamento estratégico</td></tr>
+    <tr><td>Programa</td><td>Coordenação para benefícios</td></tr>
+    <tr><td>PMO</td><td>Apoio/governança de projetos</td></tr>
+    <tr><td>PMBOK 7</td><td>Princípios + domínios de desempenho</td></tr>
+    <tr><td>Grupo de processos</td><td>Iniciação, planejamento, execução, monitoramento/controle e encerramento</td></tr>
+  </tbody>
+</table>
+
+<h3>Pegadinhas que você deve memorizar</h3>
+<ol>
+  <li>Scrum não é metodologia? <strong>Correto:</strong> Scrum é um framework.</li>
+  <li>Kanban exige Sprint? <strong>Não.</strong> Kanban trabalha com fluxo contínuo.</li>
+  <li>Kanban é apenas um quadro? <strong>Não.</strong> O quadro é ferramenta de visualização.</li>
+  <li>Product Owner é gerente dos desenvolvedores? <strong>Não.</strong> Seu foco é maximizar o valor.</li>
+  <li>Scrum Master é chefe da equipe? <strong>Não necessariamente.</strong></li>
+  <li>Projeto e produto são a mesma coisa? <strong>Não.</strong></li>
+  <li>Todo projeto bem-sucedido gera valor? <strong>Não necessariamente.</strong></li>
+  <li>PMBOK 7 é somente uma lista de processos? <strong>Não.</strong> Enfatiza princípios e domínios de desempenho.</li>
+  <li>Os grupos tradicionais de processos deixaram de ser importantes? <strong>Não.</strong> O edital menciona explicitamente processos, grupos e áreas.</li>
+  <li>Portfólio e programa são iguais? <strong>Não.</strong></li>
+</ol>
+
+<h3>O que priorizar para a prova</h3>
+<p class="priority-note"><strong>Prioridade 1 — Scrum:</strong> papéis/accountabilities; eventos; artefatos; Product Goal; Sprint Goal; Product Backlog; Sprint Backlog; Incremento; Definition of Done; valores; empirismo.</p>
+<p class="priority-note"><strong>Prioridade 2 — PMBOK 7:</strong> princípios; oito domínios de desempenho; sistema de entrega de valor; tailoring/adaptação; abordagem preditiva, adaptativa e híbrida.</p>
+<p class="priority-note"><strong>Prioridade 3 — Projeto × Produto:</strong> temporário × contínuo; entrega × valor; gerenciamento de projeto × gerenciamento de produto.</p>
+<p class="priority-note"><strong>Prioridade 4 — SAFe:</strong> Lean-Agile; ART; PI; entregas incrementais; alinhamento estratégico; gestão de portfólio.</p>
+<p class="priority-note"><strong>Prioridade 5 — Kanban:</strong> fluxo; WIP; lead time; cycle time; visualização; gargalos; melhoria contínua.</p>
+<p class="priority-note"><strong>Prioridade 6 — PMO e estruturas organizacionais:</strong> suporte × controle × diretivo; funcional × matricial × projetizada; projeto × programa × portfólio.</p>
+<p class="priority-note"><strong>Prioridade 7 — Processos e áreas de conhecimento:</strong> iniciação; planejamento; execução; monitoramento e controle; encerramento; integração; escopo; cronograma; custos; qualidade; recursos; comunicação; riscos; aquisições; stakeholders.</p>
+
+<!-- =====================================================================
+     ARQUIVO 5 — LÓGICA MATEMÁTICA
+     ===================================================================== -->
+<h1>Lógica Matemática</h1>
+<p class="center small">Material de Estudo — Transpetro · Ênfase 5</p>
+
+<h2>Visão geral da Lógica Matemática</h2>
+<p>A Lógica Matemática é o ramo que estuda princípios e métodos utilizados para determinar se determinados raciocínios são válidos ou inválidos, independentemente de opiniões ou interpretações subjetivas.</p>
+<p>Em provas, a lógica normalmente envolve: proposições; valores-verdade; conectivos lógicos; fórmulas; tabelas-verdade; equivalências; argumentos; regras de inferência; predicados; quantificadores; sistemas dedutivos; decidibilidade.</p>
+<p>A ideia central pode ser resumida assim: <strong>a lógica não pergunta se uma afirmação é verdadeira no mundo real; ela analisa a estrutura do raciocínio.</strong></p>
+
+<h2>Proposições</h2>
+<p>Uma proposição é uma sentença declarativa que pode receber exatamente um dos seguintes valores: Verdadeiro (V) ou Falso (F). Ela não pode ser simultaneamente verdadeira e falsa dentro da mesma interpretação.</p>
+<p><strong>Exemplos:</strong> "O Brasil está na América do Sul." (proposição verdadeira). "2 + 2 = 5." (proposição falsa). "O sistema está indisponível." (pode ser proposição, se o contexto permitir atribuir V ou F).</p>
+
+<h2>O que não é proposição?</h2>
+<h3>Perguntas</h3>
+<p>"Qual é o horário da reunião?" Não é proposição.</p>
+<h3>Ordens</h3>
+<p>"Feche o sistema." Não é proposição.</p>
+<h3>Exclamações</h3>
+<p>"Que sistema excelente!" Não constitui proposição lógica.</p>
+<h3>Sentenças abertas</h3>
+<p>"x + 2 = 5". Enquanto o valor de x não for conhecido, é sentença aberta, não proposição. Quando estabelecemos x = 3, passamos a ter "3 + 2 = 5" — agora proposição verdadeira.</p>
+
+<h2>Proposições simples e compostas</h2>
+<h3>Proposição simples</h3>
+<p>Não possui conectivo lógico. Exemplo: p: "O servidor está ativo."</p>
+<h3>Proposição composta</h3>
+<p>Formada pela combinação de proposições utilizando conectivos lógicos. Exemplo: p ^ q.</p>
+
+<h2>Conectivos lógicos</h2>
+<table>
+  <thead><tr><th>Conectivo</th><th>Símbolo</th><th>Nome</th></tr></thead>
+  <tbody>
+    <tr><td>Negação</td><td>¬p</td><td>NÃO</td></tr>
+    <tr><td>Conjunção</td><td>p ∧ q</td><td>E</td></tr>
+    <tr><td>Disjunção</td><td>p ∨ q</td><td>OU</td></tr>
+    <tr><td>Disjunção exclusiva</td><td>p ⊻ q</td><td>OU exclusivo</td></tr>
+    <tr><td>Condicional</td><td>p → q</td><td>SE... ENTÃO</td></tr>
+    <tr><td>Bicondicional</td><td>p ↔ q</td><td>SE E SOMENTE SE</td></tr>
+  </tbody>
+</table>
+
+<h2>Negação — ¬p</h2>
+<p>A negação inverte o valor-verdade da proposição.</p>
+<table>
+  <thead><tr><th>p</th><th>¬p</th></tr></thead>
+  <tbody>
+    <tr><td>V</td><td>F</td></tr>
+    <tr><td>F</td><td>V</td></tr>
+  </tbody>
+</table>
+
+<h2>Conjunção — p ∧ q</h2>
+<p>Representa o conectivo E. Somente é verdadeira quando as duas proposições são verdadeiras.</p>
+<table>
+  <thead><tr><th>p</th><th>q</th><th>p ∧ q</th></tr></thead>
+  <tbody>
+    <tr><td>V</td><td>V</td><td>V</td></tr>
+    <tr><td>V</td><td>F</td><td>F</td></tr>
+    <tr><td>F</td><td>V</td><td>F</td></tr>
+    <tr><td>F</td><td>F</td><td>F</td></tr>
+  </tbody>
+</table>
+<p class="study-note"><strong>Regra para memorizar:</strong> E = todos precisam ser verdadeiros.</p>
+
+<h2>Disjunção — p ∨ q</h2>
+<p>Representa o OU inclusivo. É verdadeira quando pelo menos uma das proposições é verdadeira.</p>
+<table>
+  <thead><tr><th>p</th><th>q</th><th>p ∨ q</th></tr></thead>
+  <tbody>
+    <tr><td>V</td><td>V</td><td>V</td></tr>
+    <tr><td>V</td><td>F</td><td>V</td></tr>
+    <tr><td>F</td><td>V</td><td>V</td></tr>
+    <tr><td>F</td><td>F</td><td>F</td></tr>
+  </tbody>
+</table>
+
+<h2>Disjunção exclusiva — p ⊻ q</h2>
+<p>Representa: "Ou p ou q, mas não os dois."</p>
+<table>
+  <thead><tr><th>p</th><th>q</th><th>p ⊻ q</th></tr></thead>
+  <tbody>
+    <tr><td>V</td><td>V</td><td>F</td></tr>
+    <tr><td>V</td><td>F</td><td>V</td></tr>
+    <tr><td>F</td><td>V</td><td>V</td></tr>
+    <tr><td>F</td><td>F</td><td>F</td></tr>
+  </tbody>
+</table>
+<p><strong>Diferença fundamental:</strong> OU inclusivo é verdadeiro quando uma ou ambas são verdadeiras; OU exclusivo é verdadeiro quando exatamente uma é verdadeira. Essa é uma das principais pegadinhas.</p>
+
+<h2>Condicional — p → q</h2>
+<p>Representa: <em>Se p, então q.</em> Também pode aparecer como: p implica q; p é condição suficiente para q; q é condição necessária para p.</p>
+<table>
+  <thead><tr><th>p</th><th>q</th><th>p → q</th></tr></thead>
+  <tbody>
+    <tr><td>V</td><td>V</td><td>V</td></tr>
+    <tr><td>V</td><td>F</td><td>F</td></tr>
+    <tr><td>F</td><td>V</td><td>V</td></tr>
+    <tr><td>F</td><td>F</td><td>V</td></tr>
+  </tbody>
+</table>
+<p><strong>Principal regra:</strong> a condicional somente é falsa quando p é verdadeira e q é falsa (V → F).</p>
+
+<h2>Bicondicional — p ↔ q</h2>
+<p>Representa: <em>p se e somente se q.</em> Também significa: p é condição necessária e suficiente para q. É verdadeira quando os valores são iguais.</p>
+<table>
+  <thead><tr><th>p</th><th>q</th><th>p ↔ q</th></tr></thead>
+  <tbody>
+    <tr><td>V</td><td>V</td><td>V</td></tr>
+    <tr><td>V</td><td>F</td><td>F</td></tr>
+    <tr><td>F</td><td>V</td><td>F</td></tr>
+    <tr><td>F</td><td>F</td><td>V</td></tr>
+  </tbody>
+</table>
+<p class="study-note"><strong>Regra:</strong> bicondicional = valores iguais → verdadeiro.</p>
+
+<h2>Relação entre condicional e bicondicional</h2>
+<p>A bicondicional pode ser entendida como duas condicionais: p ↔ q equivale a (p → q) ∧ (q → p).</p>
+
+<h2>Resumo dos conectivos</h2>
+<table>
+  <thead><tr><th>Operação</th><th>Verdadeira quando</th></tr></thead>
+  <tbody>
+    <tr><td>¬p</td><td>p é falsa</td></tr>
+    <tr><td>p ∧ q</td><td>ambas verdadeiras</td></tr>
+    <tr><td>p ∨ q</td><td>pelo menos uma verdadeira</td></tr>
+    <tr><td>p ⊻ q</td><td>exatamente uma verdadeira</td></tr>
+    <tr><td>p → q</td><td>exceto V → F</td></tr>
+    <tr><td>p ↔ q</td><td>valores iguais</td></tr>
+  </tbody>
+</table>
+<p><strong>Macete:</strong> E: tudo verdadeiro. OU: pelo menos um verdadeiro. OU exclusivo: exatamente um verdadeiro. SE...ENTÃO: só perde quando começa verdadeiro e termina falso. SE E SOMENTE SE: os dois valores precisam ser iguais.</p>
+
+<h2>Precedência dos conectivos</h2>
+<p>Ordem convencional: ¬; ∧; ∨; →; ↔. Os parênteses podem alterar essa ordem.</p>
+
+<h2>Teoria dos argumentos</h2>
+<p>Um argumento é uma estrutura composta por premissas e conclusão. Exemplo: Premissa 1: Todo analista é funcionário. Premissa 2: Carlos é analista. Conclusão: Carlos é funcionário.</p>
+<p>Formalmente: P1, P2 ∴ C. O símbolo ∴ significa "portanto".</p>
+
+<h2>Validade de um argumento</h2>
+<p>Um argumento é válido quando é impossível que: todas as premissas sejam verdadeiras e a conclusão seja falsa. Um argumento pode ser válido mesmo que suas premissas sejam falsas. A validade depende da estrutura lógica, não da realidade das afirmações.</p>
+
+<h2>Exemplo de argumento válido</h2>
+<p>Se o servidor está ativo, então o sistema responde. O servidor está ativo. Logo, o sistema responde. Formalmente: p → q, p ∴ q. Essa forma é conhecida como <strong>Modus Ponens</strong>.</p>
+
+<h2>Modus Ponens</h2>
+<p>Estrutura: p → q; p; ∴ q. Exemplo: Se o backup foi executado, os dados foram copiados. O backup foi executado. Logo, os dados foram copiados. É válido.</p>
+
+<h2>Modus Tollens</h2>
+<p>Estrutura: p → q; ¬q; ∴ ¬p. Exemplo: Se o servidor está funcionando, então o sistema responde. O sistema não responde. Logo, o servidor não está funcionando. A estrutura é válida.</p>
+
+<h2>Falácias importantes</h2>
+<h3>Afirmação do consequente</h3>
+<p>Estrutura: p → q; q; ∴ p. Isso é inválido. Exemplo: Se o servidor está ativo, então o sistema responde. O sistema responde. Logo, o servidor está ativo. Pode haver outra razão para o sistema responder.</p>
+<h3>Negação do antecedente</h3>
+<p>Estrutura: p → q; ¬p; ∴ ¬q. Também é inválida. Exemplo: Se o usuário está conectado à VPN, então consegue acessar o sistema. O usuário não está conectado à VPN. Logo, não consegue acessar o sistema. Ele pode estar conectado diretamente à rede corporativa.</p>
+
+<h2>Argumentos e tabela-verdade</h2>
+<p>Um argumento pode ser testado utilizando tabela-verdade. Se não existir linha em que todas as premissas são V e a conclusão é F, o argumento é válido. <strong>Regra fundamental:</strong> argumento válido = não existe interpretação com premissas verdadeiras e conclusão falsa.</p>
+
+<h2>Lógica sentencial</h2>
+<p>A lógica sentencial, também chamada de lógica proposicional, trabalha com proposições inteiras. Utilizamos letras como p, q, r, s. Exemplo: p = "O servidor está ativo."; q = "O banco está disponível." Podemos criar: p ∧ q ou p → q. A lógica sentencial não analisa internamente a estrutura de uma proposição.</p>
+
+<h2>Lógica de predicados de primeira ordem</h2>
+<p>A lógica de predicados permite representar estruturas internas das afirmações. Trabalha com: indivíduos; propriedades; relações; variáveis; quantificadores. Exemplo: "João é analista." pode ser representado por Analista(João). Aqui Analista é o predicado e João é o indivíduo.</p>
+
+<h2>Predicados</h2>
+<p>Um predicado expressa uma propriedade ou relação. <strong>Propriedade:</strong> Analista(João). <strong>Relação:</strong> Gerencia(João, Maria).</p>
+
+<h2>Variáveis</h2>
+<p>Em vez de utilizar apenas indivíduos específicos, podemos usar variáveis. Exemplo: Analista(x) significa "x é analista".</p>
+
+<h2>Quantificador universal — ∀</h2>
+<p>O símbolo ∀ significa "para todo". Exemplo: Todo analista é funcionário. Formalmente: ∀x (Analista(x) → Funcionario(x)). Lê-se: "Para todo x, se x é analista, então x é funcionário."</p>
+
+<h2>Quantificador existencial — ∃</h2>
+<p>O símbolo ∃ significa "existe pelo menos um". Exemplo: Existe um analista que trabalha no projeto. Formalmente: ∃x (Analista(x) ∧ TrabalhaNoProjeto(x)).</p>
+
+<h2>Diferença entre ∀ e ∃</h2>
+<table>
+  <thead><tr><th>Símbolo</th><th>Significado</th></tr></thead>
+  <tbody>
+    <tr><td>∀</td><td>para todo</td></tr>
+    <tr><td>∃</td><td>existe pelo menos um</td></tr>
+  </tbody>
+</table>
+
+<h2>Negação dos quantificadores</h2>
+<p><strong>Negação do universal:</strong> ¬∀x P(x) equivale a ∃x ¬P(x). Ou seja, "Não é verdade que todos são P" equivale a "Existe pelo menos um que não é P."</p>
+<p><strong>Negação do existencial:</strong> ¬∃x P(x) equivale a ∀x ¬P(x). Ou seja, "Não existe nenhum P" equivale a "Todos não são P."</p>
+
+<h2>Exemplo prático</h2>
+<p>Afirmação: "Todos os sistemas possuem backup." Formalmente: ∀x (Sistema(x) → PossuiBackup(x)). Negação: "Existe pelo menos um sistema que não possui backup." Formalmente: ∃x (Sistema(x) ∧ ¬PossuiBackup(x)).</p>
+
+<h2>Regras de formação de fórmulas</h2>
+<p>Determinam quais expressões podem ser consideradas fórmulas bem-formadas. Na lógica proposicional: uma proposição atômica é uma fórmula; se p é fórmula, ¬p é fórmula; se p e q são fórmulas, então p ∧ q, p ∨ q, p → q, p ↔ q também são fórmulas. Exemplo válido: (p ∧ q) → r.</p>
+
+<h2>Fórmulas malformadas</h2>
+<p>Uma expressão como p ∧ → q não segue as regras de formação. Outro exemplo: (p ∨ q — parêntese não fechado.</p>
+
+<h2>Sintaxe × semântica</h2>
+<p><strong>Sintaxe:</strong> preocupa-se com a forma da expressão. <strong>Semântica:</strong> preocupa-se com o significado/valor-verdade da expressão.</p>
+
+<h2>Sistemas dedutivos</h2>
+<p>Conjunto organizado de regras utilizado para derivar conclusões a partir de premissas ou axiomas. Premissas + regras de inferência → conclusão. Entre as regras clássicas: Modus Ponens; Modus Tollens; introdução da conjunção; eliminação da conjunção; introdução da disjunção.</p>
+
+<h2>Modus Ponens como regra dedutiva</h2>
+<p>Temos p → q e p. Podemos deduzir q.</p>
+
+<h2>Eliminação da conjunção</h2>
+<p>Se temos p ∧ q, podemos concluir p ou q.</p>
+
+<h2>Introdução da conjunção</h2>
+<p>Se temos p e q, podemos concluir p ∧ q.</p>
+
+<h2>Tautologia</h2>
+<p>Fórmula verdadeira em todas as possíveis interpretações. Exemplo clássico: p ∨ ¬p.</p>
+<table>
+  <thead><tr><th>p</th><th>¬p</th><th>p ∨ ¬p</th></tr></thead>
+  <tbody>
+    <tr><td>V</td><td>F</td><td>V</td></tr>
+    <tr><td>F</td><td>V</td><td>V</td></tr>
+  </tbody>
+</table>
+
+<h2>Contradição</h2>
+<p>Fórmula falsa em todas as interpretações. Exemplo: p ∧ ¬p.</p>
+<table>
+  <thead><tr><th>p</th><th>¬p</th><th>p ∧ ¬p</th></tr></thead>
+  <tbody>
+    <tr><td>V</td><td>F</td><td>F</td></tr>
+    <tr><td>F</td><td>V</td><td>F</td></tr>
+  </tbody>
+</table>
+
+<h2>Contingência</h2>
+<p>Fórmula que pode ser verdadeira em algumas interpretações e falsa em outras. Exemplo: p ∧ q.</p>
+
+<h2>Tautologia × contradição × contingência</h2>
+<table>
+  <thead><tr><th>Tipo</th><th>Resultado</th></tr></thead>
+  <tbody>
+    <tr><td>Tautologia</td><td>sempre V</td></tr>
+    <tr><td>Contradição</td><td>sempre F</td></tr>
+    <tr><td>Contingência</td><td>às vezes V, às vezes F</td></tr>
+  </tbody>
+</table>
+
+<h2>Equivalência lógica</h2>
+<p>Duas fórmulas são logicamente equivalentes quando possuem o mesmo valor-verdade em todas as interpretações. Representamos p ≡ q.</p>
+<p>Equivalência muito importante: p → q ≡ ¬p ∨ q.</p>
+
+<h2>Outras equivalências importantes</h2>
+<p><strong>Dupla negação:</strong> ¬(¬p) ≡ p.</p>
+<p><strong>Leis de De Morgan:</strong></p>
+<ul>
+  <li>¬(p ∧ q) ≡ ¬p ∨ ¬q</li>
+  <li>¬(p ∨ q) ≡ ¬p ∧ ¬q</li>
+</ul>
+
+<h2>Condicional e contrapositiva</h2>
+<p>Equivalência fundamental: p → q é equivalente a ¬q → ¬p (contrapositiva). Exemplo: Original — Se o sistema está ativo, então responde. Contrapositiva — Se o sistema não responde, então não está ativo.</p>
+
+<h2>Cuidado com a recíproca</h2>
+<p>A recíproca de p → q é q → p. Mas p → q ≠ q → p em geral. Exemplo: Se algo é um cachorro, então é um animal. Isso não significa: Se algo é um animal, então é um cachorro.</p>
+
+<h2>Valores-verdade</h2>
+<p>Na lógica clássica, uma proposição pode assumir V ou F.</p>
+
+<h2>Funções de avaliação</h2>
+<p>Atribuem valores-verdade às proposições. Exemplo: v(p) = V, v(q) = F. Então v(p ∧ q) = F e v(p ∨ q) = V.</p>
+
+<h2>Tabela-verdade</h2>
+<p>Apresenta todas as possíveis combinações de valores-verdade. Para n proposições, existem 2ⁿ combinações.</p>
+<ul>
+  <li>1 proposição: 2¹ = 2 linhas</li>
+  <li>2 proposições: 2² = 4 linhas</li>
+  <li>3 proposições: 2³ = 8 linhas</li>
+  <li>4 proposições: 2⁴ = 16 linhas</li>
+</ul>
+<p class="study-note"><strong>Atenção para a prova:</strong> se a fórmula tem p, q, r e s, serão 2⁴ = 16 linhas.</p>
+
+<h2>Tabela do conectivo condicional</h2>
+<table>
+  <thead><tr><th>p</th><th>q</th><th>p → q</th></tr></thead>
+  <tbody>
+    <tr><td>V</td><td>V</td><td>V</td></tr>
+    <tr><td>V</td><td>F</td><td>F</td></tr>
+    <tr><td>F</td><td>V</td><td>V</td></tr>
+    <tr><td>F</td><td>F</td><td>V</td></tr>
+  </tbody>
+</table>
+<p><strong>Macete:</strong> na condicional, só existe um F. É justamente V → F.</p>
+
+<h2>Decidibilidade da lógica sentencial</h2>
+<p>A lógica sentencial clássica é decidível. Existe um procedimento finito que permite determinar se uma fórmula possui determinada propriedade lógica. Por exemplo, podemos usar tabela-verdade para determinar se uma fórmula é tautomógica.</p>
+
+<h2>Satisfatibilidade</h2>
+<p>Uma fórmula é satisfatível quando existe pelo menos uma interpretação que a torna verdadeira. Exemplo: p ∧ q é satisfatível porque p = V e q = V torna a fórmula verdadeira.</p>
+
+<h2>Fórmula não satisfatível</h2>
+<p>p ∧ ¬p. Não existe nenhuma atribuição que torne essa fórmula verdadeira. É insatisfatível — corresponde a uma contradição.</p>
+
+<h2>Relação entre tautologia e satisfatibilidade</h2>
+<p>Toda tautologia é satisfatível. Mas nem toda fórmula satisfatível é uma tautologia. Exemplo: p é satisfatível, mas não é tautologia.</p>
+
+<h2>Argumento e tautologia</h2>
+<p>Um argumento P1, P2, ..., Pn ∴ C é válido se a fórmula (P1 ∧ P2 ∧ ... ∧ Pn) → C for uma tautologia.</p>
+<p>Exemplo: p → q, p ∴ q. A fórmula [(p → q) ∧ p] → q é uma tautologia. Logo, o argumento é válido.</p>
+
+<h2>Consistência</h2>
+<p>Um conjunto de proposições é consistente quando existe pelo menos uma interpretação na qual todas sejam verdadeiras simultaneamente. p e q são consistentes. p e ¬p são inconsistentes.</p>
+
+<h2>Lógica sentencial × lógica de predicados</h2>
+<table>
+  <thead><tr><th>Característica</th><th>Sentencial</th><th>Predicados</th></tr></thead>
+  <tbody>
+    <tr><td>Trabalha com proposições</td><td>Sim</td><td>Sim</td></tr>
+    <tr><td>Analisa estrutura interna</td><td>Não</td><td>Sim</td></tr>
+    <tr><td>Variáveis</td><td>Proposicionais</td><td>Individuais</td></tr>
+    <tr><td>Quantificadores</td><td>Não</td><td>Sim</td></tr>
+    <tr><td>Predicados</td><td>Não</td><td>Sim</td></tr>
+    <tr><td>Relações entre indivíduos</td><td>Limitado</td><td>Sim</td></tr>
+  </tbody>
+</table>
+
+<h2>Exemplo completo — contexto de TI</h2>
+<p>Considere: p = "O usuário está autenticado."; q = "O usuário possui autorização."; r = "O usuário poderá acessar o sistema." A frase "Se o usuário está autenticado e possui autorização, então poderá acessar o sistema" pode ser representada como (p ∧ q) → r.</p>
+
+<h2>Exemplo com quantificador</h2>
+<p>"Todo usuário administrador possui permissão de acesso." Formalmente: ∀x (Administrador(x) → PossuiPermissao(x)). "Existe pelo menos um administrador sem permissão": ∃x (Administrador(x) ∧ ¬PossuiPermissao(x)). As duas afirmações são incompatíveis.</p>
+
+<h2>Pegadinhas clássicas de prova</h2>
+<ol>
+  <li><strong>"ou":</strong> nem sempre significa exclusivo. Na lógica convencional, p ∨ q representa OU inclusivo.</li>
+  <li><strong>Condicional:</strong> p → q não é falsa quando p e q são falsos. Só é falsa em V → F.</li>
+  <li><strong>Negação de "todos":</strong> a negação de "Todos os sistemas estão funcionando" é "Existe pelo menos um sistema que não está funcionando", e não "Nenhum sistema está funcionando".</li>
+  <li><strong>Recíproca:</strong> de p → q não podemos concluir q → p.</li>
+  <li><strong>Contrapositiva:</strong> de p → q podemos concluir a equivalência ¬q → ¬p.</li>
+  <li><strong>Validade:</strong> argumento válido não significa necessariamente que todas as premissas sejam verdadeiras.</li>
+  <li><strong>Proposição:</strong> perguntas, ordens e sentenças abertas normalmente não são proposições.</li>
+</ol>
+
+<h2>Quadro de revisão rápida</h2>
+<table>
+  <thead><tr><th>Conceito</th><th>O que lembrar</th></tr></thead>
+  <tbody>
+    <tr><td>Proposição</td><td>Pode ser V ou F</td></tr>
+    <tr><td>Negação</td><td>Inverte o valor</td></tr>
+    <tr><td>Conjunção</td><td>Só V + V = V</td></tr>
+    <tr><td>Disjunção</td><td>Basta uma V</td></tr>
+    <tr><td>OU exclusivo</td><td>Exatamente uma V</td></tr>
+    <tr><td>Condicional</td><td>Só V → F é falso</td></tr>
+    <tr><td>Bicondicional</td><td>Valores iguais</td></tr>
+    <tr><td>Tautologia</td><td>Sempre V</td></tr>
+    <tr><td>Contradição</td><td>Sempre F</td></tr>
+    <tr><td>Contingência</td><td>V em algumas, F em outras</td></tr>
+    <tr><td>Modus Ponens</td><td>p → q, p ∴ q</td></tr>
+    <tr><td>Modus Tollens</td><td>p → q, ¬q ∴ ¬p</td></tr>
+    <tr><td>Universal</td><td>∀ = todo</td></tr>
+    <tr><td>Existencial</td><td>∃ = existe</td></tr>
+    <tr><td>Negação de ∀</td><td>∃ com negação</td></tr>
+    <tr><td>Negação de ∃</td><td>∀ com negação</td></tr>
+    <tr><td>Tabela-verdade</td><td>2ⁿ linhas</td></tr>
+    <tr><td>Validade</td><td>Não há premissas V e conclusão F</td></tr>
+  </tbody>
+</table>
+
+<h2>Como resolver questões de lógica na prova</h2>
+<ol>
+  <li><strong>Identifique as proposições</strong> — separe as frases em p, q, r...</li>
+  <li><strong>Identifique os conectivos</strong> — procure: não; e; ou; se... então; se e somente se.</li>
+  <li><strong>Traduza para símbolos</strong> — exemplo: "Se p, então q" vira p → q.</li>
+  <li><strong>Observe a estrutura</strong> — conjunção? condicional? bicondicional?</li>
+  <li><strong>Se necessário, monte a tabela-verdade</strong> — 2ⁿ linhas.</li>
+  <li><strong>Procure a pegadinha</strong> — condicional; negação de quantificadores; recíproca; contrapositiva; OU inclusivo × exclusivo; validade de argumentos.</li>
+</ol>
+
+<h2>O que mais merece memorização para a prova</h2>
+<ol>
+  <li><strong>Tabelas dos conectivos</strong> — especialmente p ∧ q, p ∨ q, p → q, p ↔ q.</li>
+  <li><strong>Condicional</strong> — V → F = F; todos os demais casos verdadeiros.</li>
+  <li><strong>Modus Ponens e Modus Tollens</strong> — p → q, p ∴ q; p → q, ¬q ∴ ¬p.</li>
+  <li><strong>Falácias</strong> — afirmação do consequente; negação do antecedente.</li>
+  <li><strong>Quantificadores</strong> — ∀ = todo; ∃ = existe.</li>
+  <li><strong>Negação dos quantificadores</strong> — ¬∀x P(x) ≡ ∃x ¬P(x); ¬∃x P(x) ≡ ∀x ¬P(x).</li>
+  <li><strong>Tautologia, contradição e contingência.</strong></li>
+  <li><strong>Quantidade de linhas</strong> — n proposições → 2ⁿ linhas.</li>
+</ol>
+
+<h2>Resumo final — "cola mental"</h2>
+<pre>
+PROPOSIÇÃO → pode ser V ou F
+¬p → inverter
+p ∧ q → só V se os dois forem V
+p ∨ q → V se pelo menos um for V
+p ⊻ q → V se exatamente um for V
+p → q → F somente em V → F
+p ↔ q → V quando os valores são iguais
+
+TAUTOLOGIA → sempre V
+CONTRADIÇÃO → sempre F
+CONTINGÊNCIA → às vezes V, às vezes F
+
+MODUS PONENS     p → q ; p    ∴ q
+MODUS TOLLENS    p → q ; ¬q   ∴ ¬p
+RECÍPROCA        p → q não permite concluir q → p
+CONTRAPOSITIVA   p → q equivale a ¬q → ¬p
+
+∀  → para todo
+∃  → existe
+¬∀ → existe pelo menos um que não
+¬∃ → todos não
+
+n proposições → 2ⁿ linhas
+VALIDADE → impossível premissas V e conclusão F
+SATISFATIBILIDADE → existe pelo menos uma interpretação V
+DECIDIBILIDADE → existe procedimento finito para determinar a propriedade lógica
+</pre>
+
+<!-- =====================================================================
+     ARQUIVO 6 — SEGURANÇA DA INFORMAÇÃO
+     ===================================================================== -->
+<h1>Segurança da Informação</h1>
+<p class="center small">Material de Estudo — Transpetro · Ênfase 5</p>
+
+<h2>Visão geral</h2>
+<p>Segurança da Informação tem como objetivo proteger: informações; sistemas; redes; dispositivos; aplicações; usuários; serviços; infraestrutura. A tríade clássica é: <strong>Confidencialidade + Integridade + Disponibilidade</strong> — conhecida como CIA (<em>Confidentiality, Integrity and Availability</em>).</p>
+<h3>Confidencialidade</h3>
+<p>Garante que a informação seja acessível somente por pessoas ou sistemas autorizados. Exemplo: um funcionário do setor financeiro não deve conseguir consultar informações sigilosas de RH simplesmente porque possui acesso à rede corporativa.</p>
+<h3>Integridade</h3>
+<p>Garante que a informação não seja alterada indevidamente. Exemplo: um atacante modifica o valor de uma ordem de pagamento.</p>
+<h3>Disponibilidade</h3>
+<p>Garante que informações e serviços estejam disponíveis quando necessários. Exemplo: um ataque DDoS derruba o portal de uma empresa.</p>
+
+<h2>Segurança física e lógica</h2>
+<h3>Segurança física</h3>
+<p>Protege os recursos físicos da organização: servidores; datacenters; computadores; racks; cabeamento; dispositivos de rede; mídias de backup; salas técnicas. Controles físicos: controle de acesso às instalações; câmeras; catracas; biometria; fechaduras; vigilância; alarmes; proteção contra incêndio; climatização; nobreak; geradores.</p>
+<h3>Segurança lógica</h3>
+<p>Protege recursos por meio de mecanismos tecnológicos e administrativos: senhas; MFA; criptografia; firewall; antivírus; controle de acesso; IAM.</p>
+<h3>Física × lógica</h3>
+<table>
+  <thead><tr><th>Física</th><th>Lógica</th></tr></thead>
+  <tbody>
+    <tr><td>Catraca</td><td>Firewall</td></tr>
+    <tr><td>Biometria na porta</td><td>Senha</td></tr>
+    <tr><td>Câmera</td><td>MFA</td></tr>
+    <tr><td>Cadeado</td><td>Criptografia</td></tr>
+    <tr><td>Vigilância</td><td>IAM</td></tr>
+    <tr><td>Controle da sala do servidor</td><td>VPN</td></tr>
+    <tr><td>Proteção contra incêndio</td><td>Antivírus</td></tr>
+  </tbody>
+</table>
+<p class="study-note"><strong>Pegadinha:</strong> biometria pode aparecer nos dois contextos — biometria para entrar em uma sala (controle físico); biometria para autenticar em um sistema (controle lógico).</p>
+
+<h2>Firewall</h2>
+<p>Mecanismo que controla o tráfego de rede de acordo com regras estabelecidas. Pode analisar: endereço IP; porta; protocolo; origem; destino; aplicação; estado da conexão. Exemplo: permitir Internet → servidor web → porta 443 e bloquear Internet → banco de dados → porta 1433.</p>
+<h3>Firewall não é antivírus</h3>
+<p><strong>Firewall:</strong> controla tráfego/comunicações. <strong>Antivírus:</strong> busca códigos maliciosos. Um firewall não substitui um antivírus.</p>
+
+<h2>Proxy</h2>
+<p>Atua como intermediário entre cliente e servidor. Pode ser utilizado para: controle de acesso; filtragem; registro de navegação; aplicação de políticas; cache; intermediação das comunicações.</p>
+
+<h2>IDS e IPS</h2>
+<p><strong>IDS — <em>Intrusion Detection System</em>:</strong> identifica comportamentos ou tráfego suspeito e gera alertas. <em>IDS = detecta e alerta.</em></p>
+<p><strong>IPS — <em>Intrusion Prevention System</em>:</strong> além de detectar, pode bloquear ou impedir determinadas atividades. <em>IPS = detecta + atua/previne.</em></p>
+<h3>IDS × IPS</h3>
+<table>
+  <thead><tr><th>IDS</th><th>IPS</th></tr></thead>
+  <tbody>
+    <tr><td>Detecta</td><td>Detecta</td></tr>
+    <tr><td>Alerta</td><td>Alerta</td></tr>
+    <tr><td>Normalmente não bloqueia diretamente</td><td>Pode bloquear</td></tr>
+    <tr><td>Monitoramento</td><td>Prevenção</td></tr>
+  </tbody>
+</table>
+
+<h2>DLP</h2>
+<p>DLP — <em>Data Loss Prevention</em> — busca identificar e impedir que informações sensíveis sejam: copiadas; enviadas; compartilhadas; transferidas; extraídas indevidamente. Exemplo: um funcionário tenta enviar uma planilha contendo dados sensíveis para um endereço de e-mail externo. Uma solução DLP pode detectar; registrar; alertar; bloquear a transmissão.</p>
+
+<h2>CASB</h2>
+<p>CASB — <em>Cloud Access Security Broker</em> — é uma camada de controle e segurança entre usuários/organizações e serviços de nuvem. Pode auxiliar em: visibilidade; controle de acesso; proteção de dados; aplicação de políticas; conformidade; identificação de uso inadequado de serviços cloud.</p>
+
+<h2>SIEM</h2>
+<p>SIEM — <em>Security Information and Event Management</em> — é uma plataforma destinada à coleta, centralização, correlação e análise de eventos de segurança. Pode receber informações de firewalls; servidores; sistemas; aplicações; endpoints; dispositivos de rede; serviços cloud.</p>
+<p>Exemplo: várias tentativas de autenticação falhadas + login bem-sucedido + acesso incomum a dados → alerta de segurança.</p>
+<h3>SIEM × IDS × IPS</h3>
+<table>
+  <thead><tr><th>Tecnologia</th><th>Principal função</th></tr></thead>
+  <tbody>
+    <tr><td>IDS</td><td>Detectar intrusões</td></tr>
+    <tr><td>IPS</td><td>Detectar e prevenir</td></tr>
+    <tr><td>SIEM</td><td>Centralizar/correlacionar/analisar eventos</td></tr>
+  </tbody>
+</table>
+
+<h2>Antivírus</h2>
+<p>Detecta, bloqueia e/ou remove software malicioso. Pode utilizar: assinaturas; análise comportamental; heurística; reputação; análise baseada em padrões.</p>
+
+<h2>EDR</h2>
+<p>EDR — <em>Endpoint Detection and Response</em> — é voltado para detecção e resposta em endpoints (computador; notebook; servidor; estação de trabalho). Fornece maior visibilidade sobre comportamentos ocorridos nos endpoints.</p>
+<h3>Antivírus × EDR</h3>
+<table>
+  <thead><tr><th>Antivírus</th><th>EDR</th></tr></thead>
+  <tbody>
+    <tr><td>Proteção contra malware</td><td>Detecção e resposta</td></tr>
+    <tr><td>Forte foco em prevenção</td><td>Forte foco em investigação e resposta</td></tr>
+    <tr><td>Pode utilizar assinaturas</td><td>Grande foco em comportamento/telemetria</td></tr>
+    <tr><td>Menor visibilidade investigativa</td><td>Maior visibilidade do endpoint</td></tr>
+  </tbody>
+</table>
+
+<h2>WAF</h2>
+<p>WAF — <em>Web Application Firewall</em> — é um firewall especializado na proteção de aplicações web. Pode ajudar a detectar/bloquear ataques direcionados a aplicações HTTP/HTTPS: SQL Injection; XSS; padrões maliciosos em requisições; comportamentos anômalos.</p>
+<p class="study-note"><strong>Pegadinha:</strong> firewall tradicional — foco em tráfego de rede. WAF — foco na proteção de aplicações web.</p>
+
+<h2>Gestão de vulnerabilidades</h2>
+<p>Uma vulnerabilidade é uma fraqueza que pode ser explorada para comprometer um ativo. A gestão envolve: identificação; avaliação; priorização; tratamento; correção; validação; acompanhamento.</p>
+
+<h2>Monitoração de segurança</h2>
+<p>Acompanhar continuamente sistemas; redes; servidores; aplicações; endpoints; acessos; eventos. Objetivo: identificar falhas; anomalias; indisponibilidade; ataques; comportamento suspeito.</p>
+
+<h2>Backup</h2>
+<p>Cópia dos dados destinada à recuperação em caso de perda; corrupção; falha; desastre; exclusão acidental; ransomware. É necessário pensar em frequência; retenção; localização; proteção; restauração; testes de recuperação. <strong>Pegadinha:</strong> backup que nunca foi testado pode não ser confiável.</p>
+<h3>Regra 3-2-1 de backup</h3>
+<p>Manter 3 cópias dos dados, em 2 tipos de mídia, sendo 1 cópia fora do ambiente principal.</p>
+
+<h2>Malware</h2>
+<p><em>Malicious software</em> — software desenvolvido para realizar ações maliciosas. Exemplos: vírus; worm; ransomware; spyware; rootkit; trojan; bot.</p>
+<h3>Vírus</h3>
+<p>Normalmente depende de um arquivo/programa hospedeiro para se propagar. Pode modificar arquivos; danificar informações; executar código malicioso.</p>
+<h3>Worm</h3>
+<p>Capaz de se propagar de forma mais autônoma entre sistemas. <em>Vírus:</em> geralmente depende de hospedeiro/execução. <em>Worm:</em> possui capacidade de autorreplicação e propagação autônoma.</p>
+<h3>Ransomware</h3>
+<p>Malware utilizado para extorsão, frequentemente envolvendo criptografia ou bloqueio de dados/sistemas. O atacante exige algum tipo de pagamento para supostamente restaurar o acesso ou não divulgar informações.</p>
+<h3>Spyware</h3>
+<p>Projetado para espionar/coletar informações. Pode monitorar atividades do usuário ou coletar dados sem autorização.</p>
+<h3>Rootkit</h3>
+<p>Conjunto de técnicas/software destinado a manter acesso privilegiado e/ou ocultar sua presença em um sistema. Conceito-chave: persistência + ocultação/privilégios.</p>
+<h3>Trojan</h3>
+<p>Programa que aparenta ser legítimo, mas executa ações maliciosas. Exemplo: usuário baixa um suposto aplicativo legítimo, mas o programa contém comportamento malicioso.</p>
+<h3>Comparação de malware</h3>
+<table>
+  <thead><tr><th>Malware</th><th>Característica</th></tr></thead>
+  <tbody>
+    <tr><td>Vírus</td><td>Infecta arquivos/programas</td></tr>
+    <tr><td>Worm</td><td>Autorreplicação/propagação</td></tr>
+    <tr><td>Ransomware</td><td>Extorsão/bloqueio ou criptografia</td></tr>
+    <tr><td>Spyware</td><td>Espionagem/coleta</td></tr>
+    <tr><td>Rootkit</td><td>Ocultação/persistência/privilégios</td></tr>
+    <tr><td>Trojan</td><td>Disfarce de software legítimo</td></tr>
+  </tbody>
+</table>
+
+<h2>Ataques cibernéticos</h2>
+<h3>DDoS</h3>
+<p>DDoS — <em>Distributed Denial of Service</em> — ataque distribuído cujo objetivo geralmente é provocar indisponibilidade de um serviço. O atacante utiliza múltiplas origens/dispositivos para gerar grande quantidade de tráfego ou requisições.</p>
+<h3>SQL Injection</h3>
+<p>Ocorre quando entradas controladas pelo usuário são manipuladas de forma insegura e acabam alterando a lógica de uma consulta SQL. Consequências possíveis: acesso indevido a dados; alteração de informações; exclusão de dados; bypass de determinadas verificações.</p>
+<p><strong>Prevenção:</strong> consultas parametrizadas; prepared statements; validação de entrada; menor privilégio; tratamento adequado de erros.</p>
+<h3>XSS</h3>
+<p><em>Cross-Site Scripting</em> — ocorre quando conteúdo controlado por um atacante é interpretado pelo navegador da vítima como código executável, normalmente JavaScript.</p>
+<h3>Tipos de XSS</h3>
+<p><strong>Stored XSS:</strong> conteúdo malicioso armazenado no sistema. <strong>Reflected XSS:</strong> conteúdo malicioso refletido pela aplicação na resposta. <strong>DOM-based XSS:</strong> vulnerabilidade relacionada à manipulação insegura do DOM no lado cliente.</p>
+<p class="study-note"><strong>Pegadinha:</strong> XSS está fortemente relacionado a navegador + aplicação web + execução de script.</p>
+<h3>CSRF</h3>
+<p><em>Cross-Site Request Forgery</em> — ataque no qual o atacante induz um usuário autenticado a realizar uma ação que ele não pretendia realizar. Proteções: tokens anti-CSRF; cookies com configuração adequada; validação de origem quando aplicável; mecanismos de proteção do framework.</p>
+<h3>XSS × CSRF</h3>
+<table>
+  <thead><tr><th>XSS</th><th>CSRF</th></tr></thead>
+  <tbody>
+    <tr><td>Explora execução de script no contexto da aplicação</td><td>Explora confiança do sistema no navegador autenticado</td></tr>
+    <tr><td>Associado ao conteúdo/script</td><td>Associado a requisições forjadas</td></tr>
+    <tr><td>Foco no navegador</td><td>Foco na realização de ação</td></tr>
+    <tr><td>Pode permitir roubo de informações/contexto</td><td>Pode induzir ações não desejadas</td></tr>
+  </tbody>
+</table>
+<h3>Path Traversal</h3>
+<p>Ocorre quando uma aplicação permite manipular caminhos de arquivos de forma insegura. O atacante tenta escapar do diretório permitido e acessar arquivos fora do escopo esperado. Prevenção: validação rigorosa; normalização de caminhos; uso de identificadores em vez de caminhos fornecidos diretamente pelo usuário; controle de permissões; princípio do menor privilégio.</p>
+
+<h2>SAST</h2>
+<p><em>Static Application Security Testing</em> — analisa o código-fonte ou artefatos do software <strong>sem executar</strong> a aplicação. Pode ser integrado ao desenvolvimento e CI/CD.</p>
+<h2>DAST</h2>
+<p><em>Dynamic Application Security Testing</em> — analisa a aplicação <strong>em execução</strong>. O teste ocorre contra a aplicação funcionando.</p>
+<h2>IAST</h2>
+<p><em>Interactive Application Security Testing</em> — combina características de análise estática e dinâmica, utilizando instrumentação/telemetria dentro da aplicação durante sua execução.</p>
+<h3>SAST × DAST × IAST</h3>
+<table>
+  <thead><tr><th>Técnica</th><th>Momento</th><th>Foco</th></tr></thead>
+  <tbody>
+    <tr><td>SAST</td><td>Código/artefato</td><td>análise estática</td></tr>
+    <tr><td>DAST</td><td>Aplicação em execução</td><td>comportamento externo</td></tr>
+    <tr><td>IAST</td><td>Aplicação em execução + instrumentação</td><td>análise contextual</td></tr>
+  </tbody>
+</table>
+<p><strong>Macete:</strong> SAST = Static; DAST = Dynamic; IAST = Interactive.</p>
+
+<h2>VPN</h2>
+<p>VPN — <em>Virtual Private Network</em> — cria um canal lógico protegido sobre uma rede que pode não ser confiável. Frequentemente utilizada para: acesso remoto; conexão entre redes; proteção do tráfego.</p>
+<h3>VPN não é sinônimo de anonimato</h3>
+<p>Uma VPN pode proteger o tráfego entre determinados pontos, mas não significa automaticamente anonimato completo.</p>
+
+<h2>MDM</h2>
+<p><em>Mobile Device Management</em> — utilizado para administrar dispositivos móveis corporativos. Pode permitir: aplicação de políticas; configuração; inventário; controle de aplicativos; gerenciamento remoto; bloqueio; apagamento remoto.</p>
+
+<h2>SSO</h2>
+<p><em>Single Sign-On</em> — permite que o usuário autentique-se uma vez e utilize múltiplos sistemas integrados sem precisar realizar uma nova autenticação independente em cada sistema.</p>
+
+<h2>MFA</h2>
+<p><em>Multi-Factor Authentication</em> — utiliza dois ou mais fatores de categorias diferentes. Categorias clássicas: algo que você sabe (senha, PIN); algo que você possui (celular, token, chave de segurança); algo que você é (impressão digital, reconhecimento facial).</p>
+<h3>MFA não é "duas senhas"</h3>
+<p>Senha + PIN pode representar dois conhecimentos — não caracteriza necessariamente MFA. Já senha + aplicativo autenticador envolve conhecimento + posse.</p>
+
+<h2>IAM</h2>
+<p><em>Identity and Access Management</em> — conjunto de processos, políticas e tecnologias utilizados para administrar: identidades; autenticação; autorização; acessos; privilégios; auditoria.</p>
+<h3>Autenticação</h3>
+<p>Responde: <em>Quem é você?</em></p>
+<h3>Autorização</h3>
+<p>Responde: <em>O que você pode fazer?</em> Exemplo: João é autenticado, mas pode consultar clientes e não excluir clientes; pode acessar determinado sistema e não acessar dados financeiros.</p>
+<h3>Auditoria</h3>
+<p>Responde: <em>O que aconteceu? Quem fez? Quando?</em> Exemplo: usuário João acessou determinado relatório às 14h32.</p>
+<h3>Autenticação × autorização × auditoria</h3>
+<p><strong>AUTENTICAÇÃO:</strong> Quem é você? <strong>AUTORIZAÇÃO:</strong> O que você pode fazer? <strong>AUDITORIA:</strong> O que você fez?</p>
+
+<h2>RBAC</h2>
+<p><em>Role-Based Access Control</em> — o acesso é definido de acordo com papéis/roles. Usuário → Cargo/Papel → Permissões.</p>
+<h2>ABAC</h2>
+<p><em>Attribute-Based Access Control</em> — as decisões de acesso são baseadas em atributos: usuário; cargo; recurso; localização; horário; dispositivo; nível de risco; contexto.</p>
+<h3>RBAC × ABAC</h3>
+<table>
+  <thead><tr><th>RBAC</th><th>ABAC</th></tr></thead>
+  <tbody>
+    <tr><td>Baseado em papéis</td><td>Baseado em atributos</td></tr>
+    <tr><td>Mais simples de administrar</td><td>Mais granular</td></tr>
+    <tr><td>Ex.: gerente</td><td>Ex.: gerente + horário + dispositivo + localização</td></tr>
+    <tr><td>Excelente para estruturas estáveis</td><td>Bom para regras contextuais</td></tr>
+  </tbody>
+</table>
+
+<h2>Princípio do menor privilégio</h2>
+<p>Cada usuário ou sistema deve possuir somente os privilégios necessários para executar sua função. Se ocorrer comprometimento, o menor privilégio reduz o impacto potencial.</p>
+
+<h2>NIST SP 800-61 — resposta a incidentes</h2>
+<p>O NIST SP 800-61 trata do gerenciamento de incidentes de segurança. Uma estrutura tradicionalmente apresentada inclui: preparação; detecção e análise; contenção, erradicação e recuperação; atividade pós-incidente.</p>
+<h3>Preparação</h3>
+<p>Antes do incidente: definir políticas; estabelecer responsabilidades; preparar ferramentas; treinar equipes; definir procedimentos; estabelecer canais de comunicação. A ideia é: <em>não improvisar durante uma crise.</em></p>
+<h3>Detecção e análise</h3>
+<p>Identificar o evento; verificar se é incidente; coletar informações; avaliar impacto; determinar escopo; priorizar resposta.</p>
+<h3>Contenção</h3>
+<p>Busca impedir que o incidente continue se espalhando. Exemplo: isolar um endpoint comprometido da rede.</p>
+<h3>Erradicação</h3>
+<p>Busca eliminar a causa ou presença do incidente. Pode envolver: remoção de malware; correção de vulnerabilidade; eliminação de persistência; alteração de credenciais comprometidas.</p>
+<h3>Recuperação</h3>
+<p>Busca restaurar os serviços para operação normal. Pode envolver: restauração de backup; reconstrução de sistemas; validação; monitoramento reforçado.</p>
+<h3>Pós-incidente</h3>
+<p>Depois do incidente: documentar; avaliar o que aconteceu; identificar falhas; registrar lições aprendidas; melhorar controles.</p>
+
+<h2>Threat Intelligence</h2>
+<p><em>Threat Intelligence</em> é inteligência sobre ameaças. Busca transformar dados sobre ameaças em conhecimento útil para tomada de decisão. Pode envolver: ameaças conhecidas; indicadores; grupos; técnicas; tendências; vulnerabilidades; campanhas. O objetivo não é simplesmente coletar informações; é produzir inteligência acionável.</p>
+
+<h2>Threat Hunting</h2>
+<p>Busca proativa por sinais de comprometimento ou atividade maliciosa dentro do ambiente. Em vez de esperar somente por um alerta, a equipe procura ativamente comportamentos suspeitos. <strong>Diferença:</strong> Threat Intelligence — conhecimento sobre ameaças; Threat Hunting — busca proativa dentro do ambiente.</p>
+
+<h2>Pentest</h2>
+<p><em>Penetration Test</em> — teste de segurança realizado de forma autorizada para avaliar se vulnerabilidades podem ser exploradas. Objetivos: identificar vulnerabilidades; validar controles; avaliar exposição; produzir evidências; recomendar correções. <strong>Atenção:</strong> pentest exige autorização e escopo definido.</p>
+<h3>Pentest × Vulnerability Scanning</h3>
+<p><strong>Vulnerability scanning:</strong> procura vulnerabilidades de forma automatizada. <strong>Pentest:</strong> busca avaliar, dentro de um escopo autorizado, a possibilidade de exploração e o impacto. Portanto: scanner ≠ pentest.</p>
+<h3>Black Box, White Box e Gray Box</h3>
+<p><strong>Black Box:</strong> o testador possui pouca informação prévia. Simula mais fortemente uma perspectiva externa. <strong>White Box:</strong> o testador possui amplo conhecimento do ambiente. <strong>Gray Box:</strong> possui conhecimento parcial.</p>
+
+<h2>Modelagem de ameaças</h2>
+<p><em>Threat Modeling</em> é um processo sistemático para identificar: ativos; ameaças; vulnerabilidades; riscos; controles. A ideia é: <em>pensar na segurança antes que o ataque aconteça.</em></p>
+
+<h2>STRIDE</h2>
+<p>Modelo clássico de categorização de ameaças.</p>
+<ul>
+  <li><strong>S — Spoofing:</strong> falsificação de identidade. Exemplo: atacante se passando por outro usuário.</li>
+  <li><strong>T — Tampering:</strong> adulteração/modificação indevida. Relaciona-se à integridade.</li>
+  <li><strong>R — Repudiation:</strong> repúdio. Entidade pode negar ter realizado determinada ação, especialmente quando faltam registros/evidências adequados.</li>
+  <li><strong>I — Information Disclosure:</strong> divulgação indevida de informações. Relaciona-se à confidencialidade.</li>
+  <li><strong>D — Denial of Service:</strong> negação de serviço. Relaciona-se à disponibilidade.</li>
+  <li><strong>E — Elevation of Privilege:</strong> elevação de privilégio. Exemplo: usuário comum obtém privilégios administrativos.</li>
+</ul>
+<h3>STRIDE — memorização</h3>
+<p>S → Spoofing → identidade. T → Tampering → integridade. R → Repudiation → não-repúdio/auditoria. I → Information Disclosure → confidencialidade. D → Denial of Service → disponibilidade. E → Elevation of Privilege → privilégio.</p>
+
+<h2>MITRE ATT&amp;CK</h2>
+<p>Base/conhecimento estruturado de comportamentos adversários observados no mundo real. Organiza: táticas; técnicas; subtécnicas; procedimentos.</p>
+<h3>Táticas do MITRE ATT&amp;CK</h3>
+<p>As táticas representam o objetivo do adversário. O framework ajuda a organizar o comportamento do adversário.</p>
+<p class="study-note"><strong>Pegadinha:</strong> tática ≠ técnica. Tática representa o objetivo; técnica representa como esse objetivo pode ser alcançado.</p>
+
+<h2>Gestão de riscos — ISO 31000</h2>
+<p>A ISO 31000 fornece princípios e diretrizes para gestão de riscos. Conceito básico: <em>risco está relacionado ao efeito da incerteza sobre objetivos.</em></p>
+<p>Na segurança: Ativo → Ameaça → Vulnerabilidade → Risco → Controle → Risco residual.</p>
+<h3>Ameaça × vulnerabilidade × risco</h3>
+<p><strong>Ameaça:</strong> potencial causador de dano. <strong>Vulnerabilidade:</strong> fraqueza que pode ser explorada. <strong>Risco:</strong> efeito potencial resultante da combinação entre ameaça, vulnerabilidade, contexto e impacto.</p>
+
+<h2>ISO 22301</h2>
+<p>Trata de Sistemas de Gestão de Continuidade de Negócios — BCMS. Objetivo: ajudar organizações a preparar-se para interrupções e manter/recuperar atividades críticas.</p>
+<h3>Continuidade × backup</h3>
+<p><strong>Backup:</strong> recuperação de dados. <strong>Continuidade de negócios:</strong> capacidade da organização de continuar ou recuperar atividades críticas diante de interrupções. Backup pode ser um componente da estratégia de continuidade.</p>
+
+<h2>Sarbanes-Oxley — SOX</h2>
+<p>A Lei Sarbanes-Oxley (SOX) é uma legislação dos Estados Unidos relacionada à governança corporativa, controles internos e confiabilidade das informações financeiras. Para TI, interessa especialmente a importância dos: controles internos; rastreabilidade; controle de acesso; segregação de funções; auditoria; integralidade dos dados; evidências.</p>
+<p>Exemplo: uma pessoa não deveria possuir simultaneamente privilégios incompatíveis para criar + aprovar + executar uma operação financeira crítica — segregação de funções.</p>
+
+<h2>Política de segurança da informação</h2>
+<p>Estabelece: princípios; responsabilidades; regras; diretrizes; comportamentos esperados. Exemplos: política de senhas; política de acesso; política de dispositivos; política de classificação; política de backup; política de uso aceitável.</p>
+<h3>Política × procedimento</h3>
+<p><strong>Política:</strong> define o que deve ser seguido e quais princípios/regras existem. <strong>Procedimento:</strong> define como determinada atividade deve ser executada.</p>
+
+<h2>Classificação da informação</h2>
+<p>Determina o nível de proteção necessário. Categorias: pública; interna; confidencial; restrita. A nomenclatura varia conforme a organização. Objetivo: definir quem pode acessar; como armazenar; como transmitir; como proteger; como descartar.</p>
+
+<h2>ISO/IEC 27002</h2>
+<p>Fornece orientações e boas práticas para controles de segurança da informação. <strong>Pegadinha importante:</strong> não confundir com ISO/IEC 27001. A 27001 está associada aos requisitos para um Sistema de Gestão de Segurança da Informação — SGSI/ISMS — e à certificação do sistema. A 27002 fornece orientação detalhada sobre controles.</p>
+
+<h2>Criptografia</h2>
+<p>Utilizada para proteger informações por meio de técnicas matemáticas. Pode fornecer propriedades como: confidencialidade; integridade; autenticidade; não repúdio.</p>
+<h3>Criptografia simétrica</h3>
+<p>Utiliza a mesma chave para operações de criptografia e descriptografia. <strong>Vantagem:</strong> geralmente eficiente para grandes volumes de dados. <strong>Desafio:</strong> distribuição segura da chave.</p>
+<h3>Criptografia assimétrica</h3>
+<p>Utiliza um par de chaves: chave pública; chave privada. Aplicações: troca/estabelecimento de chaves; criptografia; assinatura digital.</p>
+<h3>Simétrica × assimétrica</h3>
+<table>
+  <thead><tr><th>Simétrica</th><th>Assimétrica</th></tr></thead>
+  <tbody>
+    <tr><td>Uma chave compartilhada</td><td>Par de chaves</td></tr>
+    <tr><td>Mais eficiente</td><td>Geralmente mais custosa</td></tr>
+    <tr><td>Problema de distribuição</td><td>Facilita cenários de troca/autenticação</td></tr>
+    <tr><td>AES</td><td>RSA/ECC, por exemplo</td></tr>
+  </tbody>
+</table>
+
+<h2>Hash</h2>
+<p>Função que transforma uma entrada em um valor de tamanho determinado. Características desejáveis: dificuldade de encontrar colisões; resistência à inversão; efeito avalanche. Hash não é simplesmente "criptografia reversível".</p>
+
+<h2>Certificado digital</h2>
+<p>Associa uma identidade a uma chave pública e é emitido/validado dentro de uma infraestrutura de confiança. No contexto da ICP-Brasil, existem autoridades certificadoras e uma cadeia de confiança. O certificado pode ajudar a estabelecer: identidade + chave pública.</p>
+
+<h2>Assinatura digital</h2>
+<p>Utiliza mecanismos criptográficos para fornecer garantias relacionadas a: autenticidade; integridade; não repúdio. De forma simplificada: Documento → Hash → Assinatura com chave privada → Assinatura digital. A verificação utiliza a chave pública correspondente.</p>
+<h3>Assinatura digital × criptografia</h3>
+<p><strong>Criptografia para confidencialidade:</strong> objetivo de esconder o conteúdo. <strong>Assinatura digital:</strong> objetivo principal de demonstrar autenticidade e integridade. Uma assinatura digital não tem como objetivo principal tornar o documento secreto.</p>
+
+<h2>Segurança em nuvem</h2>
+<p><em>Cloud Security</em> trata da proteção de: dados; aplicações; identidades; infraestrutura; configurações; workloads; APIs; serviços cloud.</p>
+<h3>Responsabilidade compartilhada</h3>
+<p>Provedor → segurança da infraestrutura que oferece. Cliente → segurança/configuração dos recursos sob sua responsabilidade.</p>
+<h3>IaaS, PaaS e SaaS</h3>
+<p><strong>IaaS:</strong> cliente possui maior responsabilidade sobre sistema operacional; aplicações; configurações; dados. <strong>PaaS:</strong> provedor gerencia mais componentes da plataforma; cliente continua responsável por aplicação; dados; identidades; configurações pertinentes. <strong>SaaS:</strong> provedor gerencia grande parte da infraestrutura e aplicação; cliente continua tendo responsabilidades, especialmente relacionadas a usuários; dados; configurações; permissões.</p>
+
+<h2>Principais riscos de segurança em cloud</h2>
+<p>Configuração incorreta; exposição indevida de dados; credenciais comprometidas; permissões excessivas; APIs inseguras; falta de monitoramento; ausência de criptografia adequada.</p>
+<p>Exemplo: um armazenamento cloud é configurado acidentalmente como público. O problema não é necessariamente uma falha do provedor; pode ser erro de configuração do cliente.</p>
+
+<h2>Segurança em IoT</h2>
+<p>IoT — <em>Internet of Things</em> — representa dispositivos conectados capazes de coletar, processar ou transmitir dados. Exemplos: sensores; câmeras; dispositivos industriais; equipamentos inteligentes.</p>
+<h3>Riscos em IoT</h3>
+<p>Hardware limitado; software desatualizado; credenciais padrão; interfaces inseguras; comunicação inadequadamente protegida; falta de gerenciamento centralizado; grande quantidade de dispositivos.</p>
+<h3>Segurança de IoT</h3>
+<p>Boas práticas: alterar credenciais padrão; atualizar firmware; segmentar redes; controlar acesso; criptografar comunicações quando aplicável; monitorar dispositivos; manter inventário; remover dispositivos obsoletos.</p>
+
+<h2>Comparação dos principais controles</h2>
+<table>
+  <thead><tr><th>Tecnologia</th><th>Principal finalidade</th></tr></thead>
+  <tbody>
+    <tr><td>Firewall</td><td>Controle de tráfego</td></tr>
+    <tr><td>Proxy</td><td>Intermediação de comunicação</td></tr>
+    <tr><td>IDS</td><td>Detecção</td></tr>
+    <tr><td>IPS</td><td>Prevenção/bloqueio</td></tr>
+    <tr><td>DLP</td><td>Proteção contra vazamento de dados</td></tr>
+    <tr><td>CASB</td><td>Segurança no uso de cloud</td></tr>
+    <tr><td>SIEM</td><td>Correlação/análise de eventos</td></tr>
+    <tr><td>Antivírus</td><td>Proteção contra malware</td></tr>
+    <tr><td>EDR</td><td>Detecção/resposta em endpoints</td></tr>
+    <tr><td>WAF</td><td>Proteção de aplicações web</td></tr>
+    <tr><td>VPN</td><td>Canal protegido</td></tr>
+    <tr><td>MDM</td><td>Gerenciamento de dispositivos móveis</td></tr>
+    <tr><td>SSO</td><td>Autenticação integrada</td></tr>
+    <tr><td>MFA</td><td>Múltiplos fatores</td></tr>
+    <tr><td>IAM</td><td>Identidades e acessos</td></tr>
+  </tbody>
+</table>
+
+<h2>Ataque × defesa</h2>
+<table>
+  <thead><tr><th>Ataque/ameaça</th><th>Controle relacionado</th></tr></thead>
+  <tbody>
+    <tr><td>DDoS</td><td>mitigação DDoS, monitoração, arquitetura resiliente</td></tr>
+    <tr><td>SQL Injection</td><td>consultas parametrizadas, WAF, SAST/DAST</td></tr>
+    <tr><td>XSS</td><td>codificação/validação, CSP, SAST/DAST</td></tr>
+    <tr><td>CSRF</td><td>tokens anti-CSRF, cookies/configurações adequadas</td></tr>
+    <tr><td>Path Traversal</td><td>validação/normalização e controles de acesso</td></tr>
+    <tr><td>Ransomware</td><td>backup, EDR, segmentação, monitoração</td></tr>
+    <tr><td>Roubo de credenciais</td><td>MFA, IAM, gestão de identidade</td></tr>
+    <tr><td>Vazamento</td><td>DLP, criptografia, controle de acesso</td></tr>
+    <tr><td>Vulnerabilidades</td><td>gestão de vulnerabilidades</td></tr>
+    <tr><td>Acesso indevido</td><td>IAM, RBAC/ABAC, menor privilégio</td></tr>
+  </tbody>
+</table>
+
+<h2>Acesso indevido — conceito fundamental</h2>
+<p>Maria trabalha no setor administrativo. Ela consegue autenticar-se no sistema. Entretanto, devido a uma configuração incorreta, Maria consegue consultar informações financeiras restritas às quais não deveria ter acesso. Maria foi autenticada corretamente, porém não estava autorizada a acessar aquele recurso. Temos um problema de autorização/controle de acesso. Portanto: <strong>autenticação ≠ autorização.</strong></p>
+
+<h2>Defesa em camadas</h2>
+<p>Uma arquitetura segura não depende de um único mecanismo. Pode utilizar: Usuário → MFA → IAM → Firewall → WAF → Aplicação → Banco → DLP → SIEM → Backup. Se uma camada falhar, outras podem reduzir o impacto. Conceito: <em>defesa em profundidade.</em></p>
+
+<h2>Segurança preventiva, detectiva e corretiva</h2>
+<p><strong>Preventiva:</strong> busca impedir o incidente. Exemplos: firewall; MFA; controle de acesso; hardening. <strong>Detectiva:</strong> busca identificar o problema. Exemplos: IDS; SIEM; monitoração; EDR. <strong>Corretiva:</strong> busca restaurar/corrigir. Exemplos: recuperação de backup; remoção de malware; correção de vulnerabilidade.</p>
+
+<h2>Fluxo completo de segurança</h2>
+<p class="center">IDENTIFICAR → PROTEGER → DETECTAR → RESPONDER → RECUPERAR → APRENDER</p>
+
+<h2>Questões modelo</h2>
+<p><strong>Questão 1:</strong> Qual componente da tríade CIA está diretamente relacionado à proteção contra acesso não autorizado? <strong>Resposta: B — Confidencialidade.</strong></p>
+<p><strong>Questão 2:</strong> Qual tecnologia é especializada na proteção de aplicações web? <strong>Resposta: B — WAF.</strong></p>
+<p><strong>Questão 3:</strong> Qual mecanismo é principalmente utilizado para centralizar e correlacionar eventos de segurança? <strong>Resposta: A — SIEM.</strong></p>
+<p><strong>Questão 4:</strong> Qual é a principal diferença entre IDS e IPS? <strong>Resposta: B — IDS detecta e IPS pode detectar e prevenir/bloquear.</strong></p>
+<p><strong>Questão 5:</strong> Qual ataque tem como característica principal provocar indisponibilidade por meio de múltiplas origens? <strong>Resposta: C — DDoS.</strong></p>
+<p><strong>Questão 6:</strong> Qual técnica analisa o código sem executar a aplicação? <strong>Resposta: B — SAST.</strong></p>
+<p><strong>Questão 7:</strong> Qual modelo de controle de acesso utiliza papéis? <strong>Resposta: B — RBAC.</strong></p>
+<p><strong>Questão 8:</strong> Qual conceito responde à pergunta "quem é você?" <strong>Resposta: C — Autenticação.</strong></p>
+<p><strong>Questão 9:</strong> No STRIDE, "Elevation of Privilege" significa: <strong>Resposta: D — elevação de privilégio.</strong></p>
+<p><strong>Questão 10:</strong> No contexto do MITRE ATT&amp;CK, uma tática representa principalmente: <strong>Resposta: B — o objetivo do adversário.</strong></p>
+
+<h2>Pegadinhas de prova — as mais importantes</h2>
+<ol>
+  <li><strong>IDS × IPS:</strong> IDS detecta. IPS pode detectar e prevenir.</li>
+  <li><strong>Firewall × WAF:</strong> firewall → controle de tráfego. WAF → aplicação web.</li>
+  <li><strong>Antivírus × EDR:</strong> antivírus → malware/proteção. EDR → visibilidade, detecção e resposta no endpoint.</li>
+  <li><strong>SIEM:</strong> não é apenas armazenamento de logs. Diferencial: centralização + correlação + análise + geração de alertas.</li>
+  <li><strong>RBAC × ABAC:</strong> RBAC = papel. ABAC = atributos/contexto.</li>
+  <li><strong>Autenticação × autorização:</strong> autenticação = quem é? autorização = pode fazer o quê?</li>
+  <li><strong>SAST × DAST:</strong> SAST = estático. DAST = dinâmico.</li>
+  <li><strong>XSS × SQL Injection:</strong> XSS → aplicação/navegador/script. SQL Injection → consulta/banco de dados.</li>
+  <li><strong>Backup × continuidade:</strong> backup = recuperação de dados; continuidade = capacidade de manter/recuperar atividades críticas.</li>
+  <li><strong>Criptografia × assinatura digital:</strong> criptografia → principalmente confidencialidade; assinatura → autenticidade + integridade + evidência de autoria/não repúdio.</li>
+  <li><strong>ISO 27001 × ISO 27002:</strong> 27001 → requisitos do SGSI. 27002 → orientação sobre controles.</li>
+  <li><strong>STRIDE × MITRE ATT&amp;CK:</strong> STRIDE → modelagem/categorização de ameaças. MITRE ATT&amp;CK → conhecimento de comportamentos adversários, táticas e técnicas.</li>
+</ol>
+
+<h2>Tabela de memorização final</h2>
+<table>
+  <thead><tr><th>Conceito</th><th>Palavra-chave</th></tr></thead>
+  <tbody>
+    <tr><td>Confidencialidade</td><td>acesso autorizado</td></tr>
+    <tr><td>Integridade</td><td>não alteração indevida</td></tr>
+    <tr><td>Disponibilidade</td><td>acesso ao serviço</td></tr>
+    <tr><td>Firewall</td><td>tráfego</td></tr>
+    <tr><td>Proxy</td><td>intermediário</td></tr>
+    <tr><td>IDS</td><td>detectar</td></tr>
+    <tr><td>IPS</td><td>prevenir</td></tr>
+    <tr><td>DLP</td><td>vazamento</td></tr>
+    <tr><td>CASB</td><td>cloud</td></tr>
+    <tr><td>SIEM</td><td>correlação de eventos</td></tr>
+    <tr><td>Antivírus</td><td>malware</td></tr>
+    <tr><td>EDR</td><td>endpoint</td></tr>
+    <tr><td>WAF</td><td>aplicação web</td></tr>
+    <tr><td>Backup</td><td>recuperação</td></tr>
+    <tr><td>Ransomware</td><td>extorsão</td></tr>
+    <tr><td>Worm</td><td>propagação</td></tr>
+    <tr><td>Spyware</td><td>espionagem</td></tr>
+    <tr><td>Rootkit</td><td>ocultação/persistência</td></tr>
+    <tr><td>DDoS</td><td>indisponibilidade</td></tr>
+    <tr><td>SQL Injection</td><td>banco/consulta</td></tr>
+    <tr><td>XSS</td><td>script/navegador</td></tr>
+    <tr><td>CSRF</td><td>requisição forjada</td></tr>
+    <tr><td>Path Traversal</td><td>caminho de arquivo</td></tr>
+    <tr><td>SAST</td><td>código</td></tr>
+    <tr><td>DAST</td><td>aplicação em execução</td></tr>
+    <tr><td>IAST</td><td>instrumentação</td></tr>
+    <tr><td>VPN</td><td>túnel/canal protegido</td></tr>
+    <tr><td>MDM</td><td>dispositivo móvel</td></tr>
+    <tr><td>SSO</td><td>login integrado</td></tr>
+    <tr><td>MFA</td><td>fatores</td></tr>
+    <tr><td>IAM</td><td>identidade/acesso</td></tr>
+    <tr><td>RBAC</td><td>papel</td></tr>
+    <tr><td>ABAC</td><td>atributos</td></tr>
+    <tr><td>Threat Intelligence</td><td>conhecimento de ameaças</td></tr>
+    <tr><td>Threat Hunting</td><td>busca proativa</td></tr>
+    <tr><td>Pentest</td><td>exploração autorizada</td></tr>
+    <tr><td>STRIDE</td><td>categorias de ameaça</td></tr>
+    <tr><td>MITRE ATT&amp;CK</td><td>comportamento adversário</td></tr>
+    <tr><td>ISO 31000</td><td>risco</td></tr>
+    <tr><td>ISO 22301</td><td>continuidade</td></tr>
+    <tr><td>SOX</td><td>controles internos</td></tr>
+    <tr><td>ISO 27002</td><td>controles de segurança</td></tr>
+    <tr><td>Criptografia</td><td>proteção criptográfica</td></tr>
+    <tr><td>Certificado</td><td>identidade + chave pública</td></tr>
+    <tr><td>Assinatura digital</td><td>autenticidade/integridade</td></tr>
+  </tbody>
+</table>
+
+<h2>Resumo para a véspera da prova</h2>
+<p>Se você tiver apenas alguns minutos para revisar, memorize:</p>
+<ul>
+  <li><strong>CIA</strong> → Confidencialidade / Integridade / Disponibilidade</li>
+  <li><strong>IDS</strong> → detecta</li>
+  <li><strong>IPS</strong> → detecta + previne</li>
+  <li><strong>Firewall</strong> → controla tráfego</li>
+  <li><strong>WAF</strong> → protege aplicação web</li>
+  <li><strong>DLP</strong> → evita vazamento</li>
+  <li><strong>SIEM</strong> → coleta + correlaciona + analisa eventos</li>
+  <li><strong>EDR</strong> → endpoint + detecção + resposta</li>
+  <li><strong>Ransomware</strong> → extorsão/bloqueio/criptografia</li>
+  <li><strong>Worm</strong> → autorreplicação</li>
+  <li><strong>SQL Injection</strong> → entrada insegura → consulta SQL</li>
+  <li><strong>XSS</strong> → script no navegador</li>
+  <li><strong>CSRF</strong> → indução de ação por usuário autenticado</li>
+  <li><strong>SAST</strong> → código</li>
+  <li><strong>DAST</strong> → aplicação executando</li>
+  <li><strong>IAST</strong> → aplicação + instrumentação</li>
+  <li><strong>VPN</strong> → canal protegido</li>
+  <li><strong>SSO</strong> → uma autenticação → vários sistemas</li>
+  <li><strong>MFA</strong> → 2 ou mais fatores de categorias diferentes</li>
+  <li><strong>IAM</strong> → identidade + acesso</li>
+  <li><strong>Autenticação</strong> → quem é?</li>
+  <li><strong>Autorização</strong> → pode fazer o quê?</li>
+  <li><strong>Auditoria</strong> → o que aconteceu?</li>
+  <li><strong>RBAC</strong> → papel</li>
+  <li><strong>ABAC</strong> → atributos/contexto</li>
+  <li><strong>Threat Intelligence</strong> → conhecimento sobre ameaças</li>
+  <li><strong>Threat Hunting</strong> → procura ativa por ameaças</li>
+  <li><strong>Pentest</strong> → teste autorizado de exploração</li>
+  <li><strong>STRIDE</strong> → Spoofing, Tampering, Repudiation, Information Disclosure, Denial of Service, Elevation of Privilege</li>
+  <li><strong>MITRE ATT&amp;CK</strong> → táticas + técnicas + comportamento adversário</li>
+  <li><strong>ISO 31000</strong> → riscos</li>
+  <li><strong>ISO 22301</strong> → continuidade</li>
+  <li><strong>SOX</strong> → controles internos/governança financeira</li>
+  <li><strong>ISO 27002</strong> → orientações para controles de segurança</li>
+  <li><strong>Simétrica</strong> → mesma chave</li>
+  <li><strong>Assimétrica</strong> → chave pública + privada</li>
+  <li><strong>Hash</strong> → função de resumo, não descriptografia</li>
+  <li><strong>Certificado digital</strong> → identidade + chave pública</li>
+  <li><strong>Assinatura digital</strong> → autenticidade + integridade</li>
+  <li><strong>Cloud</strong> → responsabilidade compartilhada</li>
+  <li><strong>IoT</strong> → dispositivos conectados + riscos próprios</li>
+</ul>
+
+<!-- =====================================================================
+     ARQUIVO 7 — USER EXPERIENCE (UX)
+     ===================================================================== -->
+<h1>User Experience — UX</h1>
+<p class="center small">Material de Estudo — Transpetro · Ênfase 5 — UX, Usabilidade, Acessibilidade e Design</p>
+<p>A ideia central é: <strong>UX não é apenas deixar uma tela bonita.</strong> É projetar produtos e serviços considerando as necessidades, limitações, objetivos e contexto das pessoas que irão utilizá-los.</p>
+
+<h2>Acessibilidade e Usabilidade</h2>
+<h3>O que é acessibilidade?</h3>
+<p>Acessibilidade é a característica que permite que pessoas, incluindo pessoas com deficiência, possam perceber, compreender, navegar e interagir com um produto, serviço ou conteúdo. No contexto de software e aplicações web, significa projetar a interface para que ela possa ser utilizada pelo maior número possível de pessoas.</p>
+<p>Exemplos: navegação por teclado; textos alternativos para imagens; contraste adequado; legendas em vídeos; compatibilidade com leitores de tela; identificação clara de campos de formulário; mensagens de erro compreensíveis; foco visual adequado; possibilidade de redimensionamento do texto.</p>
+
+<h2>Exemplo prático de acessibilidade</h2>
+<p>Imagine uma tela de cadastro de carga visualmente bonita. Ela pode ainda ser inacessível se: o botão só puder ser acionado com mouse; os campos não tiverem rótulos adequados; o contraste for insuficiente; o leitor de tela não conseguir identificar os elementos. Então usuários com determinadas limitações podem ter dificuldades para utilizar o sistema.</p>
+
+<h2>Acessibilidade não significa apenas deficiência</h2>
+<p>Embora esteja fortemente relacionada à inclusão de pessoas com deficiência, seus benefícios podem alcançar qualquer usuário. Exemplo: uma legenda em um vídeo pode ser essencial para uma pessoa surda, mas também útil para alguém em ambiente onde não pode usar áudio. Uma interface navegável por teclado é importante para determinadas pessoas com deficiência, mas também pode aumentar a produtividade de usuários avançados.</p>
+
+<h2>Acessibilidade permanente × situacional</h2>
+<p>Uma pessoa pode ter uma limitação: permanente; temporária; situacional.</p>
+<ul>
+  <li><strong>Permanente:</strong> pessoa com deficiência visual.</li>
+  <li><strong>Temporária:</strong> pessoa com o braço imobilizado.</li>
+  <li><strong>Situacional:</strong> pessoa segurando uma criança.</li>
+</ul>
+<p>Uma boa UX considera diferentes contextos de utilização.</p>
+
+<h2>WCAG</h2>
+<p>A WCAG — <em>Web Content Accessibility Guidelines</em> — é uma referência internacional para acessibilidade de conteúdo web. Um conceito extremamente importante é o conjunto dos quatro princípios POUR:</p>
+<ul>
+  <li><strong>P — Perceptível:</strong> a informação deve poder ser percebida.</li>
+  <li><strong>O — Operável:</strong> o usuário deve conseguir operar a interface.</li>
+  <li><strong>U — Compreensível:</strong> a informação e a operação devem ser compreensíveis.</li>
+  <li><strong>R — Robusto:</strong> o conteúdo deve funcionar adequadamente com diferentes tecnologias assistivas e agentes de usuário.</li>
+</ul>
+<p><strong>Para memorizar:</strong> POUR = Perceptível, Operável, Compreensível e Robusto.</p>
+
+<h2>Usabilidade</h2>
+<p>Usabilidade está relacionada à facilidade com que usuários conseguem utilizar um sistema para atingir seus objetivos com eficácia; eficiência; satisfação.</p>
+
+<h2>Usabilidade ≠ acessibilidade</h2>
+<table>
+  <thead><tr><th>Usabilidade</th><th>Acessibilidade</th></tr></thead>
+  <tbody>
+    <tr><td>Facilidade de utilização</td><td>Possibilidade de acesso e interação</td></tr>
+    <tr><td>Eficiência</td><td>Inclusão</td></tr>
+    <tr><td>Aprendizado</td><td>Remoção de barreiras</td></tr>
+    <tr><td>Satisfação</td><td>Atendimento a diferentes capacidades</td></tr>
+  </tbody>
+</table>
+<p>Uma interface pode ser muito fácil para determinado usuário, mas inacessível para outro.</p>
+
+<h2>Feedback</h2>
+<p>O sistema deve informar ao usuário o resultado de suas ações. Ruim: usuário clica em Salvar e nada acontece visualmente. Melhor: "Salvando..." → "Carga cadastrada com sucesso."</p>
+
+<h2>Prevenção de erros</h2>
+<p>Uma boa interface tenta evitar erros antes que ocorram. Se o campo aceita apenas números, em vez de simplesmente gerar erro posteriormente, a interface pode impedir ou orientar a entrada incorreta.</p>
+
+<h2>Mensagens de erro</h2>
+<p>Mensagem ruim: "Erro 500." Mensagem melhor: "Não foi possível concluir o cadastro porque o serviço de cargas está indisponível. Tente novamente." Uma boa mensagem informa o problema, evita linguagem excessivamente técnica e orienta o usuário sobre o que fazer.</p>
+
+<h2>Affordance</h2>
+<p>Característica de um elemento que sugere como ele pode ser utilizado. Exemplo: [ ENVIAR ] — o formato sugere que é um botão. Um elemento que parece botão, mas não responde ao clique, gera confusão.</p>
+
+<h2>Consistência</h2>
+<p>Elementos semelhantes devem funcionar de maneira semelhante. Se "Salvar" é representado por determinado padrão em uma tela, não é recomendável que outra tela use comportamento completamente diferente sem motivo.</p>
+
+<h2>Reconhecimento versus memorização</h2>
+<p>Uma boa interface favorece reconhecer opções em vez de obrigar o usuário a memorizar comandos. Ruim: <em>Digite: CMD-034-X</em>. Melhor: <em>Tipo de operação: [Cadastro ▼]</em>.</p>
+
+<h2>Histórias do usuário</h2>
+<h3>O que é uma história do usuário?</h3>
+<p>Uma <em>User Story</em> descreve uma necessidade do usuário sob sua perspectiva. Formato clássico: <em>Como [papel], quero [objetivo], para [benefício].</em></p>
+<p>Exemplo: <em>Como operador logístico, quero consultar a localização de uma carga, para acompanhar seu transporte.</em></p>
+<h3>História do usuário não é requisito técnico detalhado</h3>
+<p>Evite: <em>"Como usuário, quero utilizar Angular 19 para implementar uma tela."</em> Isso descreve tecnologia, não valor de negócio. Melhor: <em>"Como operador, quero consultar cargas em trânsito para acompanhar as operações."</em></p>
+<h3>Critérios de aceitação</h3>
+<p>Definem condições que precisam ser atendidas para considerar a história concluída.</p>
+
+<h2>BDD e Gherkin</h2>
+<p>Formato importante para integração entre requisitos e testes. Estrutura: <strong>Dado / Quando / Então</strong>.</p>
+<p><strong>Exemplo:</strong></p>
+<blockquote>Cenário: Consultar carga existente<br>Dado que o operador esteja autenticado<br>Quando informar o código "CARGA123"<br>Então o sistema deve apresentar os dados da carga</blockquote>
+
+<h2>INVEST</h2>
+<p>Uma boa User Story costuma ser avaliada pelo acrônimo INVEST: Independent (independente); Negotiable (negociável); Valuable (valiosa); Estimable (estimável); Small (pequena); Testable (testável).</p>
+<p class="study-note"><strong>Pegadinha:</strong> User Story não precisa ser uma especificação técnica gigantesca. Ela deve permitir conversação e refinamento.</p>
+
+<h2>Desenho e planejamento da interação</h2>
+<h3>O que é interação?</h3>
+<p>É a forma como o usuário interage com o software: Usuário → Interface → Sistema → Resposta → Usuário.</p>
+<h3>Fluxo de usuário</h3>
+<p>Representa o caminho que o usuário percorre para realizar uma tarefa. Exemplo: Login → Dashboard → Consultar carga → Informar código → Pesquisar → Visualizar resultado.</p>
+<h3>Arquitetura de informação</h3>
+<p>Organização das informações para facilitar sua localização e compreensão. Uma arquitetura ruim pode fazer o usuário se perder mesmo que as funcionalidades estejam corretas.</p>
+
+<h2>Wireframe</h2>
+<p>Representação estrutural da interface. Normalmente enfatiza: disposição; hierarquia; componentes; navegação.</p>
+<h2>Mockup</h2>
+<p>Representação visual mais detalhada da interface. Pode apresentar: cores; tipografia; imagens; componentes; espaçamento.</p>
+<h2>Protótipo</h2>
+<p>Pode possuir diferentes níveis de fidelidade. <strong>Baixa fidelidade:</strong> [ botão ] [ campo ] [ menu ]. <strong>Alta fidelidade:</strong> a interface se aproxima visualmente do produto final.</p>
+<h3>Wireframe × mockup × protótipo</h3>
+<table>
+  <thead><tr><th>Artefato</th><th>Principal objetivo</th></tr></thead>
+  <tbody>
+    <tr><td>Wireframe</td><td>Estrutura</td></tr>
+    <tr><td>Mockup</td><td>Aparência</td></tr>
+    <tr><td>Protótipo</td><td>Simular interação</td></tr>
+  </tbody>
+</table>
+
+<h2>User-Centered Design — UCD</h2>
+<p>O Projeto Centrado no Usuário coloca o usuário no centro do processo de desenvolvimento. A equipe procura compreender: quem utiliza; quais são seus objetivos; quais dificuldades possui; em qual contexto trabalha; quais são suas necessidades.</p>
+<h3>Ciclo centrado no usuário</h3>
+<p>Pesquisar usuários → Compreender necessidades → Projetar → Prototipar → Testar com usuários → Obter feedback → Melhorar. É um processo iterativo.</p>
+<h3>Exemplo real</h3>
+<p>Imagine um sistema utilizado por operadores durante uma atividade crítica. A equipe acredita que "o dashboard deve mostrar 30 indicadores". Durante testes com operadores, descobre-se que "só precisamos de cinco indicadores durante a operação; os demais atrapalham". O projeto centrado no usuário permite descobrir isso antes de finalizar o produto.</p>
+<h3>Contexto de uso</h3>
+<p>UX não deve considerar apenas "o usuário está sentado em frente ao computador". É necessário considerar: ambiente; dispositivo; pressão de tempo; iluminação; ruído; conectividade; experiência do usuário; riscos da atividade.</p>
+
+<h2>Storytelling com dados</h2>
+<h3>O que é storytelling com dados?</h3>
+<p>Utilização de dados para construir uma narrativa que permita ao público compreender rapidamente o que os dados significam e qual conclusão pode ser extraída. Não é simplesmente colocar gráficos em uma tela.</p>
+<h3>Dado sem narrativa</h3>
+<p>Janeiro 1.200; Fevereiro 1.250; Março 1.400; Abril 1.850; Maio 2.100. O usuário vê números.</p>
+<h3>Dado com narrativa</h3>
+<p>"Volume de cargas aumentou 75% em cinco meses, exigindo avaliação da capacidade operacional." Agora temos: Dado → Análise → Contexto → Insight → Ação.</p>
+<h3>Elementos do storytelling</h3>
+<p>Contexto (por que estamos olhando os dados?); Conflito/problema (o que está acontecendo?); Evidência (o que os dados mostram?); Insight (o que podemos concluir?); Ação (o que devemos fazer?).</p>
+
+<h2>Relatórios e dashboards</h2>
+<h3>Relatório</h3>
+<p>Normalmente possui informações mais detalhadas e estruturadas. Exemplo: relatório mensal de cargas (Carga, Origem, Destino, Peso, Status).</p>
+<h3>Dashboard</h3>
+<p>Interface visual destinada a acompanhar indicadores e apoiar análise e decisão.</p>
+<h3>KPI</h3>
+<p><em>Key Performance Indicator</em> é um indicador-chave de desempenho. Exemplo: percentual de entregas no prazo. Um KPI deve estar relacionado a um objetivo relevante.</p>
+<h3>Dashboard operacional</h3>
+<p>Foco: <em>O que está acontecendo agora?</em> Exemplos: cargas em trânsito; alertas; operações pendentes; incidentes.</p>
+<h3>Dashboard gerencial</h3>
+<p>Foco: <em>Como está o desempenho?</em> Exemplos: produtividade; custos; atrasos; metas.</p>
+<h3>Dashboard estratégico</h3>
+<p>Foco: <em>Estamos atingindo os objetivos estratégicos?</em> Exemplos: crescimento; eficiência; indicadores estratégicos; metas corporativas.</p>
+
+<h3>Escolha de gráficos</h3>
+<p><strong>Comparação:</strong> gráfico de barras. <strong>Evolução temporal:</strong> gráfico de linhas. <strong>Composição:</strong> barras empilhadas ou outras representações apropriadas. <strong>Relação entre variáveis:</strong> dispersão.</p>
+<h3>Evite gráficos enganosos</h3>
+<p>Se o eixo vertical for manipulado para começar em 90, pequenas diferenças podem parecer enormes. A escala precisa ser apresentada de maneira que não induza interpretação equivocada.</p>
+<h3>Princípio da simplicidade</h3>
+<p>Um dashboard não deve mostrar tudo simplesmente porque é possível. Pergunte: <em>"Qual decisão esse indicador ajuda o usuário a tomar?"</em> Se não ajuda em nenhuma decisão relevante, talvez não precise estar no dashboard principal.</p>
+
+<h2>Interoperabilidade</h2>
+<p>É a capacidade de um sistema ou interface funcionar adequadamente em diferentes ambientes. No contexto web: Aplicação → Chrome, Firefox, Edge, Safari, outros.</p>
+<h3>Por que existe problema entre navegadores?</h3>
+<p>Os navegadores podem apresentar diferenças em: implementação de padrões; APIs; CSS; JavaScript; recursos experimentais; mecanismos de renderização.</p>
+<h3>Exemplo</h3>
+<p>Uma funcionalidade funciona no Chrome, mas apresenta comportamento inesperado no Safari. Isso pode indicar problema de compatibilidade ou uso inadequado de recursos.</p>
+<h3>Boas práticas</h3>
+<p>Utilizar: padrões web; HTML semântico; CSS compatível; APIs padronizadas; testes em diferentes navegadores; ferramentas de compatibilidade.</p>
+<h3>Progressive Enhancement</h3>
+<p>A ideia é: construir uma experiência básica funcional e acrescentar recursos avançados quando houver suporte. HTML básico → CSS → JavaScript → Recursos avançados. Se determinado recurso não estiver disponível, a funcionalidade básica continua utilizável.</p>
+<h3>Graceful Degradation</h3>
+<p>É projetar uma solução completa para ambientes modernos e garantir que ela degrade de maneira aceitável em ambientes com menor capacidade.</p>
+<p><strong>Diferença simplificada:</strong> Progressive Enhancement — começa pelo básico e adiciona recursos. Graceful Degradation — começa completo e garante uma experiência aceitável quando recursos não funcionarem.</p>
+
+<h2>MVP</h2>
+<h3>O que é MVP?</h3>
+<p>MVP — <em>Minimum Viable Product</em> — Mínimo Produto Viável. É uma versão mínima de um produto capaz de entregar valor suficiente para permitir aprendizado e validação de hipóteses com usuários.</p>
+<h3>MVP não significa software malfeito</h3>
+<p>MVP não significa "fazer qualquer coisa rapidamente". Significa entregar o mínimo necessário para testar uma hipótese relevante e aprender com o uso real.</p>
+<h3>Exemplo</h3>
+<p><strong>Produto completo:</strong> Rastreamento + Chat + Notificações + Mapas avançados + Relatórios + Gamificação + Integrações. <strong>MVP:</strong> Login + Consulta de carga + Localização. Se a hipótese for "Usuários precisam acompanhar cargas pelo celular", o MVP permite validar essa hipótese.</p>
+<h3>MVP × protótipo</h3>
+<p>Não são necessariamente a mesma coisa. <strong>Protótipo:</strong> pode ser usado para explorar uma ideia ou interação; pode não ter funcionamento real. <strong>MVP:</strong> é um produto mínimo funcional, criado para obter aprendizado real com usuários/mercado.</p>
+
+<h2>Prototipação</h2>
+<h3>O que é prototipação?</h3>
+<p>Criar uma representação de uma solução antes de construir a versão definitiva. Objetivos: validar ideias; testar fluxos; descobrir problemas; obter feedback; reduzir riscos.</p>
+<h3>Fidelidade</h3>
+<p><strong>Baixa fidelidade:</strong> rápida e simples. <strong>Alta fidelidade:</strong> pode simular aparência; navegação; animações; interações.</p>
+<h3>Protótipo descartável</h3>
+<p>É criado para aprender. Depois pode ser descartado.</p>
+<h3>Protótipo evolucionário</h3>
+<p>É gradualmente refinado até contribuir para a solução final.</p>
+
+<h2>Design Thinking</h2>
+<h3>O que é Design Thinking?</h3>
+<p>Abordagem para resolução de problemas complexos com forte foco em: pessoas; necessidades; experimentação; colaboração; criatividade; aprendizado.</p>
+<h3>Etapas clássicas</h3>
+<p>Empatizar → Definir → Idear → Prototipar → Testar. <strong>Atenção:</strong> essas etapas não devem ser interpretadas como uma sequência rígida e obrigatória. O processo pode ser iterativo.</p>
+<h3>Empatia</h3>
+<p>Busca compreender o usuário. Perguntas: o que ele precisa? quais são suas dificuldades? como trabalha? o que sente? quais são suas limitações?</p>
+<h3>Definição</h3>
+<p>Transformar observações em um problema claramente definido. Em vez de "Precisamos melhorar o sistema", definir: "Operadores têm dificuldade para identificar rapidamente cargas atrasadas durante períodos de alta demanda."</p>
+<h3>Ideação</h3>
+<p>Gerar possíveis soluções. Problema → Brainstorming → Solução A, B, C, D.</p>
+<h3>Prototipação</h3>
+<p>Transformar ideias em representações que possam ser experimentadas.</p>
+<h3>Teste</h3>
+<p>Usuários interagem com a solução e fornecem feedback. Protótipo → Usuário → Feedback → Alteração → Novo protótipo.</p>
+<h3>Pensamento divergente e convergente</h3>
+<p><strong>Divergente:</strong> expandir possibilidades (1 ideia → 10 ideias → 30 ideias). <strong>Convergente:</strong> selecionar e refinar alternativas (30 ideias → 10 → 3 → 1 solução).</p>
+
+<h2>Personas</h2>
+<h3>O que é uma persona?</h3>
+<p>Persona é uma representação semifictícia, baseada em dados e pesquisas, de um tipo relevante de usuário. Não é simplesmente "inventar um usuário". Ela deve ser baseada em evidências.</p>
+<h3>Exemplo de persona</h3>
+<p><strong>PERSONA: Carlos.</strong> Cargo: Operador logístico. Experiência: 8 anos. Objetivo: Acompanhar cargas rapidamente. Dificuldades: sistemas lentos; muitos campos; informações espalhadas. Necessidades: busca rápida; alertas; dashboard simples.</p>
+<h3>Persona × usuário real</h3>
+<p>A persona não representa necessariamente uma pessoa específica. Ela representa um perfil de usuário. 50 operadores → 1 pesquisa → 1 padrão de comportamento → 1 PERSONA.</p>
+<h3>Persona primária</h3>
+<p>Representa o principal grupo de usuários para o qual o produto é projetado.</p>
+<h3>Personas secundárias</h3>
+<p>Representam outros grupos importantes. Exemplo: Persona primária: Operador. Persona secundária: Gestor, Auditor.</p>
+<h3>Papel × persona</h3>
+<p><strong>Papel:</strong> representa a função exercida. Exemplo: Operador. <strong>Persona:</strong> representa um perfil de usuário com características, objetivos, comportamentos e necessidades. Uma persona pode exercer determinado papel.</p>
+<h3>Mapa de empatia</h3>
+<p>Pode ajudar a compreender uma persona. Pergunta: O que pensa? O que sente? O que vê? O que ouve? O que fala? O que faz? Quais suas dores? Quais seus ganhos?</p>
+
+<h2>Exemplo integrado</h2>
+<p>Imagine um sistema de acompanhamento de cargas. <strong>Persona:</strong> Carlos, operador logístico. <strong>Problema:</strong> ele precisa consultar dezenas de cargas rapidamente. <strong>User Story:</strong> como operador, quero pesquisar uma carga pelo código para localizar rapidamente sua situação. <strong>Protótipo:</strong> consultar carga (código + pesquisar). <strong>Critério de aceitação:</strong> dado que o operador esteja autenticado, quando informar um código válido, então os dados da carga devem ser apresentados. <strong>Dashboard:</strong> cargas em trânsito 1.245; atrasadas 87; entregues hoje 324. <strong>Teste:</strong> o operador utiliza o protótipo. <strong>Feedback:</strong> "Preciso conseguir pesquisar também por placa."</p>
+
+<h2>Acessibilidade dentro desse processo</h2>
+<p>A acessibilidade deve ser considerada desde o início, e não somente no final. Um processo ruim seria: Desenvolver → Publicar → Descobrir que é inacessível → Corrigir. Um processo melhor: Pesquisa → Requisitos → Design acessível → Protótipo acessível → Teste com usuários → Desenvolvimento → Testes.</p>
+<h3>UX e acessibilidade na prática</h3>
+<p>Imagine um botão vermelho. Um usuário pode entender que vermelho significa alguma coisa. Mas depender somente da cor pode gerar problemas. Uma alternativa: botão com texto "Cancelar". A informação passa a ser transmitida também por texto. <strong>Conceito importante:</strong> não dependa exclusivamente de cor para transmitir informação.</p>
+
+<h2>Usabilidade heurística</h2>
+<p>Um conceito clássico de UX é a avaliação heurística. Entre heurísticas conhecidas de Nielsen estão:</p>
+<ol>
+  <li>Visibilidade do estado do sistema;</li>
+  <li>Correspondência entre sistema e mundo real;</li>
+  <li>Controle e liberdade do usuário;</li>
+  <li>Consistência e padrões;</li>
+  <li>Prevenção de erros;</li>
+  <li>Reconhecimento em vez de memorização;</li>
+  <li>Flexibilidade e eficiência;</li>
+  <li>Design minimalista;</li>
+  <li>Ajuda para reconhecer, diagnosticar e recuperar erros;</li>
+  <li>Ajuda e documentação.</li>
+</ol>
+<p>Exemplo: após clicar em "Salvar", mostrar "Salvando..." atende à ideia de visibilidade do estado do sistema.</p>
+
+<h2>Quadro de revisão para a prova</h2>
+<table>
+  <thead><tr><th>Conceito</th><th>O que significa</th></tr></thead>
+  <tbody>
+    <tr><td>UX</td><td>Experiência geral do usuário</td></tr>
+    <tr><td>Usabilidade</td><td>Facilidade/eficácia/eficiência/satisfação no uso</td></tr>
+    <tr><td>Acessibilidade</td><td>Remoção de barreiras para interação</td></tr>
+    <tr><td>WCAG</td><td>Diretrizes para acessibilidade web</td></tr>
+    <tr><td>POUR</td><td>Perceptível, Operável, Compreensível, Robusto</td></tr>
+    <tr><td>User Story</td><td>Necessidade sob perspectiva do usuário</td></tr>
+    <tr><td>Critério de aceitação</td><td>Condição para aceitar a história</td></tr>
+    <tr><td>Persona</td><td>Perfil semifictício baseado em dados</td></tr>
+    <tr><td>Wireframe</td><td>Estrutura da interface</td></tr>
+    <tr><td>Mockup</td><td>Representação visual</td></tr>
+    <tr><td>Protótipo</td><td>Simulação/exploração da solução</td></tr>
+    <tr><td>MVP</td><td>Produto mínimo para gerar valor/aprendizado</td></tr>
+    <tr><td>Design Thinking</td><td>Abordagem centrada nas pessoas e experimentação</td></tr>
+    <tr><td>Empatia</td><td>Compreender usuários</td></tr>
+    <tr><td>Ideação</td><td>Gerar soluções</td></tr>
+    <tr><td>Storytelling</td><td>Transformar dados em narrativa</td></tr>
+    <tr><td>Dashboard</td><td>Visualização para acompanhamento/análise</td></tr>
+    <tr><td>KPI</td><td>Indicador-chave de desempenho</td></tr>
+    <tr><td>Interoperabilidade</td><td>Funcionamento entre diferentes ambientes</td></tr>
+    <tr><td>Progressive Enhancement</td><td>Começar pelo básico e adicionar capacidades</td></tr>
+    <tr><td>Feedback</td><td>Sistema informa resultado da ação</td></tr>
+  </tbody>
+</table>
+
+<h2>Pegadinhas de concurso</h2>
+<ul>
+  <li><em>"Usabilidade e acessibilidade são sinônimos."</em> Errado. São conceitos relacionados, mas distintos.</li>
+  <li><em>"Acessibilidade é responsabilidade exclusiva do usuário com deficiência."</em> Errado.</li>
+  <li><em>"MVP é uma versão incompleta e malfeita do produto."</em> Errado.</li>
+  <li><em>"Persona é simplesmente um usuário fictício inventado pela equipe."</em> Errado.</li>
+  <li><em>"Design Thinking é necessariamente um processo linear."</em> Errado.</li>
+  <li><em>"Protótipo precisa possuir todas as funcionalidades do produto."</em> Errado.</li>
+  <li><em>"Dashboard deve apresentar o máximo possível de indicadores."</em> Errado.</li>
+  <li><em>"Storytelling com dados significa apenas criar gráficos bonitos."</em> Errado.</li>
+  <li><em>"Um ator em uma interface precisa ser necessariamente uma pessoa."</em> Errado.</li>
+</ul>
+
+<h2>O que priorizar para a prova da Transpetro</h2>
+<p><strong>Prioridade ALTA:</strong></p>
+<ol>
+  <li>Acessibilidade × usabilidade — domine as diferenças e exemplos.</li>
+  <li>User Stories — memorize: <em>Como [papel], quero [objetivo], para [benefício]</em>. E saiba interpretar Dado/Quando/Então.</li>
+  <li>Personas — diferencie usuário real × papel × persona.</li>
+  <li>MVP × protótipo — diferença bastante explorável em questões conceituais.</li>
+  <li>Design Thinking — Empatizar → Definir → Idear → Prototipar → Testar.</li>
+  <li>Dashboards e storytelling — dado → informação → análise → insight → decisão.</li>
+  <li>Interoperabilidade — reconheça problemas de compatibilidade entre navegadores e a importância de padrões web.</li>
+</ol>
+
+<h2>Resumo para decorar na véspera</h2>
+<ul>
+  <li><strong>ACESSIBILIDADE</strong> → remover barreiras.</li>
+  <li><strong>USABILIDADE</strong> → tornar o sistema eficaz, eficiente e satisfatório.</li>
+  <li><strong>USER STORY</strong> → Como / Quero / Para.</li>
+  <li><strong>CRITÉRIO DE ACEITAÇÃO</strong> → condição para considerar a história atendida.</li>
+  <li><strong>PERSONA</strong> → perfil de usuário baseado em pesquisa.</li>
+  <li><strong>WIREFRAME</strong> → estrutura.</li>
+  <li><strong>MOCKUP</strong> → aparência.</li>
+  <li><strong>PROTÓTIPO</strong> → experimentação/interação.</li>
+  <li><strong>MVP</strong> → mínimo produto para gerar valor e aprendizado.</li>
+  <li><strong>DESIGN THINKING</strong> → Empatizar / Definir / Idear / Prototipar / Testar.</li>
+  <li><strong>STORYTELLING</strong> → transformar dados em narrativa.</li>
+  <li><strong>DASHBOARD</strong> → acompanhar/analisar indicadores.</li>
+  <li><strong>KPI</strong> → indicador-chave.</li>
+  <li><strong>INTEROPERABILIDADE</strong> → funcionar adequadamente em diferentes ambientes.</li>
+  <li><strong>POUR</strong> → Perceptível / Operável / Compreensível / Robusto.</li>
+</ul>
+
+<h2>Uma questão pode juntar praticamente todo o conteúdo</h2>
+<p>Uma equipe precisa desenvolver um sistema para operadores logísticos. Antes do desenvolvimento, pesquisa os usuários, cria personas, identifica suas dificuldades, elabora protótipos, testa a interface com os usuários e desenvolve uma versão mínima para validar a solução. O dashboard apresenta apenas os indicadores necessários às decisões dos gestores e a interface deve ser acessível e funcionar em diferentes navegadores.</p>
+<p>Nesse cenário, aparecem simultaneamente: <strong>Personas + Design Thinking + UCD + Prototipação + MVP + Dashboard + UX + Acessibilidade + Interoperabilidade.</strong></p>
+
+<!-- FIM -->
+<p style="margin-top:4em; text-align:center; font-size:10pt; color:#888;">
+— Fim do material consolidado — Ênfase 5 — Transpetro.
+</p>
+
+</body>
+</html>
