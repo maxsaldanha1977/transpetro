@@ -146,6 +146,31 @@
       background: #f1f5f9;
     }
 
+    .back-to-top {
+      position: fixed;
+      right: 24px;
+      bottom: 24px;
+      z-index: 1000;
+      display: grid;
+      width: 48px;
+      height: 48px;
+      place-items: center;
+      border-radius: 50%;
+      background: #0f766e;
+      box-shadow: 0 4px 12px rgb(15 23 42 / 25%);
+      color: #fff;
+      font-size: 24px;
+      line-height: 1;
+      text-decoration: none;
+    }
+
+    .back-to-top:hover { background: #115e59; }
+
+    .back-to-top:focus-visible {
+      outline: 3px solid #0f766e;
+      outline-offset: 4px;
+    }
+
     body {
       width: 100%;
       max-width: 960px;
@@ -326,9 +351,10 @@
   }
 </style>
 </head>
-<body>
+<body id="inicio">
 
 <div class="page-number"></div>
+<a class="back-to-top" href="#inicio" aria-label="Voltar ao início" title="Voltar ao início">↑</a>
 
 <!-- ============ CAPA ============ -->
 <section class="cover">
@@ -341,13 +367,13 @@
 <h1 class="no-break">Sumário Geral</h1>
 <div class="toc">
   <ul>
-    <li>Análise de Dados e Informações</li>
-    <li>Arquitetura de Dados</li>
-    <li>Engenharia de Software</li>
-    <li>Gerenciamento de Projetos e Produtos</li>
-    <li>Lógica Matemática</li>
-    <li>Segurança da Informação</li>
-    <li>User Experience (UX)</li>
+    <li><a href="#analise-dados-informacoes">Análise de Dados e Informações</a></li>
+    <li><a href="#arquitetura-dados">Arquitetura de Dados</a></li>
+    <li><a href="#engenharia-software">Engenharia de Software</a></li>
+    <li><a href="#gerenciamento-projetos-produtos">Gerenciamento de Projetos e Produtos</a></li>
+    <li><a href="#logica-matematica">Lógica Matemática</a></li>
+    <li><a href="#seguranca-informacao">Segurança da Informação</a></li>
+    <li><a href="#user-experience-ux">User Experience (UX)</a></li>
   </ul>
 </div>
 </section>
@@ -355,7 +381,7 @@
 <!-- =====================================================================
      ARQUIVO 1 — ANÁLISE DE DADOS E INFORMAÇÕES
      ===================================================================== -->
-<h1>Análise de Dados e Informações</h1>
+<h1 id="analise-dados-informacoes">Análise de Dados e Informações</h1>
 <p class="center small">Material de Estudo — Transpetro · Ênfase 5</p>
 
 <h2>Dado, informação, conhecimento e inteligência</h2>
@@ -647,7 +673,7 @@
 <!-- =====================================================================
      ARQUIVO 2 — ARQUITETURA DE DADOS
      ===================================================================== -->
-<h1>Arquitetura de Dados</h1>
+<h1 id="arquitetura-dados">Arquitetura de Dados</h1>
 <p class="center small">Material de Estudo — Transpetro · Ênfase 5 — Análise de Sistemas: Processos de Negócios</p>
 
 <h2>Arquitetura de Dados</h2>
@@ -1001,7 +1027,7 @@ ROLLBACK;</pre>
 <!-- =====================================================================
      ARQUIVO 3 — ENGENHARIA DE SOFTWARE
      ===================================================================== -->
-<h1>Engenharia de Software</h1>
+<h1 id="engenharia-software">Engenharia de Software</h1>
 <p class="center small">Material de Estudo — Transpetro · Ênfase 5 — Engenharia de Software</p>
 
 <h2>Levantamento, análise e gerenciamento de requisitos</h2>
@@ -1317,7 +1343,7 @@ ROLLBACK;</pre>
 <!-- =====================================================================
      ARQUIVO 4 — GERENCIAMENTO DE PROJETOS E PRODUTOS
      ===================================================================== -->
-<h1>Gerenciamento de Projetos e Produtos</h1>
+<h1 id="gerenciamento-projetos-produtos">Gerenciamento de Projetos e Produtos</h1>
 <p class="center small">Material de Estudo — Transpetro · Ênfase 5 — Gerenciamento de Projetos e Produtos</p>
 
 <h2>Framework Scrum</h2>
@@ -1618,7 +1644,7 @@ ROLLBACK;</pre>
 <!-- =====================================================================
      ARQUIVO 5 — LÓGICA MATEMÁTICA
      ===================================================================== -->
-<h1>Lógica Matemática</h1>
+<h1 id="logica-matematica">Lógica Matemática</h1>
 <p class="center small">Material de Estudo — Transpetro · Ênfase 5</p>
 
 <h2>Visão geral da Lógica Matemática</h2>
@@ -2041,7 +2067,7 @@ DECIDIBILIDADE → existe procedimento finito para determinar a propriedade lóg
 <!-- =====================================================================
      ARQUIVO 6 — SEGURANÇA DA INFORMAÇÃO
      ===================================================================== -->
-<h1>Segurança da Informação</h1>
+<h1 id="seguranca-informacao">Segurança da Informação</h1>
 <p class="center small">Material de Estudo — Transpetro · Ênfase 5</p>
 
 <h2>Visão geral</h2>
@@ -2562,7 +2588,7 @@ DECIDIBILIDADE → existe procedimento finito para determinar a propriedade lóg
 <!-- =====================================================================
      ARQUIVO 7 — USER EXPERIENCE (UX)
      ===================================================================== -->
-<h1>User Experience — UX</h1>
+<h1 id="user-experience-ux">User Experience — UX</h1>
 <p class="center small">Material de Estudo — Transpetro · Ênfase 5 — UX, Usabilidade, Acessibilidade e Design</p>
 <p>A ideia central é: <strong>UX não é apenas deixar uma tela bonita.</strong> É projetar produtos e serviços considerando as necessidades, limitações, objetivos e contexto das pessoas que irão utilizá-los.</p>
 
